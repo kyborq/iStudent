@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Empty } from '../../../components/Empty';
 import { useAppSelector } from '../../../redux/store';
+import { isDateEven } from '../../../utils/date';
 import { uuid4 } from '../../../utils/uuid4';
 import { ScheduleCard } from './ScheduleCard';
 
@@ -12,36 +13,46 @@ type Props = {
 
 export const ScheduleList = ({ date }: Props) => {
   const { schedule } = useAppSelector((state) => state.schedule);
+  const { subjects } = useAppSelector((state) => state.subjects);
 
   const weekDayNumber = getISODay(date);
-  const weekPeriod = getISOWeek(date);
+  const weekType = isDateEven(date, 'week') ? 2 : 3;
 
-  // const len = schedule.filter(
-  //   (s) => !!s.repeats && s.repeats.find((r) => r.index === weekDayNumber),
-  // ).length;
+  const sch = schedule.filter((s) => {
+    const isCurrentWeek = s.repeats?.index == weekDayNumber;
+    const isCurrentType =
+      s.repeats?.period !== 1 &&
+      s.repeats?.period &&
+      s.repeats?.period % weekType == 0;
+    if (isCurrentWeek && (s.repeats?.period === 1 || isCurrentType)) return s;
+  });
 
   const scheduleList = schedule.map((s) => {
-    // const repeated =
-    // (!!s.repeats && s.repeats.find((r) => r.index === weekDayNumber)) || null;
+    const subject = subjects.find((sub) => sub.id === s.subject);
 
-    // const redWeek = repeated?.period === 2 && weekPeriod % 2 === 0;
-    // const blueWeek = repeated?.period === 3 && weekPeriod % 3 === 0;
+    const isCurrentWeek = s.repeats?.index == weekDayNumber;
+    const isCurrentType =
+      s.repeats?.period !== 1 &&
+      s.repeats?.period &&
+      s.repeats?.period % weekType == 0;
 
-    // if (repeated)
-    return (
-      <ScheduleCard
-        key={uuid4()}
-        end={'00:00'}
-        start={'00:00'}
-        title={s.subject}
-      />
-    );
+    if (isCurrentWeek && (s.repeats?.period === 1 || isCurrentType))
+      return (
+        <ScheduleCard
+          key={uuid4()}
+          end={s.repeats?.time?.end || '00:00'}
+          start={s.repeats?.time?.start || '00:00'}
+          title={subject?.title || s.subject}
+          teacher={subject?.teacher}
+          room={s.room}
+        />
+      );
   });
 
   return (
     <View style={{ flex: 1 }}>
       {scheduleList}
-      {/* {!len && <Empty text="Занятий на этот день нет" />} */}
+      {!sch.length && <Empty text="Занятий на этот день нет" />}
     </View>
   );
 };

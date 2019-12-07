@@ -5,10 +5,12 @@ import { TOUCHABLE_COLOR } from '../../../colors';
 type Props = {
   title: string;
   start: string;
+  teacher?: string;
   end: string;
+  room?: string;
 };
 
-export const ScheduleCard = ({ title, start, end }: Props) => {
+export const ScheduleCard = ({ title, start, teacher, room, end }: Props) => {
   return (
     <View style={styles.ripple}>
       <TouchableNativeFeedback background={TOUCHABLE_COLOR}>
@@ -19,6 +21,10 @@ export const ScheduleCard = ({ title, start, end }: Props) => {
           <View style={styles.cardContainer}>
             <Text style={styles.time}>{`${start} - ${end}`}</Text>
             <Text style={styles.title}>{title}</Text>
+            <View style={{ marginTop: 4, flexDirection: 'row' }}>
+              {!!room && <Text style={styles.text}>{room}</Text>}
+              {!!teacher && <Text style={styles.text}>{teacher}</Text>}
+            </View>
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -29,6 +35,11 @@ export const ScheduleCard = ({ title, start, end }: Props) => {
 const styles = StyleSheet.create({
   ripple: {
     marginBottom: 16,
+  },
+  text: {
+    fontSize: 13,
+    color: '#c7c7c7',
+    marginRight: 12,
   },
   card: {
     flexDirection: 'row',

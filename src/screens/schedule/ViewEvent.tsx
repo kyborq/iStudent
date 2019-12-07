@@ -58,8 +58,9 @@ export const ViewEvent = () => {
   return (
     <View style={styles.container}>
       <Header
-        title={event?.title || 'Событие'}
+        title={event?.subject || 'Событие'}
         rightIcon={'edit'}
+        leftIcon={'back'}
         onLeft={handleBack}
         onRight={handleEdit}
       />
@@ -69,7 +70,7 @@ export const ViewEvent = () => {
         <InfoLine
           icon="time"
           label="Время"
-          text={`${event?.time.start} - ${event?.time.end}`}
+          text={`${event?.repeats?.time?.start}-${event?.repeats?.time?.start}`}
         />
         <InfoLine
           icon="book"

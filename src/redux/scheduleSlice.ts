@@ -17,6 +17,7 @@ export type TSchedule = {
   time?: TTimeRange; // время начала и конца 08:00-09:45
   date?: string; // дата проведения, может и не быть если установлены повторения
   repeats?: TRepeats;
+  room?: string;
 };
 
 interface IScheduleSclice {
@@ -24,20 +25,7 @@ interface IScheduleSclice {
 }
 
 const initialState: IScheduleSclice = {
-  schedule: [
-    {
-      id: '1',
-      subject: 'Старостат',
-      repeats: {
-        index: 3,
-        time: {
-          start: '13:00',
-          end: '13:30',
-        },
-        period: 1,
-      },
-    },
-  ],
+  schedule: [],
 };
 
 export enum WeekDays {

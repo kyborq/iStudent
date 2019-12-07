@@ -12,6 +12,7 @@ import { addEvent, TSchedule, WeekDays } from '../../redux/scheduleSlice';
 import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
 import { addToTime, getCurrentTime } from './scheduleUtils';
+import { Input } from '../../components/inputs/Input';
 
 const weekdays = [
   { title: 'Понедельник', value: '1' },
@@ -46,13 +47,13 @@ export const EditEvent = () => {
 
   const [eventDraft, setEventDraft] = useState<TSchedule>({
     id: uuid4(),
-    subject: `${subjects[0]?.id}`,
+    subject: `${subjects[0]?.id || ''}`,
     repeats: {
       index: getISODay(date || new Date()),
       period: 1,
       time: {
-        start: getCurrentTime(date || new Date()),
-        end: addToTime(getCurrentTime(date || new Date()), '01:35'),
+        start: getCurrentTime(new Date()),
+        end: addToTime(getCurrentTime(new Date()), '01:35'),
       },
     },
   });
@@ -72,14 +73,35 @@ export const EditEvent = () => {
     <View style={styles.container}>
       <Header title={title} leftIcon="clear" onLeft={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
-        <Select
+        {!!subjects.length && (
+          <Select
+            icon="book"
+            items={subjects.map((s) => ({ title: s.title, value: s.id }))}
+            label="Выберите предмет"
+            value={subjects.find((s) => s.id === eventDraft.subject)?.title}
+            onSelect={(item) => {
+              setEventDraft({ ...eventDraft, subject: item as string });
+            }}
+          />
+        )}
+        {!subjects.length && (
+          <Input
+            icon="book"
+            label="Введите название"
+            value={eventDraft.subject}
+            onChange={(value) =>
+              setEventDraft({ ...eventDraft, subject: value })
+            }
+            style={{ marginHorizontal: 24 }}
+          />
+        )}
+
+        <Input
           icon="book"
-          items={subjects.map((s) => ({ title: s.title, value: s.id }))}
-          label="Выберите предмет"
-          value={subjects.find((s) => s.id === eventDraft.subject)?.title}
-          onSelect={(item) => {
-            setEventDraft({ ...eventDraft, subject: item as string });
-          }}
+          label="Аудитория"
+          value={eventDraft.room}
+          onChange={(value) => setEventDraft({ ...eventDraft, room: value })}
+          style={{ marginHorizontal: 24 }}
         />
 
         <Select
