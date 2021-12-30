@@ -1,10 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { TasksScreen } from './screens/TasksScreen';
+import { TabsNavigation } from './components/navigation/Navigation';
 
 const App = () => {
-  return <TasksScreen />;
+  return (
+    <NavigationContainer>
+      <TabsNavigation />
+    </NavigationContainer>
+  );
 };
 
-// <NavigationContainer>{/* Rest of your app code */}</NavigationContainer>
 export default App;

@@ -3,10 +3,10 @@ import { Text, View } from 'react-native';
 import { Icon } from '../components/Icon';
 import { NavBar } from '../components/navigation/NavBar';
 
-export const TasksScreen = () => {
+export const SubjectsScreen = () => {
   return (
     <View>
-      <Text>Задачи</Text>
+      <Text>Предметы</Text>
     </View>
   );
 };

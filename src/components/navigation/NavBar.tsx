@@ -1,13 +1,44 @@
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { uuid4 } from '../../utils';
+import { TIcon } from '../Icon';
 import { NavButton } from './NavButton';
 
-export const NavBar = () => {
+const TabBarIcons: { [key: string]: string } = {
+  TasksScreen: 'check',
+  SubjectsScreen: 'book',
+  ScheduleScreen: 'calendar',
+};
+
+export const NavBar = ({
+  navigation,
+  state,
+  descriptors,
+}: BottomTabBarProps) => {
   return (
     <View style={styles.container}>
-      <NavButton icon="book" label="Предметы" active={true} />
-      <NavButton icon="check" label="Задачи" active={false} />
-      <NavButton icon="calendar" label="Расписание" active={false} />
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+        const isFocused = state.index === index;
+        const icon = TabBarIcons[route.name] as TIcon;
+
+        return (
+          <NavButton
+            key={uuid4()}
+            icon={icon}
+            label={`${label}`}
+            active={isFocused}
+            onPress={() => navigation.navigate(route.name)}
+          />
+        );
+      })}
     </View>
   );
 };
