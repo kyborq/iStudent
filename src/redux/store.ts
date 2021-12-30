@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import counterReducer from './counterSlice';
+import tasksReducer from './tasksSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    tasks: tasksReducer,
   },
 });
 
