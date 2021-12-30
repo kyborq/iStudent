@@ -1,4 +1,6 @@
-![Frame 1 (2)](https://user-images.githubusercontent.com/52314985/147755186-0df48e37-ca38-4dea-93df-5752a0d1f162.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/52314985/147755365-8a51744a-9ec5-4890-8274-a9998f34e816.png" alt="" />
+</p>
 
 # iStudent
 
