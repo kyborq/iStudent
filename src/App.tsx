@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { TasksScreen } from './screens/TasksScreen';
 
 const App = () => {
-  return <></>;
+  return <TasksScreen />;
 };
 
-const styles = StyleSheet.create({});
-
+// <NavigationContainer>{/* Rest of your app code */}</NavigationContainer>
 export default App;
