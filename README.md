@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/52314985/147755365-8a51744a-9ec5-4890-8274-a9998f34e816.png" alt="" />
+<img src="https://user-images.githubusercontent.com/52314985/147755432-ba3a2d69-20c1-4122-9f5b-f91387608f80.png" alt="" />
 
 # iStudent
 
