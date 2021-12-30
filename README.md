@@ -1,2 +1,3 @@
-# i-student
-iStudent - planner app for study
+# iStudent
+
+Planner app for study
