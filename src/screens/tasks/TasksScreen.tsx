@@ -3,12 +3,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
-import { useAppSelector } from '../../redux/store';
-import { TTask } from '../../redux/tasksSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { completeTask, TTask } from '../../redux/tasksSlice';
 import { TaskCard } from './components/TaskCard';
 
 export const TasksScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
 
   const handleAddTask = () => {
@@ -28,6 +29,10 @@ export const TasksScreen = () => {
     );
   };
 
+  const handleCompleteTask = (id: string) => {
+    dispatch(completeTask(id));
+  };
+
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
@@ -37,6 +42,9 @@ export const TasksScreen = () => {
           <TaskCard
             key={t.id}
             label={t.label}
+            status={t.status}
+            archived={t.deleted}
+            onCheck={() => handleCompleteTask(t.id)}
             onPress={() => handleViewTask(t.id)}
           />
         ))}
