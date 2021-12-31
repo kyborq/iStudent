@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../colors';
 import { TIcon } from './Icon';
-import { IconButton } from './IconButton';
+import { IconButton } from './inputs/IconButton';
 
 type Props = {
   label: string;

@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { TouchableNativeFeedback, View } from 'react-native';
-import { COLORS } from '../colors';
-import { Icon, TIcon } from './Icon';
+import { COLORS } from '../../colors';
+import { Icon, TIcon } from '../Icon';
 
 type Props = {
   icon: TIcon;
