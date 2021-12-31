@@ -8,15 +8,23 @@ import { Icon, TIcon } from './Icon';
 type Props = {
   icon: TIcon;
   color?: string;
+  background?: string;
   containerStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
 };
 
-export const IconButton = ({ icon, color, containerStyle, onPress }: Props) => {
+export const IconButton = ({
+  icon,
+  color,
+  containerStyle,
+  background,
+  onPress,
+}: Props) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <TouchableNativeFeedback onPress={onPress}>
-        <View style={styles.button}>
+        <View
+          style={[styles.button, { backgroundColor: background || '#fafafa' }]}>
           <Icon icon={icon} color={color} />
         </View>
       </TouchableNativeFeedback>

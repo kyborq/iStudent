@@ -5,6 +5,7 @@ import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppSelector } from '../../redux/store';
 import { TTask } from '../../redux/tasksSlice';
+import { TaskCard } from './components/TaskCard';
 
 export const TasksScreen = () => {
   const navigation = useNavigation();
@@ -18,13 +19,26 @@ export const TasksScreen = () => {
     );
   };
 
+  const handleViewTask = (id: string) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'ViewTask',
+        params: { id },
+      }),
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
       <View style={styles.content}>
         <Input placeholder="Поиск" />
         {tasks.map((t) => (
-          <Text>{t.label}</Text>
+          <TaskCard
+            key={t.id}
+            label={t.label}
+            onPress={() => handleViewTask(t.id)}
+          />
         ))}
       </View>
     </View>

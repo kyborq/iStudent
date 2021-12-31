@@ -6,6 +6,7 @@ import { SubjectsScreen } from '../../screens/SubjectsScreen';
 import { TasksScreen } from '../../screens/tasks/TasksScreen';
 import { ScheduleScreen } from '../../screens/ScheduleScreen';
 import { EditTask } from '../../screens/tasks/EditTask';
+import { ViewTask } from '../../screens/tasks/ViewTask';
 
 export type RootStackParamList = {
   Index: undefined;
@@ -13,7 +14,7 @@ export type RootStackParamList = {
   // AddTaskScreen: undefined;
   // ViewSubjectScreen: { id: string };
   EditTask: { id: string };
-  // ViewTaskScreen: { id: string };
+  ViewTask: { id: string };
   // EditTaskScreen: { id: string };
 };
 
@@ -60,11 +61,8 @@ export const Navigation = () => {
       {/* <Stack.Screen name="ViewSubjectScreen" component={ViewSubjectScreen} /> */}
       {/* <Stack.Screen name="EditSubjectScreen" component={EditSubjectScreen} /> */}
 
-      {/* <Stack.Screen name="AddTask" component={AddTaskScreen} /> */}
       <Stack.Screen name="EditTask" component={EditTask} />
-      {/* <Stack.Screen name="ViewTaskScreen" component={ViewTaskScreen} /> */}
-
-      {/* <Stack.Screen name="TimerScreen" component={TimerScreen} /> */}
+      <Stack.Screen name="ViewTask" component={ViewTask} />
     </Stack.Navigator>
   );
 };

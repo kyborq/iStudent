@@ -6,7 +6,7 @@ import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addTask, TTask } from '../../redux/tasksSlice';
+import { addTask, editTask, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
 
 export const EditTask = () => {
@@ -32,6 +32,7 @@ export const EditTask = () => {
 
   const handleSave = () => {
     !id && dispatch(addTask(taskDraft));
+    id && dispatch(editTask(taskDraft));
     navigation.goBack();
   };
 
@@ -40,11 +41,13 @@ export const EditTask = () => {
       <Header label="Новая задача" onBack={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
+          label="Задача"
           placeholder="Название"
           value={taskDraft.label}
           onChange={(value) => setTaskDraft({ ...taskDraft, label: value })}
         />
         <Input
+          label="Описание задачи"
           placeholder="Описание"
           multiline
           value={taskDraft.description}

@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../colors';
+import { TIcon } from './Icon';
 import { IconButton } from './IconButton';
 
 type Props = {
   label: string;
+  actionIcon?: TIcon;
   onBack?: () => void;
   onAction?: () => void;
 };
 
-export const Header = ({ onBack, onAction, label }: Props) => {
+export const Header = ({ onBack, onAction, actionIcon, label }: Props) => {
   return (
     <View style={styles.container}>
       {onBack && (
@@ -21,11 +23,13 @@ export const Header = ({ onBack, onAction, label }: Props) => {
         />
       )}
       <View style={styles.header}>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.label} numberOfLines={1}>
+          {label}
+        </Text>
       </View>
       {onAction && (
         <IconButton
-          icon="add"
+          icon={actionIcon || 'add'}
           color={COLORS.primary5A9EEE}
           onPress={onAction}
         />
@@ -50,5 +54,6 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
+    paddingRight: 24,
   },
 });
