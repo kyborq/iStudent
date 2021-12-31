@@ -1,4 +1,10 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import {
+  RouteProp,
+  CommonActions,
+  NavigationAction,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/core';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
@@ -31,9 +37,21 @@ export const EditTask = () => {
   };
 
   const handleSave = () => {
-    !id && dispatch(addTask(taskDraft));
-    id && dispatch(editTask(taskDraft));
-    navigation.goBack();
+    if (!id) {
+      // navigation.dispatch(
+      //   CommonActions.navigate({
+      //     name: 'ViewTask',
+      //     params: { id: taskDraft.id },
+      //   }),
+      // );
+      dispatch(addTask(taskDraft));
+      navigation.goBack();
+    }
+
+    if (id) {
+      dispatch(editTask(taskDraft));
+      navigation.goBack();
+    }
   };
 
   const handleDelete = () => {

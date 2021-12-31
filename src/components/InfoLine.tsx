@@ -10,6 +10,7 @@ type Props = {
   icon?: TIcon;
   disabled?: boolean;
   actionIcon?: TIcon;
+  children?: React.ReactNode;
   onAction?: () => void;
 };
 
@@ -20,6 +21,7 @@ export const InfoLine = ({
   actionIcon,
   onAction,
   disabled,
+  children,
 }: Props) => {
   return (
     <View style={styles.container}>
@@ -35,16 +37,19 @@ export const InfoLine = ({
           ]}>
           {label}
         </Text>
-        <Text
-          style={[
-            styles.text,
-            {
-              textDecorationLine: disabled ? 'line-through' : 'none',
-              color: disabled ? '#c7c7c7' : '#000',
-            },
-          ]}>
-          {text}
-        </Text>
+        {!!text && (
+          <Text
+            style={[
+              styles.text,
+              {
+                textDecorationLine: disabled ? 'line-through' : 'none',
+                color: disabled ? '#c7c7c7' : '#000',
+              },
+            ]}>
+            {text}
+          </Text>
+        )}
+        {children && <View style={{ marginTop: 8 }}>{children}</View>}
       </View>
       {actionIcon && !disabled && (
         <View style={styles.action}>
@@ -85,6 +90,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   action: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    paddingTop: 8,
+    marginLeft: 16,
   },
 });

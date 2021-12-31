@@ -10,6 +10,7 @@ type Props = {
   color?: string;
   background?: string;
   containerStyle?: StyleProp<ViewStyle>;
+  buttonStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
 };
 
@@ -17,6 +18,7 @@ export const IconButton = ({
   icon,
   color,
   containerStyle,
+  buttonStyle,
   background,
   onPress,
 }: Props) => {
@@ -24,7 +26,11 @@ export const IconButton = ({
     <View style={[styles.container, containerStyle]}>
       <TouchableNativeFeedback onPress={onPress}>
         <View
-          style={[styles.button, { backgroundColor: background || '#fafafa' }]}>
+          style={[
+            styles.button,
+            buttonStyle,
+            { backgroundColor: background || '#fafafa' },
+          ]}>
           <Icon icon={icon} color={color} />
         </View>
       </TouchableNativeFeedback>

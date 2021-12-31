@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
+export type TStep = {
+  id: string;
+  label: string;
+  status: boolean;
+  taskId?: string;
+};
+
 export type TTask = {
   id: string;
   label: string;
@@ -11,10 +18,12 @@ export type TTask = {
 
 interface ITasksSlice {
   tasks: TTask[];
+  steps: TStep[];
 }
 
 const initialState: ITasksSlice = {
   tasks: [],
+  steps: [],
 };
 
 export const tasksSlice = createSlice({
@@ -45,6 +54,24 @@ export const tasksSlice = createSlice({
         t.id === id ? { ...t, status: !t.status } : t,
       );
     },
+    addTaskStep(state, action: PayloadAction<TStep>) {
+      const step = action.payload;
+      state.steps = [...state.steps, step];
+    },
+    deleteTaskStep(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      state.steps = state.steps.filter((step) => step.id !== id);
+    },
+    completeTaskStep(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      state.steps = state.steps.map((step) =>
+        step.id === id ? { ...step, status: !step.status } : step,
+      );
+    },
+    deleteAllTaskSteps(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      state.steps = state.steps.filter((step) => step.taskId !== id);
+    },
   },
 });
 
@@ -54,6 +81,10 @@ export const {
   deleteTask,
   permanentDeleteTask,
   editTask,
+  addTaskStep,
+  deleteTaskStep,
+  completeTaskStep,
+  deleteAllTaskSteps,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;

@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { COLORS } from '../../../colors';
 import { CardBase } from '../../../components/CardBase';
 import { Icon } from '../../../components/Icon';
+import { IconButton } from '../../../components/IconButton';
 import { Check } from '../../../components/inputs/Check';
 
 type Props = {
@@ -10,6 +12,7 @@ type Props = {
   archived?: boolean;
   onPress?: () => void;
   onCheck?: () => void;
+  onDelete?: () => void;
 };
 
 export const TaskCard = ({
@@ -18,6 +21,7 @@ export const TaskCard = ({
   archived,
   onPress,
   onCheck,
+  onDelete,
 }: Props) => {
   return (
     <CardBase onPress={onPress}>
@@ -26,7 +30,7 @@ export const TaskCard = ({
           {!archived && <Check checked={status} onPress={onCheck} />}
           {archived && <Icon icon="archive" color="#c7c7c7" />}
         </View>
-        <View>
+        <View style={{ flex: 1 }}>
           <Text
             style={[
               styles.label,
@@ -38,6 +42,15 @@ export const TaskCard = ({
             {label}
           </Text>
         </View>
+        {onDelete && (
+          <IconButton
+            icon="trash"
+            color={COLORS.dangerF26969}
+            containerStyle={{ overflow: 'hidden' }}
+            buttonStyle={{ width: 24, height: 24, overflow: 'hidden' }}
+            onPress={onDelete}
+          />
+        )}
       </View>
     </CardBase>
   );

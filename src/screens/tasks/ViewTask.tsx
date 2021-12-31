@@ -4,30 +4,43 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../colors';
 import { Header } from '../../components/Header';
 import { Icon } from '../../components/Icon';
 import { IconButton } from '../../components/IconButton';
 import { InfoLine } from '../../components/InfoLine';
+import { Button } from '../../components/inputs/Button';
+import { Input } from '../../components/inputs/Input';
+import { ModalView } from '../../components/ModalView';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
+  addTaskStep,
   completeTask,
+  completeTaskStep,
+  deleteAllTaskSteps,
   deleteTask,
+  deleteTaskStep,
   permanentDeleteTask,
+  TStep,
   TTask,
 } from '../../redux/tasksSlice';
+import { uuid4 } from '../../utils';
+import { StepForm } from './components/StepForm';
+import { TaskCard } from './components/TaskCard';
 
 export const ViewTask = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const route = useRoute<RouteProp<RootStackParamList, 'ViewTask'>>();
+  const [stepModal, setStepModal] = useState(false);
 
   const id = route?.params?.id;
-  const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
+  const { tasks, steps } = useAppSelector((state) => state.tasks);
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
+  const taskSteps = steps.filter((s) => s.taskId === task.id);
 
   const handleCompleteTask = () => {
     dispatch(completeTask(task.id));
@@ -53,7 +66,27 @@ export const ViewTask = () => {
 
   const handleDeletePermanent = () => {
     dispatch(permanentDeleteTask(task.id));
+    dispatch(deleteAllTaskSteps(task.id));
     navigation.goBack();
+  };
+
+  const handleAddStep = (value: string) => {
+    const step: TStep = {
+      id: uuid4(),
+      status: false,
+      label: value,
+      taskId: task.id,
+    };
+
+    dispatch(addTaskStep(step));
+  };
+
+  const handleCompleteStep = (id: string) => {
+    dispatch(completeTaskStep(id));
+  };
+
+  const handleDeleteStep = (id: string) => {
+    dispatch(deleteTaskStep(id));
   };
 
   return (
@@ -69,7 +102,7 @@ export const ViewTask = () => {
         {!task.deleted && (
           <>
             <InfoLine
-              icon={'check'}
+              icon="check"
               label="Статус"
               text={task.status ? 'Завершен' : 'Не завершен'}
               actionIcon={task.status ? 'play' : 'checkLine'}
@@ -88,6 +121,23 @@ export const ViewTask = () => {
                 disabled={task.status}
               />
             )}
+            <InfoLine
+              icon="checkLine"
+              label="Подзадачи"
+              text={taskSteps.length ? '' : 'Нет подзадач'}
+              actionIcon="add"
+              onAction={() => setStepModal(true)}
+              disabled={task.status}>
+              {taskSteps.map((s) => (
+                <TaskCard
+                  key={s.id}
+                  label={s.label}
+                  status={task.status || s.status}
+                  onCheck={() => !task.status && handleCompleteStep(s.id)}
+                  onDelete={() => !task.status && handleDeleteStep(s.id)}
+                />
+              ))}
+            </InfoLine>
           </>
         )}
         {task.deleted && (
@@ -123,6 +173,18 @@ export const ViewTask = () => {
           </View>
         )}
       </View>
+
+      <ModalView
+        title="Добавить подзадачу"
+        visible={stepModal}
+        onClose={() => setStepModal(false)}>
+        <StepForm
+          onSubmit={(value) => {
+            setStepModal(false);
+            handleAddStep(value || '');
+          }}
+        />
+      </ModalView>
     </View>
   );
 };
