@@ -61,35 +61,37 @@ export const ViewTask = () => {
   return (
     <View style={styles.container}>
       <Header
-        label={task.label || 'Просмотр задачи'}
-        onAction={task.status ? handleDelete : handleEditTask}
-        onBack={handleBack}
+        label="Просмотр задачи"
         actionIcon={task.status ? 'archive' : 'edit'}
+        onAction={task.status ? handleDelete : handleEditTask}
         hideAction={task.deleted}
+        onBack={handleBack}
       />
+
       <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted && (
           <>
-            <InfoLine
+            {/* <InfoLine
               icon="check"
               label="Статус"
-              text={task.status ? 'Завершен' : 'Не завершен'}
-              actionIcon={task.status ? 'play' : 'checkLine'}
-              onAction={handleCompleteTask}
-            />
+              text={task.status ? 'Начать' : 'Завершить'}
+              onPress={handleCompleteTask}
+            /> */}
+
             <InfoLine
               icon="info"
               label="Название задачи"
               text={task.label}
               disabled={task.status}
             />
-            {!!task.description && (
+
+            {/* {!!task.description && (
               <InfoLine
                 label="Описание задачи"
                 text={task.description}
                 disabled={task.status}
               />
-            )}
+            )} */}
 
             {/* <TaskSteps
               taskId={task.id}
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 24,
+    paddingBottom: 24,
     flexGrow: 1,
   },
 });
