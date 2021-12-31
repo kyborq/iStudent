@@ -5,7 +5,7 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../colors';
 import { Header } from '../../components/Header';
 import { Icon } from '../../components/Icon';
@@ -98,7 +98,7 @@ export const ViewTask = () => {
         actionIcon={task.status ? 'archive' : 'edit'}
         hideAction={task.deleted}
       />
-      <View style={styles.content}>
+      <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted && (
           <>
             <InfoLine
@@ -172,7 +172,7 @@ export const ViewTask = () => {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
 
       <ModalView
         title="Добавить подзадачу"
@@ -196,6 +196,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 24,
-    flex: 1,
+    flexGrow: 1,
   },
 });
