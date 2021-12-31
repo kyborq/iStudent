@@ -7,11 +7,18 @@ import { IconButton } from './IconButton';
 type Props = {
   label: string;
   actionIcon?: TIcon;
+  hideAction?: boolean;
   onBack?: () => void;
   onAction?: () => void;
 };
 
-export const Header = ({ onBack, onAction, actionIcon, label }: Props) => {
+export const Header = ({
+  onBack,
+  onAction,
+  actionIcon,
+  hideAction,
+  label,
+}: Props) => {
   return (
     <View style={styles.container}>
       {onBack && (
@@ -27,7 +34,7 @@ export const Header = ({ onBack, onAction, actionIcon, label }: Props) => {
           {label}
         </Text>
       </View>
-      {onAction && (
+      {onAction && !hideAction && (
         <IconButton
           icon={actionIcon || 'add'}
           color={COLORS.primary5A9EEE}

@@ -1,18 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { COLORS } from '../../colors';
+import { Icon, TIcon } from '../Icon';
 
 type Props = {
-  label: string;
+  label?: string;
+  icon?: TIcon;
+  background?: string;
+  color?: string;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const Button = ({ label, onPress }: Props) => {
+export const Button = ({
+  label,
+  icon,
+  background,
+  color,
+  onPress,
+  style,
+}: Props) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <TouchableNativeFeedback onPress={onPress}>
-        <View style={styles.button}>
-          <Text style={styles.label}>{label}</Text>
+        <View
+          style={[
+            styles.button,
+            { backgroundColor: background || COLORS.primary5A9EEE },
+          ]}>
+          {icon && (
+            <Icon
+              icon={icon}
+              color={color}
+              containerStyle={[styles.icon, { marginRight: !!label ? 10 : 0 }]}
+            />
+          )}
+          {!!label && (
+            <Text style={[styles.label, { color: color || '#fff' }]}>
+              {label}
+            </Text>
+          )}
         </View>
       </TouchableNativeFeedback>
     </View>
@@ -37,4 +71,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFF',
   },
+  icon: {},
 });

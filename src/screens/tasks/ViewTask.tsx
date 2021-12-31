@@ -5,12 +5,20 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { COLORS } from '../../colors';
 import { Header } from '../../components/Header';
+import { Icon } from '../../components/Icon';
+import { IconButton } from '../../components/IconButton';
 import { InfoLine } from '../../components/InfoLine';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { completeTask, TTask } from '../../redux/tasksSlice';
+import {
+  completeTask,
+  deleteTask,
+  permanentDeleteTask,
+  TTask,
+} from '../../redux/tasksSlice';
 
 export const ViewTask = () => {
   const navigation = useNavigation();
@@ -38,30 +46,81 @@ export const ViewTask = () => {
     navigation.goBack();
   };
 
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id));
+    !task.deleted && navigation.goBack();
+  };
+
+  const handleDeletePermanent = () => {
+    dispatch(permanentDeleteTask(task.id));
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <Header
         label={task.label || 'Просмотр задачи'}
-        onAction={handleEditTask}
+        onAction={task.status ? handleDelete : handleEditTask}
         onBack={handleBack}
-        actionIcon="edit"
+        actionIcon={task.status ? 'archive' : 'edit'}
+        hideAction={task.deleted}
       />
       <View style={styles.content}>
-        <InfoLine
-          icon={'check'}
-          label="Статус"
-          text={task.status ? 'Завершен' : 'Не завершен'}
-          actionIcon={task.status ? 'play' : 'checkLine'}
-          onAction={handleCompleteTask}
-        />
-        <InfoLine
-          icon="info"
-          label="Название задачи"
-          text={task.label}
-          disabled={task.status}
-        />
-        {!!task.description && (
-          <InfoLine label="Описание задачи" text={task.description} />
+        {!task.deleted && (
+          <>
+            <InfoLine
+              icon={'check'}
+              label="Статус"
+              text={task.status ? 'Завершен' : 'Не завершен'}
+              actionIcon={task.status ? 'play' : 'checkLine'}
+              onAction={handleCompleteTask}
+            />
+            <InfoLine
+              icon="info"
+              label="Название задачи"
+              text={task.label}
+              disabled={task.status}
+            />
+            {!!task.description && (
+              <InfoLine
+                label="Описание задачи"
+                text={task.description}
+                disabled={task.status}
+              />
+            )}
+          </>
+        )}
+        {task.deleted && (
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Icon
+              icon="archive"
+              color="#c7c7c7"
+              containerStyle={{ marginBottom: 32 }}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 14,
+                color: '#c7c7c7',
+                marginBottom: 32,
+              }}>
+              Эта задача архивирована, вы можете ее вернуть или удалить навсегда
+            </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <IconButton
+                icon="addSquare"
+                color={COLORS.primary5A9EEE}
+                containerStyle={{ marginRight: 16 }}
+                onPress={handleDelete}
+              />
+              <IconButton
+                icon="trash"
+                color={COLORS.dangerF26969}
+                onPress={handleDeletePermanent}
+              />
+            </View>
+          </View>
         )}
       </View>
     </View>

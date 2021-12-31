@@ -6,6 +6,7 @@ export type TTask = {
   label: string;
   description?: string;
   status: boolean;
+  deleted?: boolean;
 };
 
 interface ITasksSlice {
@@ -30,6 +31,12 @@ export const tasksSlice = createSlice({
     },
     deleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
+      state.tasks = state.tasks.map((t) =>
+        t.id === id ? { ...t, deleted: !t.deleted } : t,
+      );
+    },
+    permanentDeleteTask(state, action: PayloadAction<string>) {
+      const id = action.payload;
       state.tasks = state.tasks.filter((task) => task.id !== id);
     },
     completeTask(state, action: PayloadAction<string>) {
@@ -41,8 +48,13 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const { addTask, completeTask, deleteTask, editTask } =
-  tasksSlice.actions;
+export const {
+  addTask,
+  completeTask,
+  deleteTask,
+  permanentDeleteTask,
+  editTask,
+} = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;
 

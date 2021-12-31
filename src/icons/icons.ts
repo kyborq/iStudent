@@ -3,10 +3,13 @@ import book from './book.svg';
 import calendar from './calendar.svg';
 import back from './back.svg';
 import add from './add.svg';
+import addSquare from './add-square.svg';
 import edit from './edit.svg';
 import info from './info.svg';
 import checkLine from './check_line.svg';
 import play from './play.svg';
+import trash from './trash.svg';
+import archive from './archive.svg';
 
 export const icons = {
   check,
@@ -18,4 +21,7 @@ export const icons = {
   info,
   checkLine,
   play,
+  trash,
+  addSquare,
+  archive,
 };

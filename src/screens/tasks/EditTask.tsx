@@ -6,7 +6,7 @@ import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addTask, editTask, TTask } from '../../redux/tasksSlice';
+import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
 
 export const EditTask = () => {
@@ -36,9 +36,17 @@ export const EditTask = () => {
     navigation.goBack();
   };
 
+  const handleDelete = () => {
+    dispatch(deleteTask(id));
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      <Header label="Новая задача" onBack={handleBack} />
+      <Header
+        label={id ? 'Изменить задачу' : 'Новая задача'}
+        onBack={handleBack}
+      />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           label="Задача"
@@ -56,7 +64,22 @@ export const EditTask = () => {
           }
         />
         <View style={{ flex: 1 }} />
-        <Button label="Сохранить" onPress={handleSave} />
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            label={id ? 'Изменить' : 'Сохранить'}
+            onPress={handleSave}
+            style={{ flex: 1 }}
+          />
+          {id && (
+            <Button
+              icon="archive"
+              onPress={handleDelete}
+              background="#fafafa"
+              style={{ marginLeft: 16 }}
+              color="#c7c7c7"
+            />
+          )}
+        </View>
       </ScrollView>
     </View>
   );
