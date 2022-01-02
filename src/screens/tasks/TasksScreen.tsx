@@ -1,16 +1,17 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
+import { SortPanel } from '../../components/sorting/SortPanel';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { completeTask, TTask } from '../../redux/tasksSlice';
-import { TaskCard } from './components/TaskCard';
 
 export const TasksScreen = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAddTask = () => {
     navigation.dispatch(
@@ -37,17 +38,15 @@ export const TasksScreen = () => {
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
       <View style={styles.content}>
-        <Input placeholder="Поиск" />
-        {tasks.map((t) => (
-          <TaskCard
-            key={t.id}
-            label={t.label}
-            status={t.status}
-            archived={t.deleted}
-            onCheck={() => handleCompleteTask(t.id)}
-            onPress={() => handleViewTask(t.id)}
-          />
-        ))}
+        <Input
+          icon="search"
+          placeholder="Поиск"
+          clearInput
+          value={searchQuery}
+          onChange={setSearchQuery}
+          style={{ marginBottom: 16 }}
+        />
+        <SortPanel />
       </View>
     </View>
   );

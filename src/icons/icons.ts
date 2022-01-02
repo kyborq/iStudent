@@ -10,6 +10,9 @@ import checkLine from './check_line.svg';
 import play from './play.svg';
 import trash from './trash.svg';
 import archive from './archive.svg';
+import search from './search.svg';
+import clear from './clear.svg';
+import down from './down.svg';
 
 export const icons = {
   check,
@@ -24,4 +27,7 @@ export const icons = {
   trash,
   addSquare,
   archive,
+  search,
+  clear,
+  down,
 };

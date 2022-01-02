@@ -1,48 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../../../colors';
+import { StyleSheet } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
-import { Icon } from '../../../components/Icon';
-import { IconButton } from '../../../components/inputs/IconButton';
-import { Check } from '../../../components/inputs/Check';
 
 type Props = {
-  label?: string;
-  status?: boolean;
-  archived?: boolean;
   onPress?: () => void;
-  onCheck?: () => void;
 };
 
-export const TaskCard = ({
-  label,
-  status,
-  archived,
-  onPress,
-  onCheck,
-}: Props) => {
-  return (
-    <CardBase onPress={onPress}>
-      <View style={styles.container}>
-        <View style={styles.checkbox}>
-          {!archived && <Check checked={status} onPress={onCheck} />}
-          {archived && <Icon icon="archive" color="#c7c7c7" />}
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text
-            style={[
-              styles.label,
-              {
-                textDecorationLine: status ? 'line-through' : 'none',
-                color: status || archived ? '#c7c7c7' : '#000',
-              },
-            ]}>
-            {label}
-          </Text>
-        </View>
-      </View>
-    </CardBase>
-  );
+export const TaskCard = ({ onPress }: Props) => {
+  return <CardBase onPress={onPress}>{/* ... */}</CardBase>;
 };
 
 const styles = StyleSheet.create({
