@@ -13,6 +13,7 @@ import archive from './archive.svg';
 import search from './search.svg';
 import clear from './clear.svg';
 import down from './down.svg';
+import textInfo from './text-info.svg';
 
 export const icons = {
   check,
@@ -30,4 +31,5 @@ export const icons = {
   search,
   clear,
   down,
+  textInfo,
 };

@@ -45,7 +45,11 @@ export const TasksScreen = () => {
     getKeyByValue(ETaskSorting, sorting),
   ) as TTask[];
   const taskList = sortedList.map((task) => {
-    if ((!task.deleted || showArchived) && (!task.status || showCompleted))
+    if (
+      task.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (!task.deleted || showArchived) &&
+      (!task.status || showCompleted)
+    )
       return (
         <TaskCard
           key={task.id}
@@ -60,7 +64,10 @@ export const TasksScreen = () => {
   });
 
   const tasksCount = tasks.filter(
-    (t) => (!t.deleted || showArchived) && (!t.status || showCompleted),
+    (t) =>
+      t.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (!t.deleted || showArchived) &&
+      (!t.status || showCompleted),
   ).length;
 
   return (
@@ -85,10 +92,7 @@ export const TasksScreen = () => {
         />
         {taskList}
         {tasksCount === 0 && (
-          <Empty
-            text="Задач нет, попробуйте изменить фильтр или добавить новую задачу"
-            icon="checkLine"
-          />
+          <Empty text="Список задач пуст" icon="checkLine" />
         )}
       </View>
     </View>

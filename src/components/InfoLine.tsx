@@ -24,7 +24,15 @@ export const InfoLine = ({
   return (
     <View style={styles.container}>
       <View style={styles.icon}>
-        {icon && <Icon icon={icon} color="#c7c7c7" />}
+        {icon && !onPress && <Icon icon={icon} color="#c7c7c7" />}
+        {onPress && icon && (
+          <IconButton
+            icon={icon}
+            onPress={onPress}
+            background="#fff"
+            color={COLORS.primary5A9EEE}
+          />
+        )}
       </View>
 
       <View style={styles.content}>
@@ -52,7 +60,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     marginHorizontal: 16,
-    marginBottom: 8,
   },
   label: {
     fontSize: 14,
@@ -62,6 +69,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 16,
   },
   container: {
     flexDirection: 'row',

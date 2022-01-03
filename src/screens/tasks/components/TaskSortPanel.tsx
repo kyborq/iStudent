@@ -33,8 +33,6 @@ export const TaskSortPanel = ({
   const dispatch = useAppDispatch();
   const sorting = useAppSelector((state) => state.tasks.sorting);
 
-  const handleSortTasks = () => {};
-
   return (
     <View style={styles.container}>
       <SortButton

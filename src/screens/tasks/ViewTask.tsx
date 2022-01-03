@@ -68,33 +68,35 @@ export const ViewTask = () => {
       <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted && (
           <>
-            {/* <InfoLine
-              icon="check"
+            <InfoLine
+              icon={task.status ? 'play' : 'checkLine'}
               label="Статус"
-              text={task.status ? 'Начать' : 'Завершить'}
+              text={task.status ? 'Завершен' : 'Не завершен'}
               onPress={handleCompleteTask}
-            /> */}
+            />
 
             <InfoLine
-              icon="info"
+              icon="textInfo"
               label="Название задачи"
               text={task.label}
               disabled={task.status}
             />
 
-            {/* {!!task.description && (
+            {!!task.description && (
               <InfoLine
                 label="Описание задачи"
                 text={task.description}
                 disabled={task.status}
               />
-            )} */}
+            )}
 
-            {/* <TaskSteps
-              taskId={task.id}
-              steps={taskSteps}
+            <InfoLine
+              icon="info"
+              label="Приоритет"
+              text="Нет"
+              onPress={handleCompleteTask}
               disabled={task.status}
-            /> */}
+            />
           </>
         )}
         {task.deleted && (
