@@ -12,7 +12,13 @@ import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
+import {
+  addTask,
+  deleteTask,
+  editTask,
+  EPriority,
+  TTask,
+} from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
 
 export const EditTask = () => {
@@ -29,6 +35,7 @@ export const EditTask = () => {
       id: uuid4(),
       label: '',
       status: false,
+      priority: EPriority.none,
     },
   );
 
@@ -38,12 +45,6 @@ export const EditTask = () => {
 
   const handleSave = () => {
     if (!id) {
-      // navigation.dispatch(
-      //   CommonActions.navigate({
-      //     name: 'ViewTask',
-      //     params: { id: taskDraft.id },
-      //   }),
-      // );
       dispatch(addTask(taskDraft));
       navigation.goBack();
     }

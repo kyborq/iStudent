@@ -7,12 +7,20 @@ export enum ETaskSorting {
   status = 'По состоянию',
 }
 
+export enum EPriority {
+  high = 0,
+  medium = 1,
+  low = 2,
+  none = 3,
+}
+
 export type TTask = {
   id: string;
   label: string;
   description?: string;
   status: boolean;
   deleted?: boolean;
+  priority: EPriority;
 };
 
 interface ITasksSlice {
@@ -57,21 +65,14 @@ export const tasksSlice = createSlice({
       const sorting = action.payload;
       state.sorting = sorting;
     },
-    sortTasks(state, action: PayloadAction<{ key: string }>) {
-      const { key } = action.payload;
-      state.tasks = state.tasks
-        .slice()
-        .sort((a: { [key: string]: any }, b: { [key: string]: any }) => {
-          const valA = a[key];
-          const valB = b[key];
-          if (valA > valB) {
-            return 1;
-          }
-          if (valA < valB) {
-            return -1;
-          }
-          return 0;
-        });
+    setTaskPriority(
+      state,
+      action: PayloadAction<{ id: string; priority: EPriority }>,
+    ) {
+      const { id, priority } = action.payload;
+      state.tasks = state.tasks.map((t) =>
+        t.id === id ? { ...t, priority } : t,
+      );
     },
   },
 });
@@ -82,7 +83,6 @@ export const {
   deleteTask,
   permanentDeleteTask,
   editTask,
-  sortTasks,
   changeTaskSorting,
 } = tasksSlice.actions;
 
