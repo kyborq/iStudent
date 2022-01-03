@@ -1,12 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getKeyByValue, sort } from '../utils';
 import { RootState } from './store';
 
-export type TStep = {
-  id: string;
-  label: string;
-  status: boolean;
-  taskId?: string;
-};
+export enum ETaskSorting {
+  label = 'По названию',
+  status = 'По состоянию',
+}
 
 export type TTask = {
   id: string;
@@ -18,12 +17,12 @@ export type TTask = {
 
 interface ITasksSlice {
   tasks: TTask[];
-  steps: TStep[];
+  sorting: ETaskSorting;
 }
 
 const initialState: ITasksSlice = {
   tasks: [],
-  steps: [],
+  sorting: ETaskSorting.label,
 };
 
 export const tasksSlice = createSlice({
@@ -54,23 +53,25 @@ export const tasksSlice = createSlice({
         t.id === id ? { ...t, status: !t.status } : t,
       );
     },
-    addTaskStep(state, action: PayloadAction<TStep>) {
-      const step = action.payload;
-      state.steps = [...state.steps, step];
+    changeTaskSorting(state, action: PayloadAction<ETaskSorting>) {
+      const sorting = action.payload;
+      state.sorting = sorting;
     },
-    deleteTaskStep(state, action: PayloadAction<string>) {
-      const id = action.payload;
-      state.steps = state.steps.filter((step) => step.id !== id);
-    },
-    completeTaskStep(state, action: PayloadAction<string>) {
-      const id = action.payload;
-      state.steps = state.steps.map((step) =>
-        step.id === id ? { ...step, status: !step.status } : step,
-      );
-    },
-    deleteAllTaskSteps(state, action: PayloadAction<string>) {
-      const id = action.payload;
-      state.steps = state.steps.filter((step) => step.taskId !== id);
+    sortTasks(state, action: PayloadAction<{ key: string }>) {
+      const { key } = action.payload;
+      state.tasks = state.tasks
+        .slice()
+        .sort((a: { [key: string]: any }, b: { [key: string]: any }) => {
+          const valA = a[key];
+          const valB = b[key];
+          if (valA > valB) {
+            return 1;
+          }
+          if (valA < valB) {
+            return -1;
+          }
+          return 0;
+        });
     },
   },
 });
@@ -81,10 +82,8 @@ export const {
   deleteTask,
   permanentDeleteTask,
   editTask,
-  addTaskStep,
-  deleteTaskStep,
-  completeTaskStep,
-  deleteAllTaskSteps,
+  sortTasks,
+  changeTaskSorting,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;

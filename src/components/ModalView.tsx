@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     margin: 24,
-    padding: 16,
+    paddingVertical: 8,
     backgroundColor: '#fff',
     borderRadius: 10,
   },

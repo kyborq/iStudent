@@ -42,7 +42,7 @@ export const IconButton = ({
             <Text
               style={{
                 fontSize: 12,
-                color: '#c7c7c7',
+                color: color,
                 marginLeft: 6,
                 fontWeight: 'bold',
               }}>

@@ -12,12 +12,10 @@ import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
   completeTask,
-  deleteAllTaskSteps,
   deleteTask,
   permanentDeleteTask,
   TTask,
 } from '../../redux/tasksSlice';
-import { TaskSteps } from './components/TaskSteps';
 import { Empty } from '../../components/Empty';
 
 export const ViewTask = () => {
@@ -26,9 +24,8 @@ export const ViewTask = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ViewTask'>>();
 
   const id = route?.params?.id;
-  const { tasks, steps } = useAppSelector((state) => state.tasks);
+  const { tasks } = useAppSelector((state) => state.tasks);
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
-  const taskSteps = steps.filter((s) => s.taskId === task.id);
 
   const handleCompleteTask = () => {
     dispatch(completeTask(task.id));
@@ -54,7 +51,6 @@ export const ViewTask = () => {
 
   const handleDeletePermanent = () => {
     dispatch(permanentDeleteTask(task.id));
-    dispatch(deleteAllTaskSteps(task.id));
     navigation.goBack();
   };
 
