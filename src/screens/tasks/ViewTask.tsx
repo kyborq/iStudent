@@ -28,7 +28,7 @@ export const ViewTask = () => {
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
 
   const handleCompleteTask = () => {
-    dispatch(completeTask(task.id));
+    dispatch(completeTask({ id: task.id, value: !task.status }));
   };
 
   const handleEditTask = () => {
@@ -46,6 +46,7 @@ export const ViewTask = () => {
 
   const handleDelete = () => {
     dispatch(deleteTask(task.id));
+    dispatch(completeTask({ id: task.id, value: false }));
     !task.deleted && navigation.goBack();
   };
 

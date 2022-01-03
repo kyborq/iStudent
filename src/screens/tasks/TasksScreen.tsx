@@ -1,6 +1,7 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -35,8 +36,8 @@ export const TasksScreen = () => {
     );
   };
 
-  const handleCompleteTask = (id: string) => {
-    dispatch(completeTask(id));
+  const handleCompleteTask = (id: string, value: boolean) => {
+    dispatch(completeTask({ id, value }));
   };
 
   const sortedList = sort(
@@ -50,11 +51,17 @@ export const TasksScreen = () => {
           key={task.id}
           title={task.label}
           status={task.status}
+          description={task.description}
+          deleted={task.deleted}
           onPress={() => handleViewTask(task.id)}
-          onComplete={() => handleCompleteTask(task.id)}
+          onComplete={() => handleCompleteTask(task.id, !task.status)}
         />
       );
   });
+
+  const tasksCount = tasks.filter(
+    (t) => (!t.deleted || showArchived) && (!t.status || showCompleted),
+  ).length;
 
   return (
     <View style={styles.container}>
@@ -69,15 +76,20 @@ export const TasksScreen = () => {
           style={{ marginBottom: 16 }}
         />
         <TaskSortPanel
-          completed={tasks.filter((t) => t.status).length}
-          archived={tasks.filter((t) => t.deleted).length}
+          completed={tasks.filter((t) => t.status && !t.deleted).length}
+          archived={tasks.filter((t) => t.deleted && !t.status).length}
           showCompleted={showCompleted}
           showArchived={showArchived}
           onShowArchived={() => setShowArchived(!showArchived)}
           onShowCompleted={() => setShowCompleted(!showCompleted)}
         />
-
         {taskList}
+        {tasksCount === 0 && (
+          <Empty
+            text="Задач нет, попробуйте изменить фильтр или добавить новую задачу"
+            icon="checkLine"
+          />
+        )}
       </View>
     </View>
   );

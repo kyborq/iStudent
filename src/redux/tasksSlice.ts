@@ -47,10 +47,10 @@ export const tasksSlice = createSlice({
       const id = action.payload;
       state.tasks = state.tasks.filter((task) => task.id !== id);
     },
-    completeTask(state, action: PayloadAction<string>) {
-      const id = action.payload;
+    completeTask(state, action: PayloadAction<{ id: string; value: boolean }>) {
+      const { id, value } = action.payload;
       state.tasks = state.tasks.map((t) =>
-        t.id === id ? { ...t, status: !t.status } : t,
+        t.id === id ? { ...t, status: value } : t,
       );
     },
     changeTaskSorting(state, action: PayloadAction<ETaskSorting>) {
