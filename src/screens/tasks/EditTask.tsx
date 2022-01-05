@@ -35,7 +35,7 @@ export const EditTask = () => {
       id: uuid4(),
       label: '',
       status: false,
-      priority: EPriority.none,
+      priority: false,
     },
   );
 

@@ -26,7 +26,12 @@ export const IconButton = ({
 }: Props) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple(
+          'rgba(0, 0, 0, 0.05)',
+          false,
+        )}
+        onPress={onPress}>
         <View
           style={[
             styles.button,

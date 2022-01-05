@@ -42,7 +42,8 @@ export const TasksScreen = () => {
 
   const sortedList = sort(
     tasks,
-    getKeyByValue(ETaskSorting, sorting),
+    getKeyByValue(ETaskSorting, sorting.sorting),
+    sorting.direction === -1,
   ) as TTask[];
   const taskList = sortedList.map((task) => {
     if (
@@ -55,6 +56,7 @@ export const TasksScreen = () => {
           key={task.id}
           title={task.label}
           status={task.status}
+          priority={task.priority}
           description={task.description}
           deleted={task.deleted}
           onPress={() => handleViewTask(task.id)}

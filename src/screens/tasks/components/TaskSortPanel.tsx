@@ -4,11 +4,7 @@ import { COLORS } from '../../../colors';
 import { IconButton } from '../../../components/inputs/IconButton';
 import { SortButton } from '../../../components/sorting/SortButton';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import {
-  changeTaskSorting,
-  ETaskSorting,
-  sortTasks,
-} from '../../../redux/tasksSlice';
+import { changeTaskSorting, ETaskSorting } from '../../../redux/tasksSlice';
 import { getKeyByValue } from '../../../utils';
 
 type Props = {
@@ -36,13 +32,11 @@ export const TaskSortPanel = ({
   return (
     <View style={styles.container}>
       <SortButton
-        current={sorting}
-        items={[ETaskSorting.label, ETaskSorting.status]}
+        current={sorting.sorting}
+        items={[ETaskSorting.label, ETaskSorting.status, ETaskSorting.priority]}
         onSelect={(value) => {
           const item = value as ETaskSorting;
-          console.log();
-          dispatch(changeTaskSorting(item));
-          dispatch(sortTasks({ key: getKeyByValue(ETaskSorting, item) }));
+          dispatch(changeTaskSorting({ sorting: item, direction: 1 }));
         }}
       />
       <View style={{ flexDirection: 'row' }}>

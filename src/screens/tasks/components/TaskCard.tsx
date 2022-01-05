@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { COLORS } from '../../../colors';
 import { CardBase } from '../../../components/CardBase';
+import { Chip } from '../../../components/Chip';
 import { Icon } from '../../../components/Icon';
 import { Check } from '../../../components/inputs/Check';
 
@@ -8,6 +10,8 @@ type Props = {
   title: string;
   status?: boolean;
   deleted?: boolean;
+  priority?: boolean;
+  subject?: string;
   description?: string;
   onPress?: () => void;
   onComplete?: () => void;
@@ -18,6 +22,8 @@ export const TaskCard = ({
   status,
   description,
   deleted,
+  priority,
+  subject,
   onPress,
   onComplete,
 }: Props) => {
@@ -30,6 +36,7 @@ export const TaskCard = ({
             {deleted && <Icon icon="archive" color="#c7c7c7" />}
           </View>
           <Text
+            numberOfLines={1}
             style={[
               styles.label,
               {
@@ -41,9 +48,22 @@ export const TaskCard = ({
           </Text>
         </View>
         {!!description && !deleted && !status && (
-          <View style={styles.info}>
-            <Icon icon="info" />
-            <Text style={styles.infoText}>{description}</Text>
+          <Text numberOfLines={1} style={styles.infoText}>
+            {description}
+          </Text>
+        )}
+        {(!!subject || priority) && !deleted && !status && (
+          <View style={{ flexDirection: 'row', marginTop: 6 }}>
+            {priority && (
+              <Chip
+                label="Важный"
+                color="#FFF"
+                background={COLORS.dangerF26969}
+              />
+            )}
+            {!!subject && (
+              <Chip label={subject} color="#C7C7C7" background={'#FAFAFA'} />
+            )}
           </View>
         )}
       </View>
@@ -58,18 +78,14 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: 'bold',
+    marginRight: 24,
   },
   checkbox: {
     marginRight: 10,
   },
-  info: {
-    flexDirection: 'row',
-    marginTop: 10,
-    alignItems: 'center',
-  },
   infoText: {
     fontSize: 14,
-    marginLeft: 10,
+    marginTop: 6,
     color: '#c7c7c7',
   },
 });

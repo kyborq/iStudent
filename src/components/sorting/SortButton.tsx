@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { uuid4 } from '../../utils';
 import { IconButton } from '../inputs/IconButton';
-import { ModalView } from '../ModalView';
+import { ModalView } from '../modals/ModalView';
 
 type Props = {
   items?: string[];
@@ -15,7 +15,12 @@ export const SortButton = ({ items, current, onSelect }: Props) => {
 
   return (
     <View style={styles.container}>
-      <TouchableNativeFeedback onPress={() => setModalVisible(true)}>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple(
+          'rgba(0, 0, 0, 0.05)',
+          false,
+        )}
+        onPress={() => setModalVisible(true)}>
         <View style={styles.button}>
           <IconButton
             icon="down"

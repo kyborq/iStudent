@@ -14,9 +14,12 @@ import {
   completeTask,
   deleteTask,
   permanentDeleteTask,
+  setTaskPriority,
   TTask,
 } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
+import { IconButton } from '../../components/inputs/IconButton';
+import { COLORS } from '../../colors';
 
 export const ViewTask = () => {
   const navigation = useNavigation();
@@ -29,6 +32,10 @@ export const ViewTask = () => {
 
   const handleCompleteTask = () => {
     dispatch(completeTask({ id: task.id, value: !task.status }));
+  };
+
+  const handleChangePriority = () => {
+    dispatch(setTaskPriority({ id: task.id, priority: !task.priority }));
   };
 
   const handleEditTask = () => {
@@ -65,16 +72,48 @@ export const ViewTask = () => {
         onBack={handleBack}
       />
 
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 24 }}
+          style={{ marginBottom: 24 }}>
+          {!task.deleted && (
+            <View style={{ flexDirection: 'row' }}>
+              <IconButton
+                icon="checkLine"
+                color={task.status ? COLORS.primary5A9EEE : COLORS.darkC7C7C7}
+                label={task.status ? 'Завершена' : 'Не завершена'}
+                containerStyle={{ marginRight: 10 }}
+                onPress={handleCompleteTask}
+              />
+              {!task.status && (
+                <IconButton
+                  icon="info"
+                  color={
+                    task.priority ? COLORS.primary5A9EEE : COLORS.darkC7C7C7
+                  }
+                  label={task.priority ? 'Приоритетный' : 'Нет приоритета'}
+                  containerStyle={{ marginRight: 10 }}
+                  onPress={handleChangePriority}
+                />
+              )}
+              {!task.status && (
+                <IconButton
+                  icon="archive"
+                  color={COLORS.darkC7C7C7}
+                  label="Архивировать"
+                  onPress={handleDelete}
+                />
+              )}
+            </View>
+          )}
+        </ScrollView>
+      </View>
+
       <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted && (
-          <>
-            <InfoLine
-              icon={task.status ? 'play' : 'checkLine'}
-              label="Статус"
-              text={task.status ? 'Завершен' : 'Не завершен'}
-              onPress={handleCompleteTask}
-            />
-
+          <View>
             <InfoLine
               icon="textInfo"
               label="Название задачи"
@@ -89,15 +128,7 @@ export const ViewTask = () => {
                 disabled={task.status}
               />
             )}
-
-            <InfoLine
-              icon="info"
-              label="Приоритет"
-              text="Нет"
-              onPress={handleCompleteTask}
-              disabled={task.status}
-            />
-          </>
+          </View>
         )}
         {task.deleted && (
           <Empty

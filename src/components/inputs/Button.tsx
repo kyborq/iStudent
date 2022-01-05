@@ -29,7 +29,12 @@ export const Button = ({
 }: Props) => {
   return (
     <View style={[styles.container, style]}>
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple(
+          'rgba(0, 0, 0, 0.05)',
+          false,
+        )}
+        onPress={onPress}>
         <View
           style={[
             styles.button,

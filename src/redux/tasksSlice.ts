@@ -5,6 +5,7 @@ import { RootState } from './store';
 export enum ETaskSorting {
   label = 'По названию',
   status = 'По состоянию',
+  priority = 'По важности',
 }
 
 export enum EPriority {
@@ -14,23 +15,31 @@ export enum EPriority {
   none = 3,
 }
 
+export type TSorting = {
+  sorting: ETaskSorting;
+  direction: 1 | -1;
+};
+
 export type TTask = {
   id: string;
   label: string;
   description?: string;
   status: boolean;
   deleted?: boolean;
-  priority: EPriority;
+  priority: boolean;
 };
 
 interface ITasksSlice {
   tasks: TTask[];
-  sorting: ETaskSorting;
+  sorting: TSorting;
 }
 
 const initialState: ITasksSlice = {
   tasks: [],
-  sorting: ETaskSorting.label,
+  sorting: {
+    sorting: ETaskSorting.label,
+    direction: 1,
+  },
 };
 
 export const tasksSlice = createSlice({
@@ -61,13 +70,13 @@ export const tasksSlice = createSlice({
         t.id === id ? { ...t, status: value } : t,
       );
     },
-    changeTaskSorting(state, action: PayloadAction<ETaskSorting>) {
-      const sorting = action.payload;
-      state.sorting = sorting;
+    changeTaskSorting(state, action: PayloadAction<TSorting>) {
+      const { sorting, direction } = action.payload;
+      state.sorting = { sorting, direction };
     },
     setTaskPriority(
       state,
-      action: PayloadAction<{ id: string; priority: EPriority }>,
+      action: PayloadAction<{ id: string; priority: boolean }>,
     ) {
       const { id, priority } = action.payload;
       state.tasks = state.tasks.map((t) =>
@@ -84,6 +93,7 @@ export const {
   permanentDeleteTask,
   editTask,
   changeTaskSorting,
+  setTaskPriority,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;

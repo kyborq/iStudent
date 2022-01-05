@@ -10,12 +10,8 @@ import { ViewTask } from '../../screens/tasks/ViewTask';
 
 export type RootStackParamList = {
   Index: undefined;
-  // AddSubjectScreen: undefined;
-  // AddTaskScreen: undefined;
-  // ViewSubjectScreen: { id: string };
   EditTask: { id: string };
   ViewTask: { id: string };
-  // EditTaskScreen: { id: string };
 };
 
 const Tab = createBottomTabNavigator();
@@ -56,11 +52,6 @@ export const Navigation = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Index" component={TabsNavigation} />
-
-      {/* <Stack.Screen name="AddSubjectScreen" component={AddSubjectScreen} /> */}
-      {/* <Stack.Screen name="ViewSubjectScreen" component={ViewSubjectScreen} /> */}
-      {/* <Stack.Screen name="EditSubjectScreen" component={EditSubjectScreen} /> */}
-
       <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
     </Stack.Navigator>
