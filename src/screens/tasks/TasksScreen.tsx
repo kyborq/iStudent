@@ -1,6 +1,6 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
@@ -43,7 +43,7 @@ export const TasksScreen = () => {
   const sortedList = sort(
     tasks,
     getKeyByValue(ETaskSorting, sorting.sorting),
-    sorting.direction === -1,
+    sorting.direction === 1 ? true : false,
   ) as TTask[];
   const taskList = sortedList.map((task) => {
     if (
@@ -75,7 +75,7 @@ export const TasksScreen = () => {
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
-      <View style={styles.content}>
+      <ScrollView contentContainerStyle={styles.content}>
         <Input
           icon="search"
           placeholder="Поиск"
@@ -96,7 +96,7 @@ export const TasksScreen = () => {
         {tasksCount === 0 && (
           <Empty text="Список задач пуст" icon="checkLine" />
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 24,
-    flex: 1,
+    flexGrow: 1,
   },
 });

@@ -22,36 +22,33 @@ export const InfoLine = ({
   onPress,
 }: Props) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.icon}>
-        {icon && !onPress && <Icon icon={icon} color="#c7c7c7" />}
-        {onPress && icon && (
-          <IconButton
-            icon={icon}
-            onPress={onPress}
-            background="#fff"
-            color={COLORS.primary5A9EEE}
-          />
-        )}
-      </View>
+    <TouchableNativeFeedback
+      background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', false)}
+      disabled={!onPress}
+      onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.icon}>
+          {icon && <Icon icon={icon} color="#c7c7c7" />}
+        </View>
 
-      <View style={styles.content}>
-        <Text style={styles.label}>{label}</Text>
-        {!!text && (
-          <Text
-            style={[
-              styles.text,
-              {
-                textDecorationLine: disabled ? 'line-through' : 'none',
-                color: disabled ? '#c7c7c7' : '#000',
-              },
-            ]}>
-            {text}
-          </Text>
-        )}
-        {children && <View style={{ marginTop: 8 }}>{children}</View>}
+        <View style={styles.content}>
+          <Text style={styles.label}>{label}</Text>
+          {!!text && (
+            <Text
+              style={[
+                styles.text,
+                {
+                  textDecorationLine: disabled ? 'line-through' : 'none',
+                  color: disabled ? '#c7c7c7' : '#000',
+                },
+              ]}>
+              {text}
+            </Text>
+          )}
+          {children && <View style={{ marginTop: 8 }}>{children}</View>}
+        </View>
       </View>
-    </View>
+    </TouchableNativeFeedback>
   );
 };
 
@@ -69,9 +66,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 4,
   },
   container: {
+    paddingHorizontal: 24,
+    paddingVertical: 8,
     flexDirection: 'row',
   },
   icon: {

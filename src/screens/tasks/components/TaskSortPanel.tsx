@@ -36,7 +36,12 @@ export const TaskSortPanel = ({
         items={[ETaskSorting.label, ETaskSorting.status, ETaskSorting.priority]}
         onSelect={(value) => {
           const item = value as ETaskSorting;
-          dispatch(changeTaskSorting({ sorting: item, direction: 1 }));
+          dispatch(
+            changeTaskSorting({
+              sorting: item,
+              direction: item === ETaskSorting.priority ? 1 : -1,
+            }),
+          );
         }}
       />
       <View style={{ flexDirection: 'row' }}>

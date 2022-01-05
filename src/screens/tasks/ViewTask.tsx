@@ -128,6 +128,14 @@ export const ViewTask = () => {
                 disabled={task.status}
               />
             )}
+
+            <InfoLine
+              icon="book"
+              label="Срок выполнения"
+              text="Без срока"
+              disabled={task.status}
+              onPress={() => {}}
+            />
           </View>
         )}
         {task.deleted && (
@@ -149,7 +157,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: 24,
     paddingBottom: 24,
     flexGrow: 1,
   },
