@@ -1,3 +1,5 @@
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+
 export const uuid4 = (length: number = 8) => {
   let result = '';
   const characters =
@@ -32,4 +34,19 @@ export const sort = (array: any, key: string, reversed?: boolean) => {
       return 0;
     });
   return result;
+};
+
+export const styleee = (
+  checker: boolean = false,
+  styles: StyleProp<ViewStyle | TextStyle>,
+  elseStyles?: StyleProp<ViewStyle | TextStyle>,
+) => {
+  if (checker) {
+    return styles;
+  }
+
+  if (!checker && !!elseStyles) {
+    return elseStyles;
+  }
+  return null;
 };
