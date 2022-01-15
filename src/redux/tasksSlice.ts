@@ -27,6 +27,7 @@ export type TTask = {
   status: boolean;
   deleted?: boolean;
   priority: boolean;
+  date?: number;
 };
 
 interface ITasksSlice {
@@ -70,6 +71,10 @@ export const tasksSlice = createSlice({
         t.id === id ? { ...t, status: value } : t,
       );
     },
+    setDate(state, action: PayloadAction<{ id: string; date: number }>) {
+      const { id, date } = action.payload;
+      state.tasks = state.tasks.map((t) => (t.id === id ? { ...t, date } : t));
+    },
     changeTaskSorting(state, action: PayloadAction<TSorting>) {
       const { sorting, direction } = action.payload;
       state.sorting = { sorting, direction };
@@ -94,6 +99,7 @@ export const {
   editTask,
   changeTaskSorting,
   setTaskPriority,
+  setDate,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;

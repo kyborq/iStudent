@@ -6,10 +6,12 @@ import { CalendarWeek } from './CalendarWeek';
 
 type Props = {
   date: Date;
+  selected?: Date;
   style?: StyleProp<ViewStyle>;
+  onSelect?: (date: Date) => void;
 };
 
-export const Calendar = ({ date, style }: Props) => {
+export const Calendar = ({ date, selected, style, onSelect }: Props) => {
   const month = getMonthArray(date);
   const monthList = month.map((week, index) => {
     return (
@@ -18,6 +20,8 @@ export const Calendar = ({ date, style }: Props) => {
         date={date}
         week={week}
         style={{ marginBottom: index === month.length - 1 ? 0 : 8 }}
+        onSelect={onSelect}
+        selected={selected}
       />
     );
   });

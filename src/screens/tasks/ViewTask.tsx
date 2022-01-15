@@ -14,6 +14,7 @@ import {
   completeTask,
   deleteTask,
   permanentDeleteTask,
+  setDate,
   setTaskPriority,
   TTask,
 } from '../../redux/tasksSlice';
@@ -22,6 +23,7 @@ import { IconButton } from '../../components/inputs/IconButton';
 import { COLORS } from '../../colors';
 import { ModalView } from '../../components/modals/ModalView';
 import { Calendar } from '../../components/calendar/Calendar';
+import { getDate, getMonthName } from '../../components/calendar/calendarUtils';
 
 export const ViewTask = () => {
   const [dateModalVisible, setDateModalVisible] = useState(false);
@@ -42,6 +44,10 @@ export const ViewTask = () => {
 
   const handleChangePriority = () => {
     dispatch(setTaskPriority({ id: task.id, priority: !task.priority }));
+  };
+
+  const handleSetDate = (d: Date) => {
+    dispatch(setDate({ id: task.id, date: d.valueOf() }));
   };
 
   const handleEditTask = () => {
@@ -99,7 +105,9 @@ export const ViewTask = () => {
             <InfoLine
               icon="book"
               label="Срок выполнения"
-              text="Без срока"
+              text={
+                task.date ? `До ${getDate(new Date(task.date))}` : 'Без срока'
+              }
               disabled={task.status}
               onPress={() => setDateModalVisible(!dateModalVisible)}
             />
@@ -126,7 +134,9 @@ export const ViewTask = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Календарь</Text>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            {getMonthName(new Date(task.date || date.valueOf()))}
+          </Text>
           <View style={{ flexDirection: 'row' }}>
             <IconButton
               icon="archive"
@@ -142,8 +152,10 @@ export const ViewTask = () => {
           </View>
         </View>
         <Calendar
-          date={new Date(date)}
+          date={task.date ? new Date(task.date) : new Date()}
           style={{ marginHorizontal: 24, marginBottom: 16 }}
+          onSelect={handleSetDate}
+          selected={task.date ? new Date(task.date) : new Date()}
         />
       </ModalView>
 

@@ -7,16 +7,26 @@ import { getDate } from './calendarUtils';
 type Props = {
   week: Date[];
   date: Date;
+  selected?: Date;
   style?: StyleProp<ViewStyle>;
+  onSelect?: (date: Date) => void;
 };
 
-export const CalendarWeek = ({ week, style, date }: Props) => {
+export const CalendarWeek = ({
+  week,
+  style,
+  date,
+  selected,
+  onSelect,
+}: Props) => {
   const weekList = week.map((d) => (
     <CalendarDay
       key={uuid4()}
-      label={getDate(d, 'day')}
+      date={d}
       active={getDate(date, 'month') === getDate(d, 'month')}
-      current={getDate(date) === getDate(d)}
+      current={getDate(new Date()) === getDate(d)}
+      selected={getDate(selected || date) === getDate(d)}
+      onPress={onSelect}
     />
   ));
 

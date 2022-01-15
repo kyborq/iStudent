@@ -85,3 +85,22 @@ export const getMonthArray = (date: Date) => {
 
   return month;
 };
+
+export const monthNames = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
+
+export const getMonthName = (date: Date) => {
+  return monthNames[date.getMonth()];
+};
