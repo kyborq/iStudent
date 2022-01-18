@@ -14,6 +14,8 @@ import search from './search.svg';
 import clear from './clear.svg';
 import down from './down.svg';
 import textInfo from './text-info.svg';
+import chevronRight from './chevron-right.svg';
+import chevronLeft from './chevron-left.svg';
 
 export const icons = {
   check,
@@ -32,4 +34,6 @@ export const icons = {
   clear,
   down,
   textInfo,
+  chevronRight,
+  chevronLeft,
 };
