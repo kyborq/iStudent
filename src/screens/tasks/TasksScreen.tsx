@@ -75,7 +75,9 @@ export const TasksScreen = () => {
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        stickyHeaderIndices={[1]}>
         <Input
           icon="search"
           placeholder="Поиск"
@@ -84,14 +86,16 @@ export const TasksScreen = () => {
           onChange={setSearchQuery}
           style={{ marginBottom: 16 }}
         />
-        <TaskSortPanel
-          completed={tasks.filter((t) => t.status && !t.deleted).length}
-          archived={tasks.filter((t) => t.deleted && !t.status).length}
-          showCompleted={showCompleted}
-          showArchived={showArchived}
-          onShowArchived={() => setShowArchived(!showArchived)}
-          onShowCompleted={() => setShowCompleted(!showCompleted)}
-        />
+        <View style={{ backgroundColor: '#fff' }}>
+          <TaskSortPanel
+            completed={tasks.filter((t) => t.status && !t.deleted).length}
+            archived={tasks.filter((t) => t.deleted && !t.status).length}
+            showCompleted={showCompleted}
+            showArchived={showArchived}
+            onShowArchived={() => setShowArchived(!showArchived)}
+            onShowCompleted={() => setShowCompleted(!showCompleted)}
+          />
+        </View>
         {taskList}
         {tasksCount === 0 && (
           <Empty text="Список задач пуст" icon="checkLine" />

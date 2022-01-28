@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-interface ITasksSlice {
+interface IRootSlice {
   date: number;
 }
 
-const initialState: ITasksSlice = {
+const initialState: IRootSlice = {
   date: new Date().valueOf(),
 };
 
