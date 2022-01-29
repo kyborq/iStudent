@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
-import { COLORS } from '../colors';
 import { Icon, TIcon } from './Icon';
-import { IconButton } from './inputs/IconButton';
 
 type Props = {
   label: string;
@@ -24,13 +22,12 @@ export const InfoLine = ({
   return (
     <TouchableNativeFeedback
       background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', false)}
-      disabled={!onPress}
+      disabled={!onPress || disabled}
       onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.icon}>
           {icon && <Icon icon={icon} color="#c7c7c7" />}
         </View>
-
         <View style={styles.content}>
           <Text style={styles.label}>{label}</Text>
           {!!text && (
@@ -47,6 +44,11 @@ export const InfoLine = ({
           )}
           {children && <View style={{ marginTop: 8 }}>{children}</View>}
         </View>
+        {!disabled && onPress && (
+          <View style={{ justifyContent: 'center' }}>
+            <Icon icon="chevronRight" color="#c7c7c7" />
+          </View>
+        )}
       </View>
     </TouchableNativeFeedback>
   );
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   action: {
-    // justifyContent: 'center',
     paddingTop: 8,
     marginLeft: 16,
   },
