@@ -68,6 +68,26 @@ export const endOfMonth = (date: Date) => {
   return new Date(y, m + 1, 0);
 };
 
+export const getWeekArray = (date: number) => {
+  const newDate = new Date(date);
+
+  const start = startOfWeek(newDate);
+  const end = endOfWeek(newDate);
+
+  let currentDate = new Date(start.valueOf());
+
+  let index = 0;
+  let week = [];
+
+  while (currentDate <= end) {
+    week.push(currentDate.valueOf());
+    currentDate = addDateDays(currentDate, 1);
+    index++;
+  }
+
+  return week;
+};
+
 export const getMonthArray = (date: number) => {
   const newDate = new Date(date);
 
@@ -111,4 +131,11 @@ export const monthNames = [
 export const getMonthName = (date: number) => {
   const newDate = new Date(date).getMonth();
   return monthNames[newDate];
+};
+
+export const weekNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+
+export const getWeekName = (date: number) => {
+  const newDate = new Date(date).getDay();
+  return weekNames[newDate];
 };

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavBar } from './NavBar';
 import { SubjectsScreen } from '../../screens/SubjectsScreen';
 import { TasksScreen } from '../../screens/tasks/TasksScreen';
-import { ScheduleScreen } from '../../screens/ScheduleScreen';
+import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
 import { EditTask } from '../../screens/tasks/EditTask';
 import { ViewTask } from '../../screens/tasks/ViewTask';
 
