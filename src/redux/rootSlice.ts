@@ -12,10 +12,15 @@ const initialState: IRootSlice = {
 export const rootSlice = createSlice({
   name: 'root',
   initialState,
-  reducers: {},
+  reducers: {
+    setMainDate(state, action: PayloadAction<{ date: number }>) {
+      const { date } = action.payload;
+      state.date = date;
+    },
+  },
 });
 
-// export const {} = rootSlice.actions;
+export const { setMainDate } = rootSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;
 

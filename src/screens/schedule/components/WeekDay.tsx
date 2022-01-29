@@ -37,7 +37,9 @@ export const WeekDay = ({
           backgroundColor: COLORS.primary5A9EEE,
         },
       ]}>
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', true)}
+        onPress={onPress}>
         <View style={styles.container}>
           <Text style={[styles.label, selected && { color: '#fff' }]}>
             {day}

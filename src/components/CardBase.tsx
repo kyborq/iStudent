@@ -12,7 +12,7 @@ export const CardBase = ({ children, onPress }: CardBaseProps) => {
       <TouchableNativeFeedback
         onPress={onPress}
         background={TouchableNativeFeedback.Ripple(
-          'rgba(0, 0, 0, 0.05)',
+          'rgba(0, 0, 0, 0.02)',
           false,
         )}>
         <View style={styles.container}>{children}</View>

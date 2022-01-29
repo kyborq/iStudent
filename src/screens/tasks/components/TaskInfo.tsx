@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import { InfoLine } from '../../../components/InfoLine';
@@ -17,6 +18,9 @@ export const TaskInfo = ({
   status,
   onShowDateModal,
 }: Props) => {
+  const currentDate = moment(date, 'DD.MM.YYYY');
+  const deadlineDate = currentDate.endOf('day').fromNow();
+
   return (
     <View>
       {!!label && (
@@ -39,7 +43,7 @@ export const TaskInfo = ({
       <InfoLine
         icon="book"
         label="Срок выполнения"
-        text={!!date ? `До ${date}` : 'Без срока'}
+        text={!!date ? `${date}` : 'Без срока'}
         disabled={status}
         onPress={() => onShowDateModal && onShowDateModal(true)}
       />

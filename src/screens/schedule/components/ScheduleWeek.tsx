@@ -9,9 +9,10 @@ import { WeekDay } from './WeekDay';
 
 type Props = {
   date: number;
+  onSelect?: (date: number) => void;
 };
 
-export const ScheduleWeek = ({ date }: Props) => {
+export const ScheduleWeek = ({ date, onSelect }: Props) => {
   const currentDate = new Date().valueOf();
 
   const week = getWeekArray(date);
@@ -22,6 +23,7 @@ export const ScheduleWeek = ({ date }: Props) => {
       style={{ marginRight: index === week.length - 1 ? 0 : 8 }}
       current={getDate(currentDate) === getDate(day)}
       selected={getDate(day) === getDate(date)}
+      onPress={() => onSelect && onSelect(day)}
     />
   ));
 
