@@ -22,7 +22,7 @@ import { ModalView } from '../../components/modals/ModalView';
 import { getDate } from '../../components/calendar/calendarUtils';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
-import { CalendarForm } from '../../components/calendar/CalendarForm';
+import { CalendarForm } from '../../components/calendar/form/CalendarForm';
 
 export const ViewTask = () => {
   const [dateModalVisible, setDateModalVisible] = useState(false);
@@ -45,8 +45,9 @@ export const ViewTask = () => {
     dispatch(setTaskPriority({ id: task.id, priority: !task.priority }));
   };
 
-  const handleSetDate = (d: Date) => {
-    dispatch(setDate({ id: task.id, date: d.valueOf() }));
+  const handleSetDate = (d: number) => {
+    dispatch(setDate({ id: task.id, date: d }));
+    setDateModalVisible(false);
   };
 
   const handleEditTask = () => {
@@ -88,7 +89,7 @@ export const ViewTask = () => {
           <TaskInfo
             label={task.label}
             description={task.description}
-            date={!!task.date ? getDate(new Date(task.date)) : ''}
+            date={!!task.date ? getDate(task.date) : ''}
             status={task.status}
             onShowDateModal={setDateModalVisible}
           />
@@ -105,11 +106,7 @@ export const ViewTask = () => {
       <ModalView
         visible={dateModalVisible}
         onClose={() => setDateModalVisible(!dateModalVisible)}>
-        <CalendarForm
-          currentDate={new Date(date)}
-          selectedDate={!!task.date ? new Date(task.date) : new Date(date)}
-          onSelectDate={handleSetDate}
-        />
+        <CalendarForm date={task.date || date} onSelectDate={handleSetDate} />
       </ModalView>
 
       {!task.deleted && (

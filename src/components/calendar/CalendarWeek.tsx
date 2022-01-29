@@ -5,28 +5,28 @@ import { CalendarDay } from './CalendarDay';
 import { getDate } from './calendarUtils';
 
 type Props = {
-  week: Date[];
-  date: Date;
-  selected?: Date;
+  week: number[];
+  selectedDate: number;
   style?: StyleProp<ViewStyle>;
-  onSelect?: (date: Date) => void;
+  onSelect?: (date: number) => void;
 };
 
 export const CalendarWeek = ({
   week,
   style,
-  date,
-  selected,
+  selectedDate,
   onSelect,
 }: Props) => {
-  const weekList = week.map((d) => (
+  const currentDate = new Date().valueOf();
+
+  const weekList = week.map((date) => (
     <CalendarDay
       key={uuid4()}
-      date={d}
-      active={getDate(date, 'month') === getDate(d, 'month')}
-      current={getDate(new Date()) === getDate(d)}
-      selected={getDate(selected || date) === getDate(d)}
+      date={date}
       onPress={onSelect}
+      current={getDate(date) === getDate(currentDate)}
+      selected={getDate(selectedDate) === getDate(date)}
+      month={true}
     />
   ));
 

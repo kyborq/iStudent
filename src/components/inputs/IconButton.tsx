@@ -9,6 +9,7 @@ type Props = {
   icon: TIcon;
   label?: string;
   color?: string;
+  size?: number;
   background?: string;
   containerStyle?: StyleProp<ViewStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
@@ -20,6 +21,7 @@ export const IconButton = ({
   color,
   containerStyle,
   buttonStyle,
+  size = 48,
   label,
   background,
   onPress,
@@ -38,7 +40,8 @@ export const IconButton = ({
             buttonStyle,
             {
               backgroundColor: background || '#fafafa',
-              width: label ? 'auto' : 48,
+              width: label ? 'auto' : size,
+              height: size,
               paddingHorizontal: label ? 16 : 0,
             },
           ]}>

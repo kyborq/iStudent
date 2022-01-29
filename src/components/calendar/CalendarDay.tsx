@@ -1,4 +1,3 @@
-import { current } from '@reduxjs/toolkit';
 import React from 'react';
 import {
   StyleProp,
@@ -9,16 +8,15 @@ import {
   ViewStyle,
 } from 'react-native';
 import { COLORS } from '../../colors';
-import { styleee } from '../../utils';
 import { getDate } from './calendarUtils';
 
 type Props = {
-  date: Date;
-  active?: boolean;
+  date: number;
+  style?: StyleProp<ViewStyle>;
   current?: boolean;
   selected?: boolean;
-  style?: StyleProp<ViewStyle>;
-  onPress?: (date: Date) => void;
+  month?: boolean;
+  onPress?: (date: number) => void;
 };
 
 export const CalendarDay = ({
@@ -26,9 +24,11 @@ export const CalendarDay = ({
   style,
   current,
   selected,
-  active,
+  month,
   onPress,
 }: Props) => {
+  const day = getDate(date, 'day');
+
   const handleSelect = () => {
     onPress && onPress(date);
   };
@@ -39,21 +39,21 @@ export const CalendarDay = ({
         <View
           style={[
             styles.day,
-
-            styleee(active, { borderColor: '#f2f2f2' }),
-            styleee(current, { borderColor: COLORS.primary5A9EEE }),
-            styleee(selected, {
+            month && { borderColor: COLORS.grayF2F2F2 },
+            current && { borderColor: COLORS.primary5A9EEE },
+            selected && {
               borderColor: COLORS.primary5A9EEE,
               backgroundColor: COLORS.primary5A9EEE,
-            }),
+            },
           ]}>
           <Text
             style={[
               styles.dayLabel,
-              styleee(current, { color: COLORS.primary5A9EEE }),
-              styleee(selected, { color: '#fff' }),
+              !month && { color: '#e2e2e2' },
+              current && { color: COLORS.primary5A9EEE },
+              selected && { color: '#fff' },
             ]}>
-            {getDate(date, 'day')}
+            {day}
           </Text>
         </View>
       </TouchableNativeFeedback>
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   day: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderWidth: 1,
     borderRadius: 8,
     justifyContent: 'center',

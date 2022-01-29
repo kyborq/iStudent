@@ -5,6 +5,13 @@ export const addDateDays = (date: Date, days: number) => {
   return newDate;
 };
 
+export const addDateMonth = (date: Date, months: number) => {
+  const newDate = new Date(date.valueOf());
+  newDate.setMonth(newDate.getMonth() + months);
+
+  return newDate;
+};
+
 export const dateRange = (startDate: Date, endDate: Date, step: number = 1) => {
   const dateArray = [];
   let currentDate = startDate;
@@ -17,10 +24,10 @@ export const dateRange = (startDate: Date, endDate: Date, step: number = 1) => {
   return dateArray;
 };
 
-export const getDate = (date: Date, format?: 'day' | 'month' | 'year') => {
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = `${date.getMonth() + 1}`.padStart(2, '0');
-  const year = date.getFullYear().toString();
+export const getDate = (date: number, format?: 'day' | 'month' | 'year') => {
+  const day = new Date(date).getDate().toString().padStart(2, '0');
+  const month = `${new Date(date).getMonth() + 1}`.padStart(2, '0');
+  const year = new Date(date).getFullYear().toString();
 
   if (format === 'day') return day;
   if (format === 'month') return month;
@@ -61,8 +68,8 @@ export const endOfMonth = (date: Date) => {
   return new Date(y, m + 1, 0);
 };
 
-export const getMonthArray = (date: Date) => {
-  const newDate = new Date(date.valueOf());
+export const getMonthArray = (date: number) => {
+  const newDate = new Date(date);
 
   const start = startOfWeek(startOfMonth(newDate));
   const end = addDateDays(endOfWeek(endOfMonth(newDate)), 1);
@@ -78,7 +85,7 @@ export const getMonthArray = (date: Date) => {
       month.push(week);
       week = [];
     }
-    week.push(currentDate);
+    week.push(currentDate.valueOf());
     currentDate = addDateDays(currentDate, 1);
     index++;
   }
@@ -101,6 +108,7 @@ export const monthNames = [
   'Декабрь',
 ];
 
-export const getMonthName = (date: Date) => {
-  return monthNames[date.getMonth()];
+export const getMonthName = (date: number) => {
+  const newDate = new Date(date).getMonth();
+  return monthNames[newDate];
 };
