@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import {
   getDate,
@@ -14,9 +14,14 @@ type Props = {
 };
 
 export const ScheduleWeek = ({ date, onSelect }: Props) => {
+  const [selectedDate, setDate] = useState(date);
   const currentDate = new Date().valueOf();
 
-  const week = getWeekArray(date);
+  useEffect(() => {
+    setDate(date);
+  }, [date]);
+
+  const week = getWeekArray(selectedDate);
   const weekList = week.map((day, index) => (
     <WeekDay
       key={uuid4()}

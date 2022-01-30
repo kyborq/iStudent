@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { uuid4 } from '../../utils';
-import { getMonthArray } from './calendarUtils';
+import { getDate, getMonthArray } from './calendarUtils';
 import { CalendarWeek } from './CalendarWeek';
 
 type Props = {
@@ -20,6 +20,7 @@ export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
         key={uuid4()}
         week={week}
         selectedDate={selectedDate}
+        month={getDate(date, 'month')}
         style={{ marginBottom: index === month.length - 1 ? 0 : 4 }}
         onSelect={onSelect}
       />

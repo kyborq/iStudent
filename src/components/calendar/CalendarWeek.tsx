@@ -6,6 +6,7 @@ import { getDate } from './calendarUtils';
 
 type Props = {
   week: number[];
+  month: string;
   selectedDate: number;
   style?: StyleProp<ViewStyle>;
   onSelect?: (date: number) => void;
@@ -15,6 +16,7 @@ export const CalendarWeek = ({
   week,
   style,
   selectedDate,
+  month,
   onSelect,
 }: Props) => {
   const currentDate = new Date().valueOf();
@@ -26,7 +28,7 @@ export const CalendarWeek = ({
       onPress={onSelect}
       current={getDate(date) === getDate(currentDate)}
       selected={getDate(selectedDate) === getDate(date)}
-      month={true}
+      month={getDate(date, 'month') === month}
     />
   ));
 
