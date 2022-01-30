@@ -16,6 +16,8 @@ import down from './down.svg';
 import textInfo from './text-info.svg';
 import chevronRight from './chevron-right.svg';
 import chevronLeft from './chevron-left.svg';
+import star from './star.svg';
+import time from './clock.svg';
 
 export const icons = {
   check,
@@ -36,4 +38,6 @@ export const icons = {
   textInfo,
   chevronRight,
   chevronLeft,
+  star,
+  time,
 };

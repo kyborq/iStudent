@@ -5,6 +5,7 @@ import { IconButton } from '../../../components/inputs/IconButton';
 
 type Props = {
   status: boolean;
+  important: boolean;
   onDelete?: () => void;
   onArchive?: () => void;
   onComplete?: () => void;
@@ -13,6 +14,7 @@ type Props = {
 
 export const TaskFooter = ({
   status,
+  important,
   onArchive,
   onComplete,
   onDelete,
@@ -26,14 +28,17 @@ export const TaskFooter = ({
             icon="trash"
             color={COLORS.dangerF26969}
             containerStyle={{ marginRight: 10 }}
+            size={54}
             onPress={onDelete}
           />
         )}
         {!status && (
           <IconButton
-            icon="info"
-            color={status ? COLORS.primary5A9EEE : COLORS.darkC7C7C7}
+            icon="star"
+            color={important ? '#fff' : COLORS.darkC7C7C7}
+            background={important ? COLORS.mediumF2BB69 : COLORS.lightFAFAFA}
             containerStyle={{ marginRight: 10 }}
+            size={54}
             onPress={onPriority}
           />
         )}
@@ -41,6 +46,7 @@ export const TaskFooter = ({
           <IconButton
             icon="archive"
             color={COLORS.darkC7C7C7}
+            size={54}
             onPress={onArchive}
           />
         )}
@@ -50,6 +56,7 @@ export const TaskFooter = ({
         color={status ? '#FFF' : COLORS.darkC7C7C7}
         background={status ? COLORS.primary5A9EEE : COLORS.lightFAFAFA}
         label={status ? 'Завершена' : 'Не завершена'}
+        size={54}
         onPress={onComplete}
       />
     </View>

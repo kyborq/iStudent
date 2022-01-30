@@ -24,6 +24,7 @@ export const Empty = ({ text, icon, onReturn, onDelete }: Props) => {
             <IconButton
               icon="addSquare"
               label="Вернуть"
+              size={54}
               color={COLORS.primary5A9EEE}
               containerStyle={styles.leftButton}
               onPress={onReturn}
@@ -33,6 +34,7 @@ export const Empty = ({ text, icon, onReturn, onDelete }: Props) => {
             <IconButton
               icon="trash"
               label="Удалить"
+              size={54}
               color={COLORS.dangerF26969}
               onPress={onDelete}
             />

@@ -111,6 +111,7 @@ export const ViewTask = () => {
 
       {!task.deleted && (
         <TaskFooter
+          important={task.priority}
           status={task.status}
           onComplete={handleCompleteTask}
           onArchive={handleDelete}

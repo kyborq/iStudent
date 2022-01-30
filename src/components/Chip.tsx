@@ -9,8 +9,7 @@ type Props = {
 
 export const Chip = ({ label, color, background }: Props) => {
   return (
-    <View
-      style={[styles.container, { backgroundColor: background || '#FAFAFA' }]}>
+    <View style={[styles.container]}>
       <Text style={[styles.label, { color: color || '#C7C7C7' }]}>{label}</Text>
     </View>
   );
@@ -18,8 +17,8 @@ export const Chip = ({ label, color, background }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    // paddingHorizontal: 8,
+    // paddingVertical: 4,
     borderRadius: 4,
     marginRight: 8,
   },

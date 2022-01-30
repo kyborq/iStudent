@@ -47,6 +47,13 @@ export const TaskInfo = ({
         disabled={status}
         onPress={() => onShowDateModal && onShowDateModal(true)}
       />
+
+      <InfoLine
+        icon="time"
+        label="Таймер"
+        text={'0 часов из 2'}
+        disabled={status}
+      />
     </View>
   );
 };

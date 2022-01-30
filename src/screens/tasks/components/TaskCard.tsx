@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../../colors';
+import { getDate } from '../../../components/calendar/calendarUtils';
 import { CardBase } from '../../../components/CardBase';
 import { Chip } from '../../../components/Chip';
 import { Icon } from '../../../components/Icon';
@@ -13,6 +14,7 @@ type Props = {
   priority?: boolean;
   subject?: string;
   description?: string;
+  date?: number;
   onPress?: () => void;
   onComplete?: () => void;
 };
@@ -23,6 +25,7 @@ export const TaskCard = ({
   description,
   deleted,
   priority,
+  date,
   subject,
   onPress,
   onComplete,
@@ -46,23 +49,26 @@ export const TaskCard = ({
             ]}>
             {title}
           </Text>
+          {priority && !status && !deleted && (
+            <Icon icon="star" color={COLORS.mediumF2BB69} />
+          )}
         </View>
         {!!description && !deleted && !status && (
           <Text numberOfLines={1} style={styles.infoText}>
             {description}
           </Text>
         )}
-        {(!!subject || priority) && !deleted && !status && (
-          <View style={{ flexDirection: 'row', marginTop: 6 }}>
-            {priority && (
-              <Chip
-                label="Важный"
-                color="#FFF"
-                background={COLORS.dangerF26969}
-              />
-            )}
+        {(!!subject || !!date) && !status && !deleted && (
+          <View style={{ flexDirection: 'row', marginTop: 8 }}>
             {!!subject && (
               <Chip label={subject} color="#C7C7C7" background={'#FAFAFA'} />
+            )}
+            {!!date && (
+              <Chip
+                label={getDate(date)}
+                color="#C7C7C7"
+                background={'#FAFAFA'}
+              />
             )}
           </View>
         )}
@@ -74,11 +80,13 @@ export const TaskCard = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   label: {
     fontSize: 16,
     fontWeight: 'bold',
     marginRight: 24,
+    flex: 1,
   },
   checkbox: {
     marginRight: 10,

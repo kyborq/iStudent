@@ -59,6 +59,7 @@ export const TasksScreen = () => {
           priority={task.priority}
           description={task.description}
           deleted={task.deleted}
+          date={task.date}
           onPress={() => handleViewTask(task.id)}
           onComplete={() => handleCompleteTask(task.id, !task.status)}
         />

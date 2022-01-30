@@ -5,6 +5,7 @@ import {
   getWeekArray,
   getWeekName,
 } from '../../../components/calendar/calendarUtils';
+import { uuid4 } from '../../../utils';
 import { WeekDay } from './WeekDay';
 
 type Props = {
@@ -18,6 +19,7 @@ export const ScheduleWeek = ({ date, onSelect }: Props) => {
   const week = getWeekArray(date);
   const weekList = week.map((day, index) => (
     <WeekDay
+      key={uuid4()}
       day={getWeekName(day)}
       number={getDate(day, 'day')}
       style={{ marginRight: index === week.length - 1 ? 0 : 8 }}
