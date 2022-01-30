@@ -28,6 +28,8 @@ export type TTask = {
   deleted?: boolean;
   priority: boolean;
   date?: number;
+  estimate?: number;
+  spend?: number;
 };
 
 interface ITasksSlice {

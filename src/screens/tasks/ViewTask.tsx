@@ -74,6 +74,15 @@ export const ViewTask = () => {
     navigation.goBack();
   };
 
+  const handleSetTimer = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Timer',
+        params: { id: task.id },
+      }),
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Header
@@ -92,6 +101,7 @@ export const ViewTask = () => {
             date={!!task.date ? getDate(task.date) : ''}
             status={task.status}
             onShowDateModal={setDateModalVisible}
+            onTimer={handleSetTimer}
           />
         ) : (
           <Empty

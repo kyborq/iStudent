@@ -9,6 +9,7 @@ type Props = {
   date?: string;
   status?: boolean;
   onShowDateModal?: (status: boolean) => void;
+  onTimer?: () => void;
 };
 
 export const TaskInfo = ({
@@ -16,6 +17,7 @@ export const TaskInfo = ({
   description,
   date,
   status,
+  onTimer,
   onShowDateModal,
 }: Props) => {
   const currentDate = moment(date, 'DD.MM.YYYY');
@@ -52,6 +54,7 @@ export const TaskInfo = ({
         icon="time"
         label="Таймер"
         text={'0 часов из 2'}
+        onPress={onTimer}
         disabled={status}
       />
     </View>
