@@ -61,5 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 16,
+    marginHorizontal: 24,
+    marginTop: 14,
   },
 });

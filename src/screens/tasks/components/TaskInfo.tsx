@@ -1,13 +1,17 @@
 import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
+import { COLORS } from '../../../colors';
 import { InfoLine } from '../../../components/InfoLine';
+import { toTime } from '../../timer/timerUtils';
 
 type Props = {
   label?: string;
   description?: string;
   date?: string;
   status?: boolean;
+  spended?: number;
+  estimate?: number;
   onShowDateModal?: (status: boolean) => void;
   onTimer?: () => void;
 };
@@ -17,6 +21,8 @@ export const TaskInfo = ({
   description,
   date,
   status,
+  spended,
+  estimate,
   onTimer,
   onShowDateModal,
 }: Props) => {
@@ -53,10 +59,29 @@ export const TaskInfo = ({
       <InfoLine
         icon="time"
         label="Таймер"
-        text={'0 часов из 2'}
+        text={`${toTime(spended || 0)} из ${toTime(estimate || 0)}`}
         onPress={onTimer}
-        disabled={status}
-      />
+        disabled={status}>
+        <View
+          style={{
+            height: 16,
+            borderRadius: 8,
+            backgroundColor: '#f2f2f2',
+            width: '100%',
+            overflow: 'hidden',
+          }}>
+          <View
+            style={{
+              width: `${((spended || 0) / (estimate || 0)) * 100}%`,
+              backgroundColor:
+                (spended || 0) > (estimate || 0)
+                  ? COLORS.dangerF26969
+                  : COLORS.primary5A9EEE,
+              height: 16,
+            }}
+          />
+        </View>
+      </InfoLine>
     </View>
   );
 };

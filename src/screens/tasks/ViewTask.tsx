@@ -96,6 +96,8 @@ export const ViewTask = () => {
       <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted ? (
           <TaskInfo
+            spended={task.spend}
+            estimate={task.estimate}
             label={task.label}
             description={task.description}
             date={!!task.date ? getDate(task.date) : ''}

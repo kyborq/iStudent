@@ -7,7 +7,7 @@ import { TasksScreen } from '../../screens/tasks/TasksScreen';
 import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
 import { EditTask } from '../../screens/tasks/EditTask';
 import { ViewTask } from '../../screens/tasks/ViewTask';
-import { TimerScreen } from '../../screens/TimerScreen';
+import { TimerScreen } from '../../screens/timer/TimerScreen';
 
 export type RootStackParamList = {
   Index: undefined;
