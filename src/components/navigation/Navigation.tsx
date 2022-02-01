@@ -8,6 +8,7 @@ import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
 import { EditTask } from '../../screens/tasks/EditTask';
 import { ViewTask } from '../../screens/tasks/ViewTask';
 import { TimerScreen } from '../../screens/timer/TimerScreen';
+import { HomeScreen } from '../../screens/home/HomeScreen';
 
 export type RootStackParamList = {
   Index: undefined;
@@ -27,6 +28,11 @@ export const TabsNavigation = () => {
         tabBarHideOnKeyboard: true,
       }}
       tabBar={(props) => <NavBar {...props} />}>
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ title: 'Главная' }}
+      />
       <Tab.Screen
         name="SubjectsScreen"
         component={SubjectsScreen}

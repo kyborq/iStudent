@@ -38,8 +38,8 @@ export const IconButton = ({
           style={[
             styles.button,
             buttonStyle,
+            !!background && { backgroundColor: background },
             {
-              backgroundColor: background || '#fafafa',
               width: label ? 'auto' : size,
               height: size,
               paddingHorizontal: label ? 16 : 0,

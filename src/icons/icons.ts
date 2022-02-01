@@ -18,6 +18,8 @@ import chevronRight from './chevron-right.svg';
 import chevronLeft from './chevron-left.svg';
 import star from './star.svg';
 import time from './clock.svg';
+import home from './home.svg';
+import settings from './settings.svg';
 
 export const icons = {
   check,
@@ -40,4 +42,6 @@ export const icons = {
   chevronLeft,
   star,
   time,
+  home,
+  settings,
 };

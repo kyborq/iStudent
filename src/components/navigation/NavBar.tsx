@@ -9,6 +9,7 @@ const TabBarIcons: { [key: string]: string } = {
   TasksScreen: 'check',
   SubjectsScreen: 'book',
   ScheduleScreen: 'calendar',
+  HomeScreen: 'home',
 };
 
 export const NavBar = ({
@@ -45,8 +46,8 @@ export const NavBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 32,
-    paddingVertical: 18,
+    paddingHorizontal: 24,
+    paddingVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#fff',
