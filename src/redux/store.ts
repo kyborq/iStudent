@@ -5,15 +5,15 @@ import {
   combineReducers,
 } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import tasksReducer from './tasksSlice';
-import rootReducer from './rootSlice';
+import tasksSlice from './tasksSlice';
+import settingsSlice from './settingsSlice';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
-  tasks: tasksReducer,
-  root: rootReducer,
+  tasks: tasksSlice,
+  settings: settingsSlice,
 });
 
 const persistConfig = {

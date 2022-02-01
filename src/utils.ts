@@ -50,3 +50,10 @@ export const styleee = (
   }
   return null;
 };
+
+export const getOrDefault = (value: string, def: string) => {
+  if (value === '') {
+    return def;
+  }
+  return value;
+};

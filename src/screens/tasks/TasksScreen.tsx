@@ -5,8 +5,8 @@ import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { completeTask, ETaskSorting, TTask } from '../../redux/tasksSlice';
-import { getKeyByValue, sort } from '../../utils';
+import { ETaskSorting, TTask } from '../../redux/tasksSlice';
+import { getKeyByValue, sort, uuid4 } from '../../utils';
 import { TaskCard } from './components/TaskCard';
 import { TaskSortPanel } from './components/TaskSortPanel';
 
@@ -37,7 +37,7 @@ export const TasksScreen = () => {
   };
 
   const handleCompleteTask = (id: string, value: boolean) => {
-    dispatch(completeTask({ id, value }));
+    // dispatch(completeTask({ id, value }));
   };
 
   const sortedList = sort(
@@ -46,39 +46,28 @@ export const TasksScreen = () => {
     sorting.direction === 1 ? true : false,
   ) as TTask[];
   const taskList = sortedList.map((task) => {
-    if (
-      task.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (!task.deleted || showArchived) &&
-      (!task.status || showCompleted)
-    )
+    if (task.title.toLowerCase().includes(searchQuery.toLowerCase()))
       return (
         <TaskCard
-          key={task.id}
-          title={task.label}
-          status={task.status}
-          priority={task.priority}
-          description={task.description}
-          deleted={task.deleted}
-          date={task.date}
+          key={uuid4()}
+          task={task}
           onPress={() => handleViewTask(task.id)}
-          onComplete={() => handleCompleteTask(task.id, !task.status)}
+          onComplete={() => handleCompleteTask(task.id, !task.completed)}
         />
       );
   });
 
-  const tasksCount = tasks.filter(
-    (t) =>
-      t.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (!t.deleted || showArchived) &&
-      (!t.status || showCompleted),
-  ).length;
+  // const tasksCount = tasks.filter(
+  //   (t) =>
+  //     t.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
+  //     (!t.deleted || showArchived) &&
+  //     (!t.status || showCompleted),
+  // ).length;
 
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
-      <ScrollView
-        contentContainerStyle={styles.content}
-        stickyHeaderIndices={[1]}>
+      <ScrollView contentContainerStyle={styles.content}>
         <Input
           icon="search"
           placeholder="Поиск"
@@ -88,19 +77,19 @@ export const TasksScreen = () => {
           style={{ marginBottom: 16 }}
         />
         <View style={{ backgroundColor: '#fff' }}>
-          <TaskSortPanel
+          {/* <TaskSortPanel
             completed={tasks.filter((t) => t.status && !t.deleted).length}
             archived={tasks.filter((t) => t.deleted && !t.status).length}
             showCompleted={showCompleted}
             showArchived={showArchived}
             onShowArchived={() => setShowArchived(!showArchived)}
             onShowCompleted={() => setShowCompleted(!showCompleted)}
-          />
+          /> */}
         </View>
         {taskList}
-        {tasksCount === 0 && (
+        {/* {tasksCount === 0 && (
           <Empty text="Список задач пуст" icon="checkLine" />
-        )}
+        )} */}
       </ScrollView>
     </View>
   );
@@ -113,6 +102,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 24,
+    paddingBottom: 24,
     flexGrow: 1,
   },
 });

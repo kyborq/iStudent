@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleProp,
   StyleSheet,
@@ -31,6 +31,16 @@ export const Input = ({
   clearInput,
   onChange,
 }: Props) => {
+  const [text, setText] = useState(value || '');
+
+  const handleSubmit = () => {
+    onChange && onChange(text);
+  };
+
+  useEffect(() => {
+    setText(value || '');
+  }, [value]);
+
   return (
     <View style={[styles.container, style]}>
       {!!label && <Text style={styles.label}>{label}</Text>}
@@ -49,8 +59,9 @@ export const Input = ({
           placeholder={placeholder}
           style={styles.input}
           multiline={multiline}
-          value={value}
-          onChangeText={onChange}
+          value={text}
+          onChangeText={setText}
+          onEndEditing={handleSubmit}
         />
         {clearInput && value !== '' && (
           <IconButton

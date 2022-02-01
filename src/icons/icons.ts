@@ -20,6 +20,7 @@ import star from './star.svg';
 import time from './clock.svg';
 import home from './home.svg';
 import settings from './settings.svg';
+import user from './user.svg';
 
 export const icons = {
   check,
@@ -44,4 +45,5 @@ export const icons = {
   time,
   home,
   settings,
+  user,
 };

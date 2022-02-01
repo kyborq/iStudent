@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleProp, Text, ViewStyle } from 'react-native';
+import { StyleProp, Text, TextStyle, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { TouchableNativeFeedback, View } from 'react-native';
-import { COLORS } from '../../colors';
+import { COLORS, TOUCHABLE_COLOR } from '../../colors';
+import { useAppSelector } from '../../redux/store';
 import { Icon, TIcon } from '../Icon';
 
 type Props = {
   icon: TIcon;
   label?: string;
-  color?: string;
   size?: number;
-  background?: string;
+  primary?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
   onPress?: () => void;
@@ -18,42 +18,59 @@ type Props = {
 
 export const IconButton = ({
   icon,
-  color,
+  label,
+  size = 48,
+  primary,
   containerStyle,
   buttonStyle,
-  size = 48,
-  label,
-  background,
   onPress,
 }: Props) => {
+  const color = useAppSelector((state) => state.settings.theme);
+
+  const primaryTheme = {
+    text: {
+      color: '#FFF',
+    },
+    container: {
+      backgroundColor: color,
+    },
+  };
+
+  const defaultTheme = {
+    text: {
+      color: color,
+    },
+    container: {
+      backgroundColor: COLORS.lightFAFAFA,
+    },
+  };
+
+  const styleWithLabel: StyleProp<ViewStyle> = {
+    paddingHorizontal: 16,
+  };
+
   return (
-    <View style={[styles.container, containerStyle]}>
-      <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple(
-          'rgba(0, 0, 0, 0.05)',
-          false,
-        )}
-        onPress={onPress}>
+    <View
+      style={[
+        styles.container,
+        containerStyle,
+        { borderRadius: Math.round(size / 2) },
+      ]}>
+      <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
         <View
           style={[
             styles.button,
             buttonStyle,
-            !!background && { backgroundColor: background },
-            {
-              width: label ? 'auto' : size,
-              height: size,
-              paddingHorizontal: label ? 16 : 0,
-            },
+            primary ? primaryTheme.container : defaultTheme.container,
+            !!label && styleWithLabel,
           ]}>
-          <Icon icon={icon} color={color} />
+          <Icon icon={icon} color={!primary ? color : '#FFF'} />
           {!!label && (
             <Text
-              style={{
-                fontSize: 12,
-                color: color,
-                marginLeft: 6,
-                fontWeight: 'bold',
-              }}>
+              style={[
+                styles.label,
+                primary ? primaryTheme.text : defaultTheme.text,
+              ]}>
               {label}
             </Text>
           )}
@@ -70,10 +87,16 @@ const styles = StyleSheet.create({
   },
   button: {
     flexDirection: 'row',
-    width: 48,
+    minWidth: 48,
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.lightFAFAFA,
+  },
+  label: {
+    fontSize: 12,
+    marginLeft: 6,
+    marginRight: 6,
+    fontWeight: 'bold',
   },
 });

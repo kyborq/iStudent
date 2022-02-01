@@ -33,9 +33,8 @@ export const EditTask = () => {
   const [taskDraft, setTaskDraft] = useState<TTask>(
     task || {
       id: uuid4(),
-      label: '',
+      title: '',
       status: false,
-      priority: false,
     },
   );
 
@@ -69,18 +68,10 @@ export const EditTask = () => {
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           label="Задача"
-          placeholder="Название"
-          value={taskDraft.label}
-          onChange={(value) => setTaskDraft({ ...taskDraft, label: value })}
-        />
-        <Input
-          label="Описание задачи"
-          placeholder="Описание"
+          placeholder="Приготовить еду"
           multiline
-          value={taskDraft.description}
-          onChange={(value) =>
-            setTaskDraft({ ...taskDraft, description: value })
-          }
+          value={taskDraft.title}
+          onChange={(value) => setTaskDraft({ ...taskDraft, title: value })}
         />
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row' }}>

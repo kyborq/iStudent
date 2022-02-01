@@ -1,3 +1,5 @@
+import { TouchableNativeFeedback } from 'react-native';
+
 export const COLORS = {
   primary5A9EEE: '#5A9EEE',
   dangerF26969: '#F26969',
@@ -7,3 +9,8 @@ export const COLORS = {
   grayF2F2F2: '#F2F2F2',
   darkC7C7C7: '#C7C7C7',
 };
+
+export const TOUCHABLE_COLOR = TouchableNativeFeedback.Ripple(
+  'rgba(0, 0, 0, 0.05)',
+  false,
+);

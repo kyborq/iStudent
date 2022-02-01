@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
 import { COLORS } from '../../colors';
+import { useAppSelector } from '../../redux/store';
 
 type Props = {
   checked?: boolean;
@@ -8,14 +9,12 @@ type Props = {
 };
 
 export const Check = ({ checked, onPress }: Props) => {
+  const color = useAppSelector((state) => state.settings.theme);
+
   return (
     <View style={styles.overflow}>
       <TouchableNativeFeedback onPress={onPress}>
-        <View
-          style={[
-            styles.container,
-            checked && { backgroundColor: COLORS.primary5A9EEE },
-          ]}>
+        <View style={[styles.container, checked && { backgroundColor: color }]}>
           {checked && <View style={styles.checkmark} />}
         </View>
       </TouchableNativeFeedback>
@@ -30,14 +29,14 @@ const styles = StyleSheet.create({
     alignSelf: 'baseline',
   },
   container: {
-    width: 28,
-    height: 28,
+    width: 24,
+    height: 24,
     backgroundColor: '#f1f1f1',
     borderRadius: 6,
   },
   checkmark: {
-    marginHorizontal: 7,
-    marginVertical: 10,
+    marginHorizontal: 5,
+    marginVertical: 7,
     width: 14,
     height: 6,
     borderBottomColor: '#fff',

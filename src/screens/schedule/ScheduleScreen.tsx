@@ -7,14 +7,13 @@ import { ScheduleWeek } from './components/ScheduleWeek';
 import { ScheduleTasks } from './components/ScheduleTasks';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addDateDays, getDate } from '../../components/calendar/calendarUtils';
-import { setMainDate } from '../../redux/rootSlice';
 import { DateSelect } from './components/DateSelect';
 
 export const ScheduleScreen = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
-  const date = useAppSelector((state) => state.root.date);
+  const date = new Date().valueOf();
   const tasks = useAppSelector((state) =>
     state.tasks.tasks.filter(
       (task) =>
@@ -25,7 +24,7 @@ export const ScheduleScreen = () => {
   );
 
   const setDate = (date: number) => {
-    dispatch(setMainDate({ date }));
+    // dispatch(setMainDate({ date }));
   };
 
   const showTask = (id: string) => {
@@ -40,13 +39,13 @@ export const ScheduleScreen = () => {
   const nextDay = () => {
     const currentDate = new Date(date);
     const newDate = addDateDays(currentDate, 1);
-    dispatch(setMainDate({ date: newDate.valueOf() }));
+    // dispatch(setMainDate({ date: newDate.valueOf() }));
   };
 
   const prevDay = () => {
     const currentDate = new Date(date);
     const newDate = addDateDays(currentDate, -1);
-    dispatch(setMainDate({ date: newDate.valueOf() }));
+    // dispatch(setMainDate({ date: newDate.valueOf() }));
   };
 
   return (
