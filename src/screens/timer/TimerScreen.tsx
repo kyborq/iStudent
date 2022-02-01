@@ -1,19 +1,17 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../../colors';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { Button } from '../../components/inputs/Button';
-import { IconButton } from '../../components/inputs/IconButton';
-import { Input } from '../../components/inputs/Input';
 import { ModalView } from '../../components/modals/ModalView';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import useInterval from '../../hooks/useInterval';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { editTask, TTask } from '../../redux/tasksSlice';
+import { ProgressBar } from './components/ProgressBar';
 import { TimerForm } from './components/TimerForm';
-import { getTime, toTime } from './timerUtils';
+import { getTimeString, toTime } from './timerUtils';
 
 export const TimerScreen = () => {
   const [timerModal, setTimerModal] = useState(false);
@@ -32,6 +30,15 @@ export const TimerScreen = () => {
     (state) => state.tasks.tasks.filter((task) => task.id === id)[0],
   );
   const [spendedTime, setSpended] = useState(task.spend || 0);
+
+  // const outOftime = (task.estimate && spendedTime > task.estimate) || false;
+  const estimateTime = (task.estimate && task.estimate - spendedTime) || 0;
+  const spendEstimatedTime =
+    (task.estimate && spendedTime - task.estimate) || 0;
+
+  const estTime = getTimeString(task.estimate || 0, '');
+  const time = getTimeString(estimateTime, 'Осталось');
+  const outTime = getTimeString(spendEstimatedTime, 'Просрочено на');
 
   useEffect(() => {
     handleSetSpended(spendedTime);
@@ -58,6 +65,11 @@ export const TimerScreen = () => {
     dispatch(editTask(newTask));
   };
 
+  const handleStartTimer = () => {
+    if (task.estimate !== 0) setTimerStart(!timerStart);
+    if (task.estimate === 0) setTimerModal(true);
+  };
+
   return (
     <View style={styles.container}>
       <Header label="Таймер" onBack={handleBack} />
@@ -68,47 +80,21 @@ export const TimerScreen = () => {
       <InfoLine
         icon="time"
         label="Время выполнения"
-        text={toTime(task.estimate || 0)}
+        text={estTime}
         onPress={() => setTimerModal(true)}
       />
-      <InfoLine
-        label="Прогресс"
-        text={
-          spendedTime > (task.estimate || 0)
-            ? `Просрочено на ${
-                getTime(spendedTime - (task.estimate || 0)).hours
-              }ч. ${getTime(spendedTime - (task.estimate || 0)).minutes}м. и ${
-                getTime(spendedTime - (task.estimate || 0)).seconds
-              }с.`
-            : `Осталось ${
-                getTime((task.estimate || 0) - spendedTime).hours
-              } ч. и ${getTime((task.estimate || 0) - spendedTime).minutes} м`
-        }>
-        <View
-          style={{
-            height: 16,
-            borderRadius: 8,
-            backgroundColor: '#f2f2f2',
-            width: '100%',
-            overflow: 'hidden',
-          }}>
-          <View
-            style={{
-              width: `${(spendedTime / (task.estimate || 0)) * 100}%`,
-              backgroundColor:
-                spendedTime > (task.estimate || 0)
-                  ? COLORS.dangerF26969
-                  : COLORS.primary5A9EEE,
-              height: 16,
-            }}
-          />
-        </View>
-      </InfoLine>
+      {task.estimate !== 0 && (
+        <InfoLine
+          label="Прогресс"
+          text={spendedTime > (task.estimate || 0) ? outTime : time}>
+          <ProgressBar value={spendedTime} max={task.estimate || 0} />
+        </InfoLine>
+      )}
 
       <View style={styles.footer}>
         <Button
           label={timerStart ? 'Остановить' : 'Запуск'}
-          onPress={() => setTimerStart(!timerStart)}
+          onPress={handleStartTimer}
         />
       </View>
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { COLORS } from '../colors';
 import { Icon, TIcon } from './Icon';
 
 type Props = {
   label: string;
   text?: string;
   icon?: TIcon;
+  alert?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
   onPress?: () => void;
@@ -17,6 +19,7 @@ export const InfoLine = ({
   label,
   disabled,
   children,
+  alert,
   onPress,
 }: Props) => {
   return (
@@ -38,6 +41,7 @@ export const InfoLine = ({
                   textDecorationLine: disabled ? 'line-through' : 'none',
                   color: disabled ? '#c7c7c7' : '#000',
                 },
+                alert && { color: COLORS.dangerF26969 },
               ]}>
               {text}
             </Text>
@@ -89,6 +93,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    paddingRight: 32,
   },
   action: {
     paddingTop: 8,
