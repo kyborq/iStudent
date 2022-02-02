@@ -5,11 +5,13 @@ import { RootState } from './store';
 export interface ISettingsSlice {
   name: string;
   theme: string;
+  labels: boolean;
 }
 
 const initialState: ISettingsSlice = {
   name: 'Гость',
   theme: '#5A9EEE',
+  labels: true,
 };
 
 export const settingsSlice = createSlice({
@@ -19,6 +21,7 @@ export const settingsSlice = createSlice({
     updateSettings(state, action: PayloadAction<ISettingsSlice>) {
       state.name = action.payload.name;
       state.theme = action.payload.theme;
+      state.labels = action.payload.labels;
     },
   },
 });

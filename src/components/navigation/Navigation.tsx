@@ -35,22 +35,24 @@ export const TabsNavigation = () => {
         component={HomeScreen}
         options={{ title: 'Главная' }}
       />
+
+      <Tab.Screen
+        name="SubjectsScreen"
+        component={SubjectsScreen}
+        options={{ title: 'Предметы' }}
+      />
+
       <Tab.Screen
         name="TasksScreen"
         component={TasksScreen}
         options={{ title: 'Задачи' }}
       />
-      {/* <Tab.Screen
-        name="SubjectsScreen"
-        component={SubjectsScreen}
-        options={{ title: 'Предметы' }}
-      />
-      
+
       <Tab.Screen
         name="ScheduleScreen"
         component={ScheduleScreen}
         options={{ title: 'Расписание' }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };

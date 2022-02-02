@@ -34,7 +34,7 @@ export const EditTask = () => {
     task || {
       id: uuid4(),
       title: '',
-      status: false,
+      completed: false,
     },
   );
 
@@ -79,14 +79,14 @@ export const EditTask = () => {
             label={id ? 'Изменить' : 'Сохранить'}
             onPress={handleSave}
             style={{ flex: 1 }}
+            primary
           />
           {id && (
             <Button
               icon="archive"
               onPress={handleDelete}
-              background="#fafafa"
               style={{ marginLeft: 16 }}
-              color="#c7c7c7"
+              primary
             />
           )}
         </View>

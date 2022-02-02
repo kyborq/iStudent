@@ -12,10 +12,10 @@ type Props = {
 };
 
 export const NavButton = ({ icon, label, active, onPress }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const { theme, labels } = useAppSelector((state) => state.settings);
 
   const activeLabelStyle = {
-    color: active ? color : COLORS.darkC7C7C7,
+    color: active ? theme : COLORS.darkC7C7C7,
   };
 
   return (
@@ -24,8 +24,8 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
       onPress={onPress}
       background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', true)}>
       <View style={styles.container}>
-        <Icon icon={icon} color={active ? color : COLORS.darkC7C7C7} />
-        {!!label && (
+        <Icon icon={icon} color={active ? theme : COLORS.darkC7C7C7} />
+        {labels && !!label && (
           <Text style={[styles.label, activeLabelStyle]}>{label}</Text>
         )}
       </View>
@@ -35,10 +35,11 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 100,
+    width: 74,
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 8,
   },
   label: {
     fontSize: 12,
