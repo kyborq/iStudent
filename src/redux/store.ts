@@ -10,10 +10,12 @@ import settingsSlice from './settingsSlice';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
+import subjectSlice from './subjectsSlice';
 
 const reducers = combineReducers({
   tasks: tasksSlice,
   settings: settingsSlice,
+  subjects: subjectSlice,
 });
 
 const persistConfig = {

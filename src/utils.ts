@@ -57,3 +57,16 @@ export const getOrDefault = (value: string, def: string) => {
   }
   return value;
 };
+
+export const getRandomColor = () => {
+  const color = 'hsl(' + Math.random() * 360 + ', 70%, 70%)';
+  return color;
+};
+
+export const getTextLetters = (s: string) => {
+  return s
+    .toUpperCase()
+    .split(' ')
+    .map((w) => w[0])
+    .join('');
+};

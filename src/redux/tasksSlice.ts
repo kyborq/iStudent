@@ -30,6 +30,7 @@ export type TTask = {
   created?: string;
   deadline?: string;
   spended?: string;
+  subject?: string;
 };
 
 interface ITasksSlice {
