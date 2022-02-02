@@ -33,12 +33,13 @@ export const ViewTask = () => {
 
   const handleDelete = () => {
     dispatch(deleteTask(task.id));
-    navigation.goBack();
+    handleBack();
   };
 
   const handleArchive = () => {
     const newTask: TTask = { ...task, archived: !task.archived };
     dispatch(editTask(newTask));
+    !task.archived && handleBack();
   };
 
   const handleEditTask = () => {
@@ -73,7 +74,16 @@ export const ViewTask = () => {
       />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <TaskInfo task={task} />
+        {!task.archived ? (
+          <TaskInfo task={task} />
+        ) : (
+          <Empty
+            text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"
+            icon="archive"
+            onDelete={handleDelete}
+            onReturn={handleArchive}
+          />
+        )}
       </ScrollView>
 
       {/* <ScrollView contentContainerStyle={styles.content}>
