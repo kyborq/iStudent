@@ -18,8 +18,6 @@ import { TaskInfo } from './components/TaskInfo';
 import { CalendarForm } from '../../components/calendar/form/CalendarForm';
 
 export const ViewTask = () => {
-  const [dateModalVisible, setDateModalVisible] = useState(false);
-
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const route = useRoute<RouteProp<RootStackParamList, 'ViewTask'>>();
@@ -28,21 +26,20 @@ export const ViewTask = () => {
   const { tasks } = useAppSelector((state) => state.tasks);
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
 
-  // const { date } = useAppSelector((state) => state.root);
-
-  const completeTask = () => {
+  const handleComplete = () => {
     const newTask: TTask = { ...task, completed: !task.completed };
     dispatch(editTask(newTask));
   };
 
-  // const handleChangePriority = () => {
-  //   dispatch(setTaskPriority({ id: task.id, priority: !task.priority }));
-  // };
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id));
+    navigation.goBack();
+  };
 
-  // const handleSetDate = (d: number) => {
-  //   dispatch(setDate({ id: task.id, date: d }));
-  //   setDateModalVisible(false);
-  // };
+  const handleArchive = () => {
+    const newTask: TTask = { ...task, archived: !task.archived };
+    dispatch(editTask(newTask));
+  };
 
   const handleEditTask = () => {
     navigation.dispatch(
@@ -57,17 +54,6 @@ export const ViewTask = () => {
     navigation.goBack();
   };
 
-  // const handleDelete = () => {
-  //   dispatch(deleteTask(task.id));
-  //   dispatch(completeTask({ id: task.id, value: false }));
-  //   !task.deleted && navigation.goBack();
-  // };
-
-  // const handleDeletePermanent = () => {
-  //   dispatch(permanentDeleteTask(task.id));
-  //   navigation.goBack();
-  // };
-
   const handleSetTimer = () => {
     navigation.dispatch(
       CommonActions.navigate({
@@ -81,8 +67,8 @@ export const ViewTask = () => {
     <View style={styles.container}>
       <Header
         label="Просмотр задачи"
-        actionIcon={task.completed ? 'archive' : 'edit'}
-        // onAction={task.status ? handleDelete : handleEditTask}
+        actionIcon={'edit'}
+        onAction={(!task.completed && handleEditTask) || undefined}
         onBack={handleBack}
       />
 
@@ -118,7 +104,14 @@ export const ViewTask = () => {
         <CalendarForm date={task.date || date} onSelectDate={handleSetDate} />
       </ModalView> */}
 
-      {!task.archived && <TaskFooter task={task} onComplete={completeTask} />}
+      {!task.archived && (
+        <TaskFooter
+          task={task}
+          onDelete={handleDelete}
+          onComplete={handleComplete}
+          onArchive={handleArchive}
+        />
+      )}
     </View>
   );
 };

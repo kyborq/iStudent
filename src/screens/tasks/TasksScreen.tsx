@@ -5,19 +5,18 @@ import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { ETaskSorting, TTask } from '../../redux/tasksSlice';
+import { editTask, ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { getKeyByValue, sort, uuid4 } from '../../utils';
 import { TaskCard } from './components/TaskCard';
 import { TaskSortPanel } from './components/TaskSortPanel';
 
 export const TasksScreen = () => {
-  const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const { tasks, sorting } = useAppSelector((state) => state.tasks);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [showCompleted, setShowCompleted] = useState(true);
-  const [showArchived, setShowArchived] = useState(false);
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+
+  const { tasks, sorting } = useAppSelector((state) => state.tasks);
 
   const handleAddTask = () => {
     navigation.dispatch(
@@ -36,8 +35,12 @@ export const TasksScreen = () => {
     );
   };
 
-  const handleCompleteTask = (id: string, value: boolean) => {
-    // dispatch(completeTask({ id, value }));
+  const handleCompleteTask = (task: TTask) => {
+    const newTask: TTask = {
+      ...task,
+      completed: !task.completed,
+    };
+    dispatch(editTask(newTask));
   };
 
   const sortedList = sort(
@@ -52,17 +55,10 @@ export const TasksScreen = () => {
           key={uuid4()}
           task={task}
           onPress={() => handleViewTask(task.id)}
-          onComplete={() => handleCompleteTask(task.id, !task.completed)}
+          onComplete={() => handleCompleteTask(task)}
         />
       );
   });
-
-  // const tasksCount = tasks.filter(
-  //   (t) =>
-  //     t.label.toLowerCase().includes(searchQuery.toLowerCase()) &&
-  //     (!t.deleted || showArchived) &&
-  //     (!t.status || showCompleted),
-  // ).length;
 
   return (
     <View style={styles.container}>
@@ -74,22 +70,9 @@ export const TasksScreen = () => {
           clearInput
           value={searchQuery}
           onChange={setSearchQuery}
-          style={{ marginBottom: 16 }}
+          style={{ marginBottom: 24 }}
         />
-        <View style={{ backgroundColor: '#fff' }}>
-          {/* <TaskSortPanel
-            completed={tasks.filter((t) => t.status && !t.deleted).length}
-            archived={tasks.filter((t) => t.deleted && !t.status).length}
-            showCompleted={showCompleted}
-            showArchived={showArchived}
-            onShowArchived={() => setShowArchived(!showArchived)}
-            onShowCompleted={() => setShowCompleted(!showCompleted)}
-          /> */}
-        </View>
         {taskList}
-        {/* {tasksCount === 0 && (
-          <Empty text="Список задач пуст" icon="checkLine" />
-        )} */}
       </ScrollView>
     </View>
   );

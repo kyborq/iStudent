@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
 import { Check } from '../../../components/inputs/Check';
 import { TTask } from '../../../redux/tasksSlice';
@@ -13,13 +13,13 @@ type Props = {
 export const TaskCard = ({ task, onPress, onComplete }: Props) => {
   return (
     <CardBase onPress={onPress}>
-      <View>
-        <View style={styles.container}>
-          <View style={styles.checkbox}>
-            <Check checked={task.completed} onPress={onComplete} />
-          </View>
-          <Text style={[styles.label]}>{task.title}</Text>
+      <View style={styles.container}>
+        <View style={styles.checkbox}>
+          <Check checked={task.completed} onPress={onComplete} />
         </View>
+        <Text style={[styles.label, task.completed && styles.completedStyle]}>
+          {task.title}
+        </Text>
       </View>
     </CardBase>
   );
@@ -28,7 +28,6 @@ export const TaskCard = ({ task, onPress, onComplete }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // alignItems: 'center',
   },
   label: {
     fontSize: 16,
@@ -43,5 +42,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 6,
     color: '#c7c7c7',
+  },
+  completedStyle: {
+    color: '#c7c7c7',
+    textDecorationLine: 'line-through',
   },
 });
