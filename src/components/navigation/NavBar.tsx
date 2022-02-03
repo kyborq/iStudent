@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     height: 78,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     backgroundColor: '#fff',
     overflow: 'visible',
   },

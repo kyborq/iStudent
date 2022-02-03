@@ -1,5 +1,5 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
@@ -29,21 +29,34 @@ export const EditSubject = () => {
       link: '',
     },
   );
+  const [valid, setValid] = useState<boolean>(false);
+
+  useEffect(() => {
+    setValid(isValid());
+  }, [subjectDraft]);
 
   const handleBack = () => {
     navigation.goBack();
   };
 
   const handleSave = () => {
-    if (!id) {
+    if (!id && valid) {
       dispatch(addSubject(subjectDraft));
       navigation.goBack();
     }
 
-    if (id) {
+    if (id && valid) {
       dispatch(editSubject(subjectDraft));
       navigation.goBack();
     }
+  };
+
+  const isValid = () => {
+    if (subjectDraft.title === '') {
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -85,6 +98,7 @@ export const EditSubject = () => {
             onPress={handleSave}
             style={{ flex: 1 }}
             primary
+            disabled={!valid}
           />
         </View>
       </ScrollView>

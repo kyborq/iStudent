@@ -1,5 +1,5 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
@@ -33,17 +33,23 @@ export const EditTask = () => {
     },
   );
 
+  const [valid, setValid] = useState<boolean>(false);
+
+  useEffect(() => {
+    setValid(isValid());
+  }, [taskDraft]);
+
   const handleBack = () => {
     navigation.goBack();
   };
 
   const handleSave = () => {
-    if (!id) {
+    if (!id && valid) {
       dispatch(addTask(taskDraft));
       navigation.goBack();
     }
 
-    if (id) {
+    if (id && valid) {
       dispatch(editTask(taskDraft));
       navigation.goBack();
     }
@@ -52,6 +58,14 @@ export const EditTask = () => {
   const handleDelete = () => {
     dispatch(deleteTask(id));
     navigation.goBack();
+  };
+
+  const isValid = () => {
+    if (taskDraft.title === '') {
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -63,8 +77,9 @@ export const EditTask = () => {
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           label="Задача"
-          placeholder="Приготовить еду"
+          placeholder="Подготовиться к контрольной"
           multiline
+          clearInput
           value={taskDraft.title}
           onChange={(value) => setTaskDraft({ ...taskDraft, title: value })}
         />
@@ -84,6 +99,7 @@ export const EditTask = () => {
             onPress={handleSave}
             style={{ flex: 1 }}
             primary
+            disabled={!valid}
           />
           {id && (
             <Button
@@ -91,6 +107,7 @@ export const EditTask = () => {
               onPress={handleDelete}
               style={{ marginLeft: 16 }}
               primary
+              disabled={!valid}
             />
           )}
         </View>

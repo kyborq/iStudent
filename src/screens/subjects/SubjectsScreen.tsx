@@ -1,7 +1,6 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppSelector } from '../../redux/store';
@@ -50,11 +49,10 @@ export const SubjectsScreen = () => {
           icon="search"
           placeholder="Поиск"
           value={searchQuery}
-          onChange={setSearchQuery}
+          onType={setSearchQuery}
           clearInput
           style={{ marginBottom: 24 }}
         />
-        {/* <Empty text="Список предметов пуст" icon="book" /> */}
         {subjectList}
       </ScrollView>
     </View>

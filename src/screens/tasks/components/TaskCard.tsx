@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
 import { Check } from '../../../components/inputs/Check';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';

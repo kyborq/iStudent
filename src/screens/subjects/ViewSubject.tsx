@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/native';
 import React from 'react';
 import {
-  Alert,
   Linking,
   ScrollView,
   StyleSheet,

@@ -13,6 +13,7 @@ type Props = {
   primary?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   buttonStyle?: StyleProp<ViewStyle>;
+  background?: boolean;
   onPress?: () => void;
 };
 
@@ -23,6 +24,7 @@ export const IconButton = ({
   primary,
   containerStyle,
   buttonStyle,
+  background,
   onPress,
 }: Props) => {
   const color = useAppSelector((state) => state.settings.theme);
@@ -32,7 +34,7 @@ export const IconButton = ({
       color: '#FFF',
     },
     container: {
-      backgroundColor: color,
+      backgroundColor: background ? '#fff' : color,
     },
   };
 
@@ -41,7 +43,7 @@ export const IconButton = ({
       color: color,
     },
     container: {
-      backgroundColor: COLORS.lightFAFAFA,
+      backgroundColor: background ? '#fff' : COLORS.lightFAFAFA,
     },
   };
 

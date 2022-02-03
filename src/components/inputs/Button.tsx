@@ -16,10 +16,18 @@ type Props = {
   icon?: TIcon;
   primary?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
-export const Button = ({ label, icon, onPress, style, primary }: Props) => {
+export const Button = ({
+  label,
+  icon,
+  onPress,
+  style,
+  primary,
+  disabled,
+}: Props) => {
   const color = useAppSelector((state) => state.settings.theme);
 
   const primaryTheme = {
@@ -40,12 +48,29 @@ export const Button = ({ label, icon, onPress, style, primary }: Props) => {
     },
   };
 
+  const disabledTheme = {
+    text: {
+      color: '#ddd',
+    },
+    container: {
+      backgroundColor: COLORS.lightFAFAFA,
+    },
+  };
+
   const theme = primary ? primaryTheme : defaultTheme;
 
   return (
     <View style={[styles.container, style]}>
-      <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
-        <View style={[styles.button, theme.container]}>
+      <TouchableNativeFeedback
+        background={TOUCHABLE_COLOR}
+        disabled={disabled}
+        onPress={onPress}>
+        <View
+          style={[
+            styles.button,
+            theme.container,
+            disabled && disabledTheme.container,
+          ]}>
           {icon && (
             <Icon
               icon={icon}
@@ -53,7 +78,16 @@ export const Button = ({ label, icon, onPress, style, primary }: Props) => {
               containerStyle={[styles.icon, { marginRight: !!label ? 10 : 0 }]}
             />
           )}
-          {!!label && <Text style={[styles.label, theme.text]}>{label}</Text>}
+          {!!label && (
+            <Text
+              style={[
+                styles.label,
+                theme.text,
+                disabled && disabledTheme.text,
+              ]}>
+              {label}
+            </Text>
+          )}
         </View>
       </TouchableNativeFeedback>
     </View>

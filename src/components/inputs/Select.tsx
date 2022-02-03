@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { TOUCHABLE_COLOR } from '../../colors';
 import { uuid4 } from '../../utils';
+import { Icon } from '../Icon';
 import { ModalView } from '../modals/ModalView';
 import { SelectItem, TItem } from './SelectItem';
 
@@ -42,6 +43,7 @@ export const Select = ({
             <Text style={[styles.value, !value && styles.placeholder]}>
               {value || placeholder}
             </Text>
+            <Icon icon="chevronDown" color="#c7c7c7" />
           </View>
         </TouchableNativeFeedback>
       </View>
@@ -81,9 +83,12 @@ const styles = StyleSheet.create({
   },
   input: {
     flexDirection: 'row',
-    backgroundColor: '#fafafa',
-    borderColor: '#fafafa',
+    borderWidth: 1,
+    borderColor: '#f2f2f2',
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 14,
   },
   value: {
     fontSize: 18,

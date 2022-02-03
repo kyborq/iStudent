@@ -1,20 +1,17 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { editTask, ETaskSorting, TTask } from '../../redux/tasksSlice';
+import { ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { getKeyByValue, sort, uuid4 } from '../../utils';
 import { TaskCard } from './components/TaskCard';
-import { TaskSortPanel } from './components/TaskSortPanel';
 
 export const TasksScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
 
   const { tasks, sorting } = useAppSelector((state) => state.tasks);
 
@@ -98,7 +95,7 @@ export const TasksScreen = () => {
           placeholder="Поиск"
           clearInput
           value={searchQuery}
-          onChange={setSearchQuery}
+          onType={setSearchQuery}
           style={{ marginBottom: 24 }}
         />
         {taskCount > 0 && (
