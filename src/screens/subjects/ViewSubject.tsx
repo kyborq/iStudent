@@ -4,24 +4,34 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Linking,
   ScrollView,
   StyleSheet,
+  Text,
   ToastAndroid,
   View,
 } from 'react-native';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
+import { IconButton } from '../../components/inputs/IconButton';
+import { Dialogue } from '../../components/modals/Dialogue';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import {
+  deleteSubject,
+  editSubject,
+  TSubject,
+} from '../../redux/subjectsSlice';
 import { decline, uuid4 } from '../../utils';
 import { TaskCard } from '../tasks/components/TaskCard';
 
 export const ViewSubject = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ViewSubject'>>();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const [deleteModal, showDeleteModal] = useState(false);
 
   const id = route?.params?.id;
 
@@ -73,6 +83,20 @@ export const ViewSubject = () => {
     );
   };
 
+  const handleDeleteSubject = () => {
+    dispatch(deleteSubject(subject?.id || ''));
+    handleBack();
+  };
+
+  const handleShowDeleteModal = () => {
+    showDeleteModal(!deleteModal);
+  };
+
+  const handleArchive = () => {
+    const newSubject = { ...subject, archived: !subject?.archived } as TSubject;
+    dispatch(editSubject(newSubject));
+  };
+
   const taskCount = decline(tasks.length, ['задача', 'задачи', 'задач']);
 
   return (
@@ -95,7 +119,7 @@ export const ViewSubject = () => {
         )}
         {!!subject?.link && (
           <InfoLine
-            icon="check"
+            icon="link"
             label="Сайт"
             text={subject?.link}
             onPress={openWebURL}
@@ -108,16 +132,54 @@ export const ViewSubject = () => {
           onPress={handleCreateTask}></InfoLine>
 
         <View style={styles.tasksView}>
-          {tasks.map((task) => (
-            <TaskCard
-              key={uuid4()}
-              task={task}
-              onPress={() => handleViewTask(task.id)}
-              short
-            />
-          ))}
+          {tasks.map((task) => {
+            if (!task.completed)
+              return (
+                <TaskCard
+                  key={uuid4()}
+                  task={task}
+                  onPress={() => handleViewTask(task.id)}
+                  short
+                />
+              );
+          })}
+        </View>
+        <View style={styles.tasksView}>
+          {tasks.map((task) => {
+            if (task.completed)
+              return (
+                <TaskCard
+                  key={uuid4()}
+                  task={task}
+                  onPress={() => handleViewTask(task.id)}
+                  short
+                />
+              );
+          })}
         </View>
       </ScrollView>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          padding: 24,
+          justifyContent: 'flex-end',
+        }}>
+        <IconButton
+          icon="archive"
+          onPress={handleArchive}
+          containerStyle={{ marginRight: 12 }}
+        />
+        <IconButton icon="trash" onPress={handleShowDeleteModal} />
+      </View>
+
+      <Dialogue
+        visible={deleteModal}
+        title="Вы уверены?"
+        message="Дисциплина будет удалена и ее больше не вернуть назад. Подумайте об этом..."
+        onContinue={handleDeleteSubject}
+        onCancel={handleShowDeleteModal}
+      />
     </View>
   );
 };

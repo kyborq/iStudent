@@ -20,7 +20,15 @@ export const Dialogue = ({
 }: Props) => {
   return (
     <ModalView title={title} visible={visible}>
-      <Text style={{ paddingHorizontal: 24, marginBottom: 24 }}>{message}</Text>
+      <Text
+        style={{
+          paddingHorizontal: 24,
+          marginBottom: 24,
+          fontSize: 16,
+          color: '#c7c7c7',
+        }}>
+        {message}
+      </Text>
       <View
         style={{
           flexDirection: 'row',
@@ -28,12 +36,18 @@ export const Dialogue = ({
           paddingBottom: 16,
         }}>
         <Button
+          size={10}
           label="Продолжить"
           onPress={onContinue}
           primary
           style={{ flex: 1, marginRight: 16 }}
         />
-        <Button onPress={onCancel} label="Отменить" style={{ flex: 1 }} />
+        <Button
+          size={10}
+          onPress={onCancel}
+          label="Отменить"
+          style={{ flex: 1 }}
+        />
       </View>
     </ModalView>
   );

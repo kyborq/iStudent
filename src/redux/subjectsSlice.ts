@@ -10,6 +10,7 @@ export type TSubject = {
   link?: string;
   created?: string;
   color?: string;
+  archived?: boolean;
 };
 
 interface ISubjectSlice {
@@ -39,10 +40,13 @@ export const subjectSlice = createSlice({
         s.id === subject.id ? subject : s,
       );
     },
+    deleteSubject(state, action: PayloadAction<string>) {
+      state.subjects = state.subjects.filter((s) => s.id !== action.payload);
+    },
   },
 });
 
-export const { editSubject, addSubject } = subjectSlice.actions;
+export const { editSubject, addSubject, deleteSubject } = subjectSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;
 
