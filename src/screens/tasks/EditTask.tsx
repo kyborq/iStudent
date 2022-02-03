@@ -14,6 +14,7 @@ import { Input } from '../../components/inputs/Input';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { TSubject } from '../../redux/subjectsSlice';
 import {
   addTask,
   deleteTask,
@@ -30,6 +31,9 @@ export const EditTask = () => {
 
   const id = route?.params?.id;
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
+  const subjects: TSubject[] = useAppSelector(
+    (state) => state.subjects.subjects,
+  );
   const task = id && tasks?.filter((t) => t.id === id)[0];
 
   const [taskDraft, setTaskDraft] = useState<TTask>(
@@ -75,7 +79,15 @@ export const EditTask = () => {
           value={taskDraft.title}
           onChange={(value) => setTaskDraft({ ...taskDraft, title: value })}
         />
-        <Select label="Предмет" />
+        <Select
+          label="Предмет"
+          placeholder="Не выбран"
+          value={subjects.find((s) => s.id === taskDraft.subject)?.title}
+          items={subjects.map((subject) => {
+            return { title: subject.title, value: subject.id };
+          })}
+          onSelect={(value) => setTaskDraft({ ...taskDraft, subject: value })}
+        />
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row' }}>
           <Button
