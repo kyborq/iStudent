@@ -11,12 +11,14 @@ import { TimerScreen } from '../../screens/timer/TimerScreen';
 import { HomeScreen } from '../../screens/home/HomeScreen';
 import { SettingsScreen } from '../../screens/settings/SettingsScreen';
 import { EditSubject } from '../../screens/subjects/EditSubject';
+import { ViewSubject } from '../../screens/subjects/ViewSubject';
 
 export type RootStackParamList = {
   Index: undefined;
-  EditTask: { id: string };
+  EditTask: { id: string; subject?: string };
   EditSubject: { id: string };
   ViewTask: { id: string };
+  ViewSubject: { id: string };
   Timer: { id: string };
   Settings: undefined;
 };
@@ -70,6 +72,7 @@ export const Navigation = () => {
       <Stack.Screen name="EditSubject" component={EditSubject} />
       <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
+      <Stack.Screen name="ViewSubject" component={ViewSubject} />
       <Stack.Screen name="Timer" component={TimerScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>

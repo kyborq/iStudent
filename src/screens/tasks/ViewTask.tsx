@@ -4,18 +4,15 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
-import { ModalView } from '../../components/modals/ModalView';
-import { getDate } from '../../components/calendar/calendarUtils';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
-import { CalendarForm } from '../../components/calendar/form/CalendarForm';
 
 export const ViewTask = () => {
   const navigation = useNavigation();
@@ -25,6 +22,9 @@ export const ViewTask = () => {
   const id = route?.params?.id;
   const { tasks } = useAppSelector((state) => state.tasks);
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
+  const subject = useAppSelector((state) =>
+    state.subjects.subjects.find((s) => s.id === task.subject),
+  );
 
   const handleComplete = () => {
     const newTask: TTask = { ...task, completed: !task.completed };
@@ -55,27 +55,40 @@ export const ViewTask = () => {
     navigation.goBack();
   };
 
-  const handleSetTimer = () => {
+  const handleShowSubject = (id: string) => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'Timer',
-        params: { id: task.id },
+        name: 'ViewSubject',
+        params: { id: id },
       }),
     );
   };
+
+  // const handleSetTimer = () => {
+  //   navigation.dispatch(
+  //     CommonActions.navigate({
+  //       name: 'Timer',
+  //       params: { id: task.id },
+  //     }),
+  //   );
+  // };
 
   return (
     <View style={styles.container}>
       <Header
         label="Просмотр задачи"
-        actionIcon={'edit'}
+        actionIcon="edit"
         onAction={(!task.completed && handleEditTask) || undefined}
         onBack={handleBack}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
         {!task.archived ? (
-          <TaskInfo task={task} />
+          <TaskInfo
+            task={task}
+            subject={subject}
+            onShowSubject={handleShowSubject}
+          />
         ) : (
           <Empty
             text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"

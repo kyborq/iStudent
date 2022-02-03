@@ -35,13 +35,13 @@ export const TasksScreen = () => {
     );
   };
 
-  const handleCompleteTask = (task: TTask) => {
-    const newTask: TTask = {
-      ...task,
-      completed: !task.completed,
-    };
-    dispatch(editTask(newTask));
-  };
+  // const handleCompleteTask = (task: TTask) => {
+  //   const newTask: TTask = {
+  //     ...task,
+  //     completed: !task.completed,
+  //   };
+  //   dispatch(editTask(newTask));
+  // };
 
   const sortedList = sort(
     tasks,
@@ -55,7 +55,6 @@ export const TasksScreen = () => {
           key={uuid4()}
           task={task}
           onPress={() => handleViewTask(task.id)}
-          onComplete={() => handleCompleteTask(task)}
         />
       );
   });

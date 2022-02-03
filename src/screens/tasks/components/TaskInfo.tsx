@@ -2,23 +2,18 @@ import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import { InfoLine } from '../../../components/InfoLine';
+import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
 import { ProgressBar } from '../../timer/components/ProgressBar';
 import { getTimeString } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
-  label?: string;
-  description?: string;
-  date?: string;
-  status?: boolean;
-  spended?: number;
-  estimate?: number;
-  onShowDateModal?: (status: boolean) => void;
-  onTimer?: () => void;
+  subject?: TSubject;
+  onShowSubject?: (id: string) => void;
 };
 
-export const TaskInfo = ({ task }: Props) => {
+export const TaskInfo = ({ task, subject, onShowSubject }: Props) => {
   const currentDate = moment().format('DD.MM.YYYY');
 
   // const outOfDate = currentDate < (date || currentDate);
@@ -31,6 +26,10 @@ export const TaskInfo = ({ task }: Props) => {
   //     getTimeString(spended - estimate, 'Просрочено на')) ||
   //   '';
 
+  const handleShowSubject = () => {
+    onShowSubject && onShowSubject(subject?.id || '');
+  };
+
   return (
     <View>
       <InfoLine
@@ -38,6 +37,13 @@ export const TaskInfo = ({ task }: Props) => {
         label="Название задачи"
         text={task.title}
         disabled={task.completed}
+      />
+      <InfoLine
+        icon="book"
+        label="Предмет"
+        text={subject?.title}
+        disabled={task.completed}
+        onPress={handleShowSubject}
       />
       {/* 
 

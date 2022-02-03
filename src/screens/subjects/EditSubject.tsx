@@ -60,6 +60,7 @@ export const EditSubject = () => {
           onChange={(value) =>
             setSubjectraft({ ...subjectDraft, title: value })
           }
+          clearInput
         />
         <Input
           label="Преподаватель"
@@ -68,12 +69,14 @@ export const EditSubject = () => {
           onChange={(value) =>
             setSubjectraft({ ...subjectDraft, teacher: value })
           }
+          clearInput
         />
         <Input
           label="Ссылка на сайт"
           placeholder="https://example.com/"
           value={subjectDraft.link}
           onChange={(value) => setSubjectraft({ ...subjectDraft, link: value })}
+          clearInput
         />
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row' }}>

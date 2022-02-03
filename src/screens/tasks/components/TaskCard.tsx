@@ -2,24 +2,58 @@ import React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
 import { Check } from '../../../components/inputs/Check';
-import { TTask } from '../../../redux/tasksSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { editTask, TTask } from '../../../redux/tasksSlice';
+import { getTextLetters } from '../../../utils';
 
 type Props = {
   task: TTask;
+  short?: boolean;
   onPress?: () => void;
   onComplete?: () => void;
 };
 
-export const TaskCard = ({ task, onPress, onComplete }: Props) => {
+export const TaskCard = ({ task, onPress, short, onComplete }: Props) => {
+  const dispatch = useAppDispatch();
+  const subject = useAppSelector((state) =>
+    state.subjects.subjects.find((s) => s.id === task.subject),
+  );
+
+  const handleComplete = () => {
+    const newTask: TTask = { ...task, completed: !task.completed };
+    dispatch(editTask(newTask));
+  };
+
   return (
     <CardBase onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.checkbox}>
-          <Check checked={task.completed} onPress={onComplete} />
+          <Check checked={task.completed} onPress={handleComplete} />
         </View>
-        <Text style={[styles.label, task.completed && styles.completedStyle]}>
-          {task.title}
-        </Text>
+        <View>
+          <Text style={[styles.label, task.completed && styles.completedStyle]}>
+            {task.title}
+          </Text>
+          {!short && !task.completed && (
+            <View style={styles.footer}>
+              {!!subject?.title && (
+                <Text
+                  style={[
+                    styles.footerText,
+                    styles.chip,
+                    { backgroundColor: subject.color, color: '#fff' },
+                  ]}>
+                  {getTextLetters(subject.title)}
+                </Text>
+              )}
+              {!!task.deadline && (
+                <Text style={[styles.footerText, styles.chip]}>
+                  {task.deadline}
+                </Text>
+              )}
+            </View>
+          )}
+        </View>
       </View>
     </CardBase>
   );
@@ -46,5 +80,21 @@ const styles = StyleSheet.create({
   completedStyle: {
     color: '#c7c7c7',
     textDecorationLine: 'line-through',
+  },
+  footerText: {
+    fontSize: 12,
+    color: '#c7c7c7',
+  },
+  chip: {
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    color: '#c7c7c7',
+    backgroundColor: '#fafafa',
+    marginRight: 8,
+  },
+  footer: {
+    marginTop: 4,
+    flexDirection: 'row',
   },
 });

@@ -21,8 +21,21 @@ export const SubjectsScreen = () => {
     );
   };
 
+  const handleViewSubject = (id: string) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'ViewSubject',
+        params: { id },
+      }),
+    );
+  };
+
   const subjectList = subjects.map((subject) => (
-    <SubjectCard key={uuid4()} subject={subject} />
+    <SubjectCard
+      key={uuid4()}
+      subject={subject}
+      onPress={() => handleViewSubject(subject.id)}
+    />
   ));
 
   return (

@@ -1,27 +1,14 @@
-import {
-  RouteProp,
-  CommonActions,
-  NavigationAction,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/core';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
-import { InfoLine } from '../../components/InfoLine';
 import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
-import {
-  addTask,
-  deleteTask,
-  editTask,
-  EPriority,
-  TTask,
-} from '../../redux/tasksSlice';
+import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
 
 export const EditTask = () => {
@@ -30,6 +17,7 @@ export const EditTask = () => {
   const dispatch = useAppDispatch();
 
   const id = route?.params?.id;
+  const subject = route?.params?.subject;
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
   const subjects: TSubject[] = useAppSelector(
     (state) => state.subjects.subjects,
@@ -41,6 +29,7 @@ export const EditTask = () => {
       id: uuid4(),
       title: '',
       completed: false,
+      subject: subject,
     },
   );
 
