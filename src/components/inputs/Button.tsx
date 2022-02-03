@@ -7,48 +7,84 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { COLORS } from '../../colors';
+import { COLORS, TOUCHABLE_COLOR } from '../../colors';
+import { useAppSelector } from '../../redux/store';
 import { Icon, TIcon } from '../Icon';
 
 type Props = {
   label?: string;
   icon?: TIcon;
-  background?: string;
-  color?: string;
+  primary?: boolean;
   onPress?: () => void;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
 export const Button = ({
   label,
   icon,
-  background,
-  color,
   onPress,
   style,
+  primary,
+  disabled,
 }: Props) => {
+  const color = useAppSelector((state) => state.settings.theme);
+
+  const primaryTheme = {
+    text: {
+      color: '#FFF',
+    },
+    container: {
+      backgroundColor: color,
+    },
+  };
+
+  const defaultTheme = {
+    text: {
+      color: color,
+    },
+    container: {
+      backgroundColor: COLORS.lightFAFAFA,
+    },
+  };
+
+  const disabledTheme = {
+    text: {
+      color: '#ddd',
+    },
+    container: {
+      backgroundColor: COLORS.lightFAFAFA,
+    },
+  };
+
+  const theme = primary ? primaryTheme : defaultTheme;
+
   return (
     <View style={[styles.container, style]}>
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple(
-          'rgba(0, 0, 0, 0.05)',
-          false,
-        )}
+        background={TOUCHABLE_COLOR}
+        disabled={disabled}
         onPress={onPress}>
         <View
           style={[
             styles.button,
-            { backgroundColor: background || COLORS.primary5A9EEE },
+            theme.container,
+            disabled && disabledTheme.container,
           ]}>
           {icon && (
             <Icon
               icon={icon}
-              color={color}
+              color={primary ? color : '#FFF'}
               containerStyle={[styles.icon, { marginRight: !!label ? 10 : 0 }]}
             />
           )}
           {!!label && (
-            <Text style={[styles.label, { color: color || '#fff' }]}>
+            <Text
+              style={[
+                styles.label,
+                theme.text,
+                disabled && disabledTheme.text,
+              ]}>
               {label}
             </Text>
           )}

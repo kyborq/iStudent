@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { COLORS } from '../../../colors';
 import { IconButton } from '../../../components/inputs/IconButton';
 import { SortButton } from '../../../components/sorting/SortButton';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { changeTaskSorting, ETaskSorting } from '../../../redux/tasksSlice';
-import { getKeyByValue } from '../../../utils';
 
 type Props = {
   archived?: number;
@@ -48,15 +47,11 @@ export const TaskSortPanel = ({
         <IconButton
           icon="check"
           label={completed !== 0 ? completed?.toString() : ''}
-          color={showCompleted ? COLORS.primary5A9EEE : '#c7c7c7'}
-          background="#fff"
           onPress={onShowCompleted}
         />
         <IconButton
           icon="archive"
           label={archived !== 0 ? archived?.toString() : ''}
-          color={showArchived ? COLORS.primary5A9EEE : '#c7c7c7'}
-          background="#fff"
           onPress={onShowArchived}
         />
       </View>

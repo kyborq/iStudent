@@ -1,14 +1,21 @@
 import React from 'react';
-import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableNativeFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 type CardBaseProps = {
   children?: React.ReactNode;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
-export const CardBase = ({ children, onPress }: CardBaseProps) => {
+export const CardBase = ({ children, onPress, style }: CardBaseProps) => {
   return (
-    <View style={styles.touchable}>
+    <View style={[styles.touchable, style]}>
       <TouchableNativeFeedback
         onPress={onPress}
         background={TouchableNativeFeedback.Ripple(

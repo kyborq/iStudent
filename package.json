@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -21,7 +22,8 @@
     "react-native-screens": "^3.10.1",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^1.0.0",
-    "react-redux": "^7.2.6"
+    "react-redux": "^7.2.6",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -31,6 +33,7 @@
     "@types/react-native": "^0.66.10",
     "@types/react-redux": "^7.1.21",
     "@types/react-test-renderer": "^17.0.1",
+    "@types/redux-persist": "^4.3.1",
     "babel-jest": "^27.4.5",
     "eslint": "^8.5.0",
     "jest": "^27.4.5",

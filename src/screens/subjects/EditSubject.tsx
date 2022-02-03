@@ -4,40 +4,36 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
-import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { TSubject } from '../../redux/subjectsSlice';
-import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
+import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
 import { uuid4 } from '../../utils';
 
-export const EditTask = () => {
+export const EditSubject = () => {
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<RootStackParamList, 'EditTask'>>();
   const dispatch = useAppDispatch();
+  const route = useRoute<RouteProp<RootStackParamList, 'EditTask'>>();
 
   const id = route?.params?.id;
-  const subject = route?.params?.subject;
-  const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
+
   const subjects: TSubject[] = useAppSelector(
     (state) => state.subjects.subjects,
   );
-  const task = id && tasks?.filter((t) => t.id === id)[0];
+  const subject = id && subjects?.filter((s) => s.id === id)[0];
 
-  const [taskDraft, setTaskDraft] = useState<TTask>(
-    task || {
+  const [subjectDraft, setSubjectraft] = useState<TSubject>(
+    subject || {
       id: uuid4(),
       title: '',
-      completed: false,
-      subject: subject,
+      teacher: '',
+      link: '',
     },
   );
-
   const [valid, setValid] = useState<boolean>(false);
 
   useEffect(() => {
     setValid(isValid());
-  }, [taskDraft]);
+  }, [subjectDraft]);
 
   const handleBack = () => {
     navigation.goBack();
@@ -45,23 +41,18 @@ export const EditTask = () => {
 
   const handleSave = () => {
     if (!id && valid) {
-      dispatch(addTask(taskDraft));
+      dispatch(addSubject(subjectDraft));
       navigation.goBack();
     }
 
     if (id && valid) {
-      dispatch(editTask(taskDraft));
+      dispatch(editSubject(subjectDraft));
       navigation.goBack();
     }
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTask(id));
-    navigation.goBack();
-  };
-
   const isValid = () => {
-    if (taskDraft.title === '') {
+    if (subjectDraft.title === '') {
       return false;
     }
 
@@ -71,26 +62,34 @@ export const EditTask = () => {
   return (
     <View style={styles.container}>
       <Header
-        label={id ? 'Изменить задачу' : 'Новая задача'}
+        label={id ? 'Редактировать предмет' : 'Новый предмет'}
         onBack={handleBack}
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
-          label="Задача"
-          placeholder="Подготовиться к контрольной"
-          multiline
+          label="Дисциплина"
+          placeholder="Математика"
+          value={subjectDraft.title}
+          onChange={(value) =>
+            setSubjectraft({ ...subjectDraft, title: value })
+          }
           clearInput
-          value={taskDraft.title}
-          onChange={(value) => setTaskDraft({ ...taskDraft, title: value })}
         />
-        <Select
-          label="Предмет"
-          placeholder="Не выбран"
-          value={subjects.find((s) => s.id === taskDraft.subject)?.title}
-          items={subjects.map((subject) => {
-            return { title: subject.title, value: subject.id };
-          })}
-          onSelect={(value) => setTaskDraft({ ...taskDraft, subject: value })}
+        <Input
+          label="Преподаватель"
+          placeholder="Иванов Иван Иванович"
+          value={subjectDraft.teacher}
+          onChange={(value) =>
+            setSubjectraft({ ...subjectDraft, teacher: value })
+          }
+          clearInput
+        />
+        <Input
+          label="Ссылка на сайт"
+          placeholder="https://example.com/"
+          value={subjectDraft.link}
+          onChange={(value) => setSubjectraft({ ...subjectDraft, link: value })}
+          clearInput
         />
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row' }}>
@@ -101,15 +100,6 @@ export const EditTask = () => {
             primary
             disabled={!valid}
           />
-          {id && (
-            <Button
-              icon="archive"
-              onPress={handleDelete}
-              style={{ marginLeft: 16 }}
-              primary
-              disabled={!valid}
-            />
-          )}
         </View>
       </ScrollView>
     </View>

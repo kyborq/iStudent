@@ -50,3 +50,32 @@ export const styleee = (
   }
   return null;
 };
+
+export const getOrDefault = (value: string, def: string) => {
+  if (value === '') {
+    return def;
+  }
+  return value;
+};
+
+export const getRandomColor = () => {
+  const color = 'hsl(' + Math.random() * 360 + ', 70%, 70%)';
+  return color;
+};
+
+export const getTextLetters = (s: string) => {
+  return s
+    .toUpperCase()
+    .split(' ')
+    .map((w) => w[0])
+    .join('');
+};
+
+export const decline = (value: number, words: string[]) => {
+  const newValue = Math.abs(value) % 100;
+  const num = newValue % 10;
+  if (newValue > 10 && newValue < 20) return `${value} ${words[2]}`;
+  if (num > 1 && num < 5) return `${value} ${words[1]}`;
+  if (num == 1) return `${value} ${words[0]}`;
+  return `${value} ${words[2]}`;
+};

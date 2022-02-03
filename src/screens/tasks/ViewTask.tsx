@@ -4,29 +4,17 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import {
-  completeTask,
-  deleteTask,
-  permanentDeleteTask,
-  setDate,
-  setTaskPriority,
-  TTask,
-} from '../../redux/tasksSlice';
+import { deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
-import { ModalView } from '../../components/modals/ModalView';
-import { getDate } from '../../components/calendar/calendarUtils';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
-import { CalendarForm } from '../../components/calendar/form/CalendarForm';
 
 export const ViewTask = () => {
-  const [dateModalVisible, setDateModalVisible] = useState(false);
-
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const route = useRoute<RouteProp<RootStackParamList, 'ViewTask'>>();
@@ -34,20 +22,24 @@ export const ViewTask = () => {
   const id = route?.params?.id;
   const { tasks } = useAppSelector((state) => state.tasks);
   const task: TTask = tasks?.filter((t) => t.id === id)[0];
+  const subject = useAppSelector((state) =>
+    state.subjects.subjects.find((s) => s.id === task.subject),
+  );
 
-  const { date } = useAppSelector((state) => state.root);
-
-  const handleCompleteTask = () => {
-    dispatch(completeTask({ id: task.id, value: !task.status }));
+  const handleComplete = () => {
+    const newTask: TTask = { ...task, completed: !task.completed };
+    dispatch(editTask(newTask));
   };
 
-  const handleChangePriority = () => {
-    dispatch(setTaskPriority({ id: task.id, priority: !task.priority }));
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id));
+    handleBack();
   };
 
-  const handleSetDate = (d: number) => {
-    dispatch(setDate({ id: task.id, date: d }));
-    setDateModalVisible(false);
+  const handleArchive = () => {
+    const newTask: TTask = { ...task, archived: !task.archived };
+    dispatch(editTask(newTask));
+    !task.archived && handleBack();
   };
 
   const handleEditTask = () => {
@@ -63,37 +55,51 @@ export const ViewTask = () => {
     navigation.goBack();
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTask(task.id));
-    dispatch(completeTask({ id: task.id, value: false }));
-    !task.deleted && navigation.goBack();
-  };
-
-  const handleDeletePermanent = () => {
-    dispatch(permanentDeleteTask(task.id));
-    navigation.goBack();
-  };
-
-  const handleSetTimer = () => {
+  const handleShowSubject = (id: string) => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'Timer',
-        params: { id: task.id },
+        name: 'ViewSubject',
+        params: { id: id },
       }),
     );
   };
+
+  // const handleSetTimer = () => {
+  //   navigation.dispatch(
+  //     CommonActions.navigate({
+  //       name: 'Timer',
+  //       params: { id: task.id },
+  //     }),
+  //   );
+  // };
 
   return (
     <View style={styles.container}>
       <Header
         label="Просмотр задачи"
-        actionIcon={task.status ? 'archive' : 'edit'}
-        onAction={task.status ? handleDelete : handleEditTask}
-        hideAction={task.deleted}
+        actionIcon="edit"
+        onAction={(!task.completed && handleEditTask) || undefined}
         onBack={handleBack}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
+        {!task.archived ? (
+          <TaskInfo
+            task={task}
+            subject={subject}
+            onShowSubject={handleShowSubject}
+          />
+        ) : (
+          <Empty
+            text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"
+            icon="archive"
+            onDelete={handleDelete}
+            onReturn={handleArchive}
+          />
+        )}
+      </ScrollView>
+
+      {/* <ScrollView contentContainerStyle={styles.content}>
         {!task.deleted ? (
           <TaskInfo
             spended={task.spend}
@@ -113,22 +119,20 @@ export const ViewTask = () => {
             onReturn={handleDelete}
           />
         )}
-      </ScrollView>
+      </ScrollView> */}
 
-      <ModalView
+      {/* <ModalView
         visible={dateModalVisible}
         onClose={() => setDateModalVisible(!dateModalVisible)}>
         <CalendarForm date={task.date || date} onSelectDate={handleSetDate} />
-      </ModalView>
+      </ModalView> */}
 
-      {!task.deleted && (
+      {!task.archived && (
         <TaskFooter
-          important={task.priority}
-          status={task.status}
-          onComplete={handleCompleteTask}
-          onArchive={handleDelete}
-          onDelete={handleDeletePermanent}
-          onPriority={handleChangePriority}
+          task={task}
+          onDelete={handleDelete}
+          onComplete={handleComplete}
+          onArchive={handleArchive}
         />
       )}
     </View>

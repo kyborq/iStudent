@@ -1,77 +1,60 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../../../colors';
-import { getDate } from '../../../components/calendar/calendarUtils';
 import { CardBase } from '../../../components/CardBase';
-import { Chip } from '../../../components/Chip';
-import { Icon } from '../../../components/Icon';
 import { Check } from '../../../components/inputs/Check';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { editTask, TTask } from '../../../redux/tasksSlice';
+import { getTextLetters } from '../../../utils';
 
 type Props = {
-  title: string;
-  status?: boolean;
-  deleted?: boolean;
-  priority?: boolean;
-  subject?: string;
-  description?: string;
-  date?: number;
+  task: TTask;
+  short?: boolean;
   onPress?: () => void;
   onComplete?: () => void;
+  last?: boolean;
 };
 
-export const TaskCard = ({
-  title,
-  status,
-  description,
-  deleted,
-  priority,
-  date,
-  subject,
-  onPress,
-  onComplete,
-}: Props) => {
+export const TaskCard = ({ task, onPress, short, onComplete, last }: Props) => {
+  const dispatch = useAppDispatch();
+  const subject = useAppSelector((state) =>
+    state.subjects.subjects.find((s) => s.id === task.subject),
+  );
+
+  const handleComplete = () => {
+    const newTask: TTask = { ...task, completed: !task.completed };
+    dispatch(editTask(newTask));
+  };
+
   return (
-    <CardBase onPress={onPress}>
-      <View>
-        <View style={styles.container}>
-          <View style={styles.checkbox}>
-            {!deleted && <Check checked={status} onPress={onComplete} />}
-            {deleted && <Icon icon="archive" color="#c7c7c7" />}
-          </View>
-          <Text
-            numberOfLines={1}
-            style={[
-              styles.label,
-              {
-                color: status || deleted ? '#c7c7c7' : '#000',
-                textDecorationLine: status || deleted ? 'line-through' : 'none',
-              },
-            ]}>
-            {title}
+    <CardBase style={last && { marginBottom: 0 }} onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.checkbox}>
+          <Check checked={task.completed} onPress={handleComplete} />
+        </View>
+        <View>
+          <Text style={[styles.label, task.completed && styles.completedStyle]}>
+            {task.title}
           </Text>
-          {priority && !status && !deleted && (
-            <Icon icon="star" color={COLORS.mediumF2BB69} />
+          {!short && !task.completed && (
+            <View style={styles.footer}>
+              {!!subject?.title && (
+                <Text
+                  style={[
+                    styles.footerText,
+                    styles.chip,
+                    { backgroundColor: subject.color, color: '#fff' },
+                  ]}>
+                  {getTextLetters(subject.title)}
+                </Text>
+              )}
+              {!!task.deadline && (
+                <Text style={[styles.footerText, styles.chip]}>
+                  {task.deadline}
+                </Text>
+              )}
+            </View>
           )}
         </View>
-        {!!description && !deleted && !status && (
-          <Text numberOfLines={1} style={styles.infoText}>
-            {description}
-          </Text>
-        )}
-        {(!!subject || !!date) && !status && !deleted && (
-          <View style={{ flexDirection: 'row', marginTop: 8 }}>
-            {!!subject && (
-              <Chip label={subject} color="#C7C7C7" background={'#FAFAFA'} />
-            )}
-            {!!date && (
-              <Chip
-                label={getDate(date)}
-                color="#C7C7C7"
-                background={'#FAFAFA'}
-              />
-            )}
-          </View>
-        )}
       </View>
     </CardBase>
   );
@@ -80,7 +63,6 @@ export const TaskCard = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   label: {
     fontSize: 16,
@@ -95,5 +77,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 6,
     color: '#c7c7c7',
+  },
+  completedStyle: {
+    color: '#c7c7c7',
+    textDecorationLine: 'line-through',
+  },
+  footerText: {
+    fontSize: 12,
+    color: '#c7c7c7',
+  },
+  chip: {
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    color: '#c7c7c7',
+    backgroundColor: '#fafafa',
+    marginRight: 8,
+  },
+  footer: {
+    marginTop: 4,
+    flexDirection: 'row',
   },
 });
