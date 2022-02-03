@@ -17,6 +17,7 @@ type Props = {
   primary?: boolean;
   onPress?: () => void;
   disabled?: boolean;
+  size?: number;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -25,6 +26,7 @@ export const Button = ({
   icon,
   onPress,
   style,
+  size,
   primary,
   disabled,
 }: Props) => {
@@ -70,6 +72,7 @@ export const Button = ({
             styles.button,
             theme.container,
             disabled && disabledTheme.container,
+            !!size && { padding: size },
           ]}>
           {icon && (
             <Icon

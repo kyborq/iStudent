@@ -64,11 +64,14 @@ export const getRandomColor = () => {
 };
 
 export const getTextLetters = (s: string) => {
-  return s
-    .toUpperCase()
-    .split(' ')
-    .map((w) => w[0])
-    .join('');
+  const words = s.split(/[ -]/);
+  if (words.length > 1) {
+    return words
+      .map((word) => (word.length === 1 ? word[0] : word[0].toUpperCase()))
+      .join('');
+  }
+
+  return words[0][0];
 };
 
 export const decline = (value: number, words: string[]) => {
