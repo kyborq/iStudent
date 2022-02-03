@@ -1,6 +1,6 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
@@ -48,13 +48,43 @@ export const TasksScreen = () => {
     getKeyByValue(ETaskSorting, sorting.sorting),
     sorting.direction === 1 ? true : false,
   ) as TTask[];
-  const taskList = sortedList.map((task) => {
-    if (task.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
+  const taskCount = sortedList.filter(
+    (t) =>
+      t.title.toLowerCase().includes(searchQuery.toLowerCase()) && !t.completed,
+  ).length;
+
+  const taskList = sortedList.map((task, i) => {
+    if (
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      !task.completed
+    )
       return (
         <TaskCard
           key={uuid4()}
           task={task}
           onPress={() => handleViewTask(task.id)}
+          last={i === taskCount}
+        />
+      );
+  });
+
+  const completedCount = sortedList.filter(
+    (t) =>
+      t.title.toLowerCase().includes(searchQuery.toLowerCase()) && t.completed,
+  ).length;
+
+  const completedTasks = sortedList.map((task, i) => {
+    if (
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      task.completed
+    )
+      return (
+        <TaskCard
+          key={uuid4()}
+          task={task}
+          onPress={() => handleViewTask(task.id)}
+          last={i === completedCount - 1}
         />
       );
   });
@@ -62,7 +92,9 @@ export const TasksScreen = () => {
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        stickyHeaderIndices={[1, 3]}>
         <Input
           icon="search"
           placeholder="Поиск"
@@ -71,7 +103,29 @@ export const TasksScreen = () => {
           onChange={setSearchQuery}
           style={{ marginBottom: 24 }}
         />
+        {taskCount > 0 && (
+          <View
+            style={{
+              paddingBottom: 8,
+              marginBottom: 8,
+              backgroundColor: '#FFF',
+            }}>
+            <Text
+              style={{ fontSize: 16, color: '#c7c7c7', fontWeight: 'bold' }}>
+              {`Задачи (${taskCount})`}
+            </Text>
+          </View>
+        )}
         {taskList}
+        {completedCount > 0 && (
+          <View style={{ marginVertical: 16, backgroundColor: '#FFF' }}>
+            <Text
+              style={{ fontSize: 16, color: '#c7c7c7', fontWeight: 'bold' }}>
+              {`Завершенные (${completedCount})`}
+            </Text>
+          </View>
+        )}
+        {completedTasks}
       </ScrollView>
     </View>
   );

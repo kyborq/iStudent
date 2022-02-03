@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
+import { useAppSelector } from '../../../redux/store';
 import { TSubject } from '../../../redux/subjectsSlice';
+import { decline } from '../../../utils';
 import { SubjectIcon } from './SubjectIcon';
 
 type Props = {
@@ -10,6 +12,11 @@ type Props = {
 };
 
 export const SubjectCard = ({ subject, onPress }: Props) => {
+  const tasks = useAppSelector((state) =>
+    state.tasks.tasks.filter((task) => task.subject === subject.id),
+  );
+  const tasksCount = tasks.filter((task) => !task.completed).length;
+
   return (
     <CardBase onPress={onPress}>
       <View style={styles.container}>
@@ -18,6 +25,13 @@ export const SubjectCard = ({ subject, onPress }: Props) => {
           <Text style={styles.label}>{subject.title}</Text>
           {!!subject.teacher && (
             <Text style={styles.teacher}>{subject.teacher}</Text>
+          )}
+          {tasksCount > 0 && (
+            <Text style={styles.teacher}>{`${decline(tasksCount, [
+              'задача',
+              'задачи',
+              'задач',
+            ])}`}</Text>
           )}
         </View>
       </View>

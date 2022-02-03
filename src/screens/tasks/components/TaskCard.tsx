@@ -11,9 +11,10 @@ type Props = {
   short?: boolean;
   onPress?: () => void;
   onComplete?: () => void;
+  last?: boolean;
 };
 
-export const TaskCard = ({ task, onPress, short, onComplete }: Props) => {
+export const TaskCard = ({ task, onPress, short, onComplete, last }: Props) => {
   const dispatch = useAppDispatch();
   const subject = useAppSelector((state) =>
     state.subjects.subjects.find((s) => s.id === task.subject),
@@ -25,7 +26,7 @@ export const TaskCard = ({ task, onPress, short, onComplete }: Props) => {
   };
 
   return (
-    <CardBase onPress={onPress}>
+    <CardBase style={last && { marginBottom: 0 }} onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.checkbox}>
           <Check checked={task.completed} onPress={handleComplete} />

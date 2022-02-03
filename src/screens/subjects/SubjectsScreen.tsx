@@ -1,5 +1,5 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
@@ -9,6 +9,7 @@ import { uuid4 } from '../../utils';
 import { SubjectCard } from './components/SubjectCard';
 
 export const SubjectsScreen = () => {
+  const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation();
 
   const subjects = useAppSelector((state) => state.subjects.subjects);
@@ -30,13 +31,16 @@ export const SubjectsScreen = () => {
     );
   };
 
-  const subjectList = subjects.map((subject) => (
-    <SubjectCard
-      key={uuid4()}
-      subject={subject}
-      onPress={() => handleViewSubject(subject.id)}
-    />
-  ));
+  const subjectList = subjects.map((subject) => {
+    if (subject.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      return (
+        <SubjectCard
+          key={uuid4()}
+          subject={subject}
+          onPress={() => handleViewSubject(subject.id)}
+        />
+      );
+  });
 
   return (
     <View style={styles.container}>
@@ -45,6 +49,8 @@ export const SubjectsScreen = () => {
         <Input
           icon="search"
           placeholder="Поиск"
+          value={searchQuery}
+          onChange={setSearchQuery}
           clearInput
           style={{ marginBottom: 24 }}
         />
