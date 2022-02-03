@@ -92,9 +92,7 @@ export const TasksScreen = () => {
   return (
     <View style={styles.container}>
       <Header label="Мои задачи" onAction={handleAddTask} />
-      <ScrollView
-        contentContainerStyle={styles.content}
-        stickyHeaderIndices={[1, 3]}>
+      <ScrollView contentContainerStyle={styles.content}>
         <Input
           icon="search"
           placeholder="Поиск"
