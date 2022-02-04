@@ -1,4 +1,5 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { TTask } from './redux/tasksSlice';
 
 export const uuid4 = (length: number = 8) => {
   let result = '';
@@ -81,4 +82,26 @@ export const decline = (value: number, words: string[]) => {
   if (num > 1 && num < 5) return `${value} ${words[1]}`;
   if (num == 1) return `${value} ${words[0]}`;
   return `${value} ${words[2]}`;
+};
+
+export const search = (query: string, text: string) => {
+  const lowQuery = query.toLowerCase();
+  const lowText = text.toLowerCase();
+
+  return lowText.includes(lowQuery);
+};
+
+export const filterTasks = (task: TTask, type: string) => {
+  switch (type) {
+    case 'ALL':
+      return !task.archived;
+    case 'TODO':
+      return !task.archived && !task.completed;
+    case 'COMPLETED':
+      return !task.archived && task.completed;
+    case 'ARCHIVED':
+      return task.archived;
+    default:
+      return false;
+  }
 };

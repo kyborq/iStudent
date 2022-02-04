@@ -14,8 +14,19 @@ export const Check = ({ checked, onPress }: Props) => {
   return (
     <View style={styles.overflow}>
       <TouchableNativeFeedback onPress={onPress}>
-        <View style={[styles.container, checked && { backgroundColor: color }]}>
-          {checked && <View style={styles.checkmark} />}
+        <View
+          style={[
+            styles.container,
+            checked && { backgroundColor: color + '12' },
+          ]}>
+          {checked && (
+            <View
+              style={[
+                styles.checkmark,
+                checked && { borderBottomColor: color, borderLeftColor: color },
+              ]}
+            />
+          )}
         </View>
       </TouchableNativeFeedback>
     </View>
@@ -31,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     width: 24,
     height: 24,
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#f2f2f2',
     borderRadius: 6,
   },
   checkmark: {

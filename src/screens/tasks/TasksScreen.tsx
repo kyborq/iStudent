@@ -1,19 +1,30 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { ETaskSorting, TTask } from '../../redux/tasksSlice';
-import { getKeyByValue, sort, uuid4 } from '../../utils';
+import { filterTasks, getKeyByValue, search, sort, uuid4 } from '../../utils';
 import { TaskCard } from './components/TaskCard';
+import { TasksPanel } from './components/TasksPanel';
 
 export const TasksScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterQuery, setFilterQuery] = useState('ALL');
 
   const navigation = useNavigation();
 
-  const { tasks, sorting } = useAppSelector((state) => state.tasks);
+  const tasks = useAppSelector((state) =>
+    state.tasks.tasks.filter((t) => search(searchQuery, t.title)),
+  );
+  const filteredTasks = tasks.filter((t) => filterTasks(t, filterQuery));
+
+  const allCount = tasks.filter((t) => !t.archived).length;
+  const todoCount = tasks.filter((t) => !t.archived && !t.completed).length;
+  const completedCount = tasks.filter((t) => !t.archived && t.completed).length;
+  const archivedCount = tasks.filter((t) => t.archived).length;
 
   const handleAddTask = () => {
     navigation.dispatch(
@@ -32,58 +43,14 @@ export const TasksScreen = () => {
     );
   };
 
-  // const handleCompleteTask = (task: TTask) => {
-  //   const newTask: TTask = {
-  //     ...task,
-  //     completed: !task.completed,
-  //   };
-  //   dispatch(editTask(newTask));
-  // };
-
-  const sortedList = sort(
-    tasks,
-    getKeyByValue(ETaskSorting, sorting.sorting),
-    sorting.direction === 1 ? true : false,
-  ) as TTask[];
-
-  const taskCount = sortedList.filter(
-    (t) =>
-      t.title.toLowerCase().includes(searchQuery.toLowerCase()) && !t.completed,
-  ).length;
-
-  const taskList = sortedList.map((task, i) => {
-    if (
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      !task.completed
-    )
-      return (
-        <TaskCard
-          key={uuid4()}
-          task={task}
-          onPress={() => handleViewTask(task.id)}
-          last={i === taskCount}
-        />
-      );
-  });
-
-  const completedCount = sortedList.filter(
-    (t) =>
-      t.title.toLowerCase().includes(searchQuery.toLowerCase()) && t.completed,
-  ).length;
-
-  const completedTasks = sortedList.map((task, i) => {
-    if (
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      task.completed
-    )
-      return (
-        <TaskCard
-          key={uuid4()}
-          task={task}
-          onPress={() => handleViewTask(task.id)}
-          last={i === completedCount - 1}
-        />
-      );
+  const taskList = filteredTasks.map((task) => {
+    return (
+      <TaskCard
+        key={uuid4()}
+        task={task}
+        onPress={() => handleViewTask(task.id)}
+      />
+    );
   });
 
   return (
@@ -96,31 +63,23 @@ export const TasksScreen = () => {
           clearInput
           value={searchQuery}
           onType={setSearchQuery}
-          style={{ marginBottom: 24 }}
+          style={{ marginHorizontal: 24 }}
         />
-        {taskCount > 0 && (
-          <View
-            style={{
-              paddingBottom: 8,
-              marginBottom: 8,
-              backgroundColor: '#FFF',
-            }}>
-            <Text
-              style={{ fontSize: 16, color: '#c7c7c7', fontWeight: 'bold' }}>
-              {`Задачи (${taskCount})`}
-            </Text>
-          </View>
+        <TasksPanel
+          all={allCount}
+          todo={todoCount}
+          completed={completedCount}
+          archived={archivedCount}
+          filter={filterQuery}
+          onSetFilter={setFilterQuery}
+        />
+        <View style={{ paddingHorizontal: 24 }}>{taskList}</View>
+        {filteredTasks.length === 0 && (
+          <Empty
+            text={!searchQuery ? 'Задач нет' : 'Ничего не найдено'}
+            icon={!searchQuery ? 'check' : 'search'}
+          />
         )}
-        {taskList}
-        {completedCount > 0 && (
-          <View style={{ marginVertical: 16, backgroundColor: '#FFF' }}>
-            <Text
-              style={{ fontSize: 16, color: '#c7c7c7', fontWeight: 'bold' }}>
-              {`Завершенные (${completedCount})`}
-            </Text>
-          </View>
-        )}
-        {completedTasks}
       </ScrollView>
     </View>
   );
@@ -132,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
     paddingBottom: 24,
     flexGrow: 1,
   },
