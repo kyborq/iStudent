@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
+import { SortButton } from '../../components/sorting/SortButton';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { filterTasks, getKeyByValue, search, sort, uuid4 } from '../../utils';
@@ -73,6 +74,15 @@ export const TasksScreen = () => {
           filter={filterQuery}
           onSetFilter={setFilterQuery}
         />
+        <View
+          style={{
+            paddingHorizontal: 24,
+            flexDirection: 'row',
+            marginBottom: 8,
+          }}>
+          <SortButton />
+        </View>
+
         <View style={{ paddingHorizontal: 24 }}>{taskList}</View>
         {filteredTasks.length === 0 && (
           <Empty

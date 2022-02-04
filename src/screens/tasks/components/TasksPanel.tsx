@@ -1,5 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Icon } from '../../../components/Icon';
+import { SortButton } from '../../../components/sorting/SortButton';
 import { PanelButton } from './PanelButton';
 
 type Props = {
@@ -62,6 +64,7 @@ export const TasksPanel = ({
 
 const styles = StyleSheet.create({
   panel: {
-    marginBottom: 16,
+    flexDirection: 'row',
+    marginBottom: 8,
   },
 });

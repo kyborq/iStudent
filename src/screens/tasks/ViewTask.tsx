@@ -64,14 +64,14 @@ export const ViewTask = () => {
     );
   };
 
-  // const handleSetTimer = () => {
-  //   navigation.dispatch(
-  //     CommonActions.navigate({
-  //       name: 'Timer',
-  //       params: { id: task.id },
-  //     }),
-  //   );
-  // };
+  const handleSetTimer = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Timer',
+        params: { id: task.id },
+      }),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -88,6 +88,7 @@ export const ViewTask = () => {
             task={task}
             subject={subject}
             onShowSubject={handleShowSubject}
+            onSetTimer={handleSetTimer}
           />
         ) : (
           <Empty
@@ -98,34 +99,6 @@ export const ViewTask = () => {
           />
         )}
       </ScrollView>
-
-      {/* <ScrollView contentContainerStyle={styles.content}>
-        {!task.deleted ? (
-          <TaskInfo
-            spended={task.spend}
-            estimate={task.estimate}
-            label={task.label}
-            description={task.description}
-            date={!!task.date ? getDate(task.date) : ''}
-            status={task.status}
-            onShowDateModal={setDateModalVisible}
-            onTimer={handleSetTimer}
-          />
-        ) : (
-          <Empty
-            text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"
-            icon="archive"
-            onDelete={handleDeletePermanent}
-            onReturn={handleDelete}
-          />
-        )}
-      </ScrollView> */}
-
-      {/* <ModalView
-        visible={dateModalVisible}
-        onClose={() => setDateModalVisible(!dateModalVisible)}>
-        <CalendarForm date={task.date || date} onSelectDate={handleSetDate} />
-      </ModalView> */}
 
       {!task.archived && (
         <TaskFooter
