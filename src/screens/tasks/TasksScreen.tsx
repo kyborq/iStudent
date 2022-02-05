@@ -1,26 +1,33 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { SortButton } from '../../components/sorting/SortButton';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { ETaskSorting, TTask } from '../../redux/tasksSlice';
+import { changeTaskSorting, ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { filterTasks, getKeyByValue, search, sort, uuid4 } from '../../utils';
 import { TaskCard } from './components/TaskCard';
 import { TasksPanel } from './components/TasksPanel';
+import { sortTasks } from './tasksUtils';
 
 export const TasksScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterQuery, setFilterQuery] = useState('ALL');
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const tasks = useAppSelector((state) =>
     state.tasks.tasks.filter((t) => search(searchQuery, t.title)),
   );
-  const filteredTasks = tasks.filter((t) => filterTasks(t, filterQuery));
+  const sorting = useAppSelector((state) => state.tasks.sorting);
+  const filteredTasks = sortTasks(
+    tasks.filter((t) => filterTasks(t, filterQuery)),
+    sorting,
+  );
 
   const allCount = tasks.filter((t) => !t.archived).length;
   const todoCount = tasks.filter((t) => !t.archived && !t.completed).length;
@@ -80,7 +87,23 @@ export const TasksScreen = () => {
             flexDirection: 'row',
             marginBottom: 8,
           }}>
-          <SortButton />
+          <SortButton
+            items={[
+              ETaskSorting.title,
+              ETaskSorting.completed,
+              ETaskSorting.created,
+            ]}
+            values={[
+              ETaskSorting.title,
+              ETaskSorting.completed,
+              ETaskSorting.created,
+            ]}
+            current={sorting}
+            onSelect={(value) => {
+              const s = value as ETaskSorting;
+              dispatch(changeTaskSorting(s));
+            }}
+          />
         </View>
 
         <View style={{ paddingHorizontal: 24 }}>{taskList}</View>

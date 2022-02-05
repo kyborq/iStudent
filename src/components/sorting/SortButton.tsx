@@ -3,18 +3,25 @@ import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { TOUCHABLE_COLOR } from '../../colors';
 import { uuid4 } from '../../utils';
 import { Icon } from '../Icon';
-import { IconButton } from '../inputs/IconButton';
 import { SelectItem } from '../inputs/SelectItem';
 import { ModalView } from '../modals/ModalView';
 
 type Props = {
+  items: string[];
+  values: string[];
+  current: string;
   onSelect?: (value: string) => void;
 };
 
-export const SortButton = ({ onSelect }: Props) => {
+export const SortButton = ({ items, values, current, onSelect }: Props) => {
   const [sortModal, setModalVisible] = useState(false);
 
   const toggleSortModal = () => setModalVisible(!sortModal);
+
+  const handleSubmit = (value: string) => {
+    toggleSortModal();
+    onSelect && onSelect(value);
+  };
 
   return (
     <View style={styles.container}>
@@ -22,14 +29,21 @@ export const SortButton = ({ onSelect }: Props) => {
         background={TOUCHABLE_COLOR}
         onPress={toggleSortModal}>
         <View style={styles.sortButton}>
-          <Text style={styles.text}>По названию</Text>
+          <Text style={styles.text}>{current}</Text>
           <Icon icon="chevronDown" color="#e2e2e2" />
         </View>
       </TouchableNativeFeedback>
 
       <ModalView visible={sortModal} onClose={toggleSortModal}>
-        <SelectItem title="По названию" active value="BY_NAME" />
-        <SelectItem title="По добавлению" value="BY_NAME" />
+        {items.map((item, index) => (
+          <SelectItem
+            key={uuid4()}
+            title={item}
+            value={values[index]}
+            active={item === current}
+            onSelect={() => handleSubmit(values[index])}
+          />
+        ))}
       </ModalView>
     </View>
   );

@@ -8,7 +8,13 @@ import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
-import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
+import {
+  addTask,
+  deleteTask,
+  editTask,
+  sortTasks,
+  TTask,
+} from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
 
 export const EditTask = () => {
@@ -40,6 +46,7 @@ export const EditTask = () => {
   }, [taskDraft]);
 
   const handleBack = () => {
+    // dispatch(sortTasks());
     navigation.goBack();
   };
 
