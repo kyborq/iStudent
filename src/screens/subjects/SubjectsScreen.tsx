@@ -71,10 +71,16 @@ export const SubjectsScreen = () => {
           value={searchQuery}
           onType={setSearchQuery}
           clearInput
-          style={{ marginBottom: 24, marginHorizontal: 24 }}
+          style={{ marginBottom: 16, marginHorizontal: 24 }}
         />
-        {!searchQuery && (
-          <View style={{ marginBottom: 24 }}>
+        <SubjectsPanel
+          all={allSubjects}
+          archived={archivedSubjects}
+          filter={filter}
+          onSetFilter={setFilter}
+        />
+        {!searchQuery && filter !== 'ARCHIVED' && (
+          <View style={{ marginBottom: 24, marginTop: 10 }}>
             <Text
               style={{
                 fontWeight: 'bold',
@@ -102,13 +108,6 @@ export const SubjectsScreen = () => {
             </ScrollView>
           </View>
         )}
-
-        <SubjectsPanel
-          all={allSubjects}
-          archived={archivedSubjects}
-          filter={filter}
-          onSetFilter={setFilter}
-        />
 
         <View style={{ paddingHorizontal: 24, marginTop: 8 }}>
           {subjectList}

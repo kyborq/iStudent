@@ -45,7 +45,7 @@ export const SubjectCard = ({ subject, onPress }: Props) => {
           )}
         </View>
       </View>
-      {(completedTasksCount > 0 || tasksCount > 0) && (
+      {(completedTasksCount > 0 || tasksCount > 0) && !subject.archived && (
         <View style={{ marginTop: 12 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Icon icon="check" color="#e2e2e2" />

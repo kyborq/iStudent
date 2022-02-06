@@ -124,7 +124,7 @@ export const ViewSubject = () => {
         label="Дисциплина"
         actionIcon={'edit'}
         onBack={handleBack}
-        onAction={handleEdit}
+        onAction={(!subject?.archived && handleEdit) || undefined}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
