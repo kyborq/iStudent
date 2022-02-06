@@ -57,13 +57,7 @@ export const TimerForm = ({ onSubmit }: Props) => {
         />
       </View>
       <View style={styles.formFooter}>
-        <IconButton
-          icon="checkLine"
-          size={52}
-          color="#fff"
-          background={COLORS.primary5A9EEE}
-          onPress={handleSubmit}
-        />
+        <IconButton icon="checkLine" size={52} onPress={handleSubmit} />
       </View>
     </View>
   );

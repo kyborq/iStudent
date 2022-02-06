@@ -4,9 +4,9 @@ import { getKeyByValue, sort } from '../utils';
 import { RootState } from './store';
 
 export enum ETaskSorting {
-  label = 'По названию',
-  status = 'По состоянию',
-  priority = 'По важности',
+  title = 'По названию',
+  completed = 'По состоянию',
+  created = 'По добавлению',
 }
 
 export enum EPriority {
@@ -29,21 +29,19 @@ export type TTask = {
   priority?: boolean;
   created?: string;
   deadline?: string;
-  spended?: string;
+  estimate?: number;
+  spended?: number;
   subject?: string;
 };
 
 interface ITasksSlice {
   tasks: TTask[];
-  sorting: TSorting;
+  sorting: ETaskSorting;
 }
 
 const initialState: ITasksSlice = {
   tasks: [],
-  sorting: {
-    sorting: ETaskSorting.label,
-    direction: 1,
-  },
+  sorting: ETaskSorting.title,
 };
 
 export const tasksSlice = createSlice({
@@ -74,16 +72,42 @@ export const tasksSlice = createSlice({
       state.tasks = state.tasks.filter((task) => task.id !== id);
     },
 
+    // Действия с таймером
+    setTimer(
+      state,
+      action: PayloadAction<{
+        task: string;
+        estimated: number;
+        spended: number;
+      }>,
+    ) {
+      const { spended, estimated, task } = action.payload;
+      state.tasks = state.tasks.map((t) =>
+        t.id === task ? { ...t, spended, estimate: estimated } : t,
+      );
+    },
+
     // Действия с сортировкой
-    changeTaskSorting(state, action: PayloadAction<TSorting>) {
-      const { sorting, direction } = action.payload;
-      state.sorting = { sorting, direction };
+    changeTaskSorting(state, action: PayloadAction<ETaskSorting>) {
+      const sorting = action.payload;
+      state.sorting = sorting;
+    },
+    sortTasks(state) {
+      const key = getKeyByValue(ETaskSorting, state.sorting);
+      state.tasks = sort(state.tasks, key, false);
     },
   },
 });
 
-export const { addTask, archiveTask, deleteTask, editTask, changeTaskSorting } =
-  tasksSlice.actions;
+export const {
+  addTask,
+  archiveTask,
+  deleteTask,
+  editTask,
+  changeTaskSorting,
+  sortTasks,
+  setTimer,
+} = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
+import { Icon } from '../../../components/Icon';
 import { Check } from '../../../components/inputs/Check';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { editTask, TTask } from '../../../redux/tasksSlice';
 import { getTextLetters } from '../../../utils';
+import { getTimeOfTime } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
@@ -29,31 +31,48 @@ export const TaskCard = ({ task, onPress, short, onComplete, last }: Props) => {
     <CardBase style={last && { marginBottom: 0 }} onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.checkbox}>
-          <Check checked={task.completed} onPress={handleComplete} />
+          {!task.archived && (
+            <Check checked={task.completed} onPress={handleComplete} />
+          )}
+          {task.archived && <Icon icon="archive" color="#e2e2e2" />}
         </View>
         <View>
-          <Text style={[styles.label, task.completed && styles.completedStyle]}>
+          <Text
+            style={[
+              styles.label,
+              (task.completed || task.archived) && styles.completedStyle,
+            ]}>
             {task.title}
           </Text>
-          {!short && !task.completed && (
-            <View style={styles.footer}>
-              {!!subject?.title && (
-                <Text
-                  style={[
-                    styles.footerText,
-                    styles.chip,
-                    { backgroundColor: subject.color, color: '#fff' },
-                  ]}>
-                  {getTextLetters(subject.title)}
-                </Text>
-              )}
-              {!!task.deadline && (
-                <Text style={[styles.footerText, styles.chip]}>
-                  {task.deadline}
-                </Text>
-              )}
-            </View>
-          )}
+          {!short &&
+            !task.archived &&
+            !task.completed &&
+            (!!subject?.title ||
+              !!task.deadline ||
+              (!!task.spended && !!task.estimate)) && (
+              <View style={styles.footer}>
+                {!!subject?.title && (
+                  <Text
+                    style={[
+                      styles.footerText,
+                      styles.chip,
+                      { backgroundColor: subject.color, color: '#fff' },
+                    ]}>
+                    {getTextLetters(subject.title)}
+                  </Text>
+                )}
+                {!!task.deadline && (
+                  <Text style={[styles.footerText, styles.chip]}>
+                    {task.deadline}
+                  </Text>
+                )}
+                {!!task.spended && !!task.estimate && (
+                  <Text style={[styles.footerText, styles.chip]}>
+                    {getTimeOfTime(task.spended, task.estimate)}
+                  </Text>
+                )}
+              </View>
+            )}
         </View>
       </View>
     </CardBase>

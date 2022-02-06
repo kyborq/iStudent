@@ -9,7 +9,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { deleteTask, editTask, TTask } from '../../redux/tasksSlice';
+import { deleteTask, editTask, sortTasks, TTask } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
@@ -52,6 +52,7 @@ export const ViewTask = () => {
   };
 
   const handleBack = () => {
+    // dispatch(sortTasks());
     navigation.goBack();
   };
 
@@ -64,14 +65,14 @@ export const ViewTask = () => {
     );
   };
 
-  // const handleSetTimer = () => {
-  //   navigation.dispatch(
-  //     CommonActions.navigate({
-  //       name: 'Timer',
-  //       params: { id: task.id },
-  //     }),
-  //   );
-  // };
+  const handleSetTimer = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Timer',
+        params: { id: task.id },
+      }),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -88,6 +89,7 @@ export const ViewTask = () => {
             task={task}
             subject={subject}
             onShowSubject={handleShowSubject}
+            onSetTimer={handleSetTimer}
           />
         ) : (
           <Empty
@@ -98,34 +100,6 @@ export const ViewTask = () => {
           />
         )}
       </ScrollView>
-
-      {/* <ScrollView contentContainerStyle={styles.content}>
-        {!task.deleted ? (
-          <TaskInfo
-            spended={task.spend}
-            estimate={task.estimate}
-            label={task.label}
-            description={task.description}
-            date={!!task.date ? getDate(task.date) : ''}
-            status={task.status}
-            onShowDateModal={setDateModalVisible}
-            onTimer={handleSetTimer}
-          />
-        ) : (
-          <Empty
-            text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"
-            icon="archive"
-            onDelete={handleDeletePermanent}
-            onReturn={handleDelete}
-          />
-        )}
-      </ScrollView> */}
-
-      {/* <ModalView
-        visible={dateModalVisible}
-        onClose={() => setDateModalVisible(!dateModalVisible)}>
-        <CalendarForm date={task.date || date} onSelectDate={handleSetDate} />
-      </ModalView> */}
 
       {!task.archived && (
         <TaskFooter

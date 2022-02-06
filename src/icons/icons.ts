@@ -23,6 +23,8 @@ import home from './home.svg';
 import settings from './settings.svg';
 import user from './user.svg';
 import link from './external-link.svg';
+import pause from './pause.svg';
+import reset from './rotate-ccw.svg';
 
 export const icons = {
   check,
@@ -50,4 +52,6 @@ export const icons = {
   settings,
   user,
   link,
+  pause,
+  reset,
 };

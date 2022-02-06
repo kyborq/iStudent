@@ -1,49 +1,48 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { TOUCHABLE_COLOR } from '../../colors';
 import { uuid4 } from '../../utils';
-import { IconButton } from '../inputs/IconButton';
+import { Icon } from '../Icon';
+import { SelectItem } from '../inputs/SelectItem';
 import { ModalView } from '../modals/ModalView';
 
 type Props = {
-  items?: string[];
-  current?: string;
+  items: string[];
+  values: string[];
+  current: string;
   onSelect?: (value: string) => void;
 };
 
-export const SortButton = ({ items, current, onSelect }: Props) => {
+export const SortButton = ({ items, values, current, onSelect }: Props) => {
   const [sortModal, setModalVisible] = useState(false);
+
+  const toggleSortModal = () => setModalVisible(!sortModal);
+
+  const handleSubmit = (value: string) => {
+    toggleSortModal();
+    onSelect && onSelect(value);
+  };
 
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple(
-          'rgba(0, 0, 0, 0.05)',
-          false,
-        )}
-        onPress={() => setModalVisible(true)}>
-        <View style={styles.button}>
-          <IconButton
-            icon="down"
-            containerStyle={styles.icon}
-            buttonStyle={styles.iconButton}
-            background="#ffffff00"
-          />
-          <Text style={styles.label}>{current}</Text>
+        background={TOUCHABLE_COLOR}
+        onPress={toggleSortModal}>
+        <View style={styles.sortButton}>
+          <Text style={styles.text}>{current}</Text>
+          <Icon icon="chevronDown" color="#e2e2e2" />
         </View>
       </TouchableNativeFeedback>
 
-      <ModalView visible={sortModal} onClose={() => setModalVisible(false)}>
-        {items?.map((item) => (
-          <TouchableNativeFeedback
+      <ModalView visible={sortModal} onClose={toggleSortModal}>
+        {items.map((item, index) => (
+          <SelectItem
             key={uuid4()}
-            onPress={() => {
-              setModalVisible(false);
-              onSelect && onSelect(item);
-            }}>
-            <View style={styles.item}>
-              <Text style={styles.itemLabel}>{item}</Text>
-            </View>
-          </TouchableNativeFeedback>
+            title={item}
+            value={values[index]}
+            active={item === current}
+            onSelect={() => handleSubmit(values[index])}
+          />
         ))}
       </ModalView>
     </View>
@@ -52,29 +51,20 @@ export const SortButton = ({ items, current, onSelect }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 32,
+    borderRadius: 12,
     overflow: 'hidden',
+    marginRight: 8,
   },
-  button: {
+  sortButton: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: 16,
+    paddingHorizontal: 8,
+    paddingLeft: 12,
+    paddingVertical: 8,
   },
-  label: {
-    marginLeft: 4,
-    fontSize: 16,
+  text: {
     fontWeight: 'bold',
-  },
-  icon: {
-    alignSelf: 'center',
-  },
-  iconButton: {
-    backgroundColor: '#ffffff00',
-  },
-  item: {
-    padding: 16,
-  },
-  itemLabel: {
-    fontWeight: 'bold',
+    marginRight: 4,
   },
 });

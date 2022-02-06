@@ -24,8 +24,10 @@ import {
   editSubject,
   TSubject,
 } from '../../redux/subjectsSlice';
+import { editTask, TTask } from '../../redux/tasksSlice';
 import { decline, uuid4 } from '../../utils';
 import { TaskCard } from '../tasks/components/TaskCard';
+import { TasksPanel } from '../tasks/components/TasksPanel';
 
 export const ViewSubject = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ViewSubject'>>();
@@ -39,7 +41,10 @@ export const ViewSubject = () => {
     state.subjects.subjects.find((s) => s.id === id),
   );
   const tasks = useAppSelector((state) =>
-    state.tasks.tasks.filter((task) => task.subject === subject?.id),
+    state.tasks.tasks.filter(
+      (task) =>
+        task.subject === subject?.id && !task.completed && !task.archived,
+    ),
   );
 
   const handleBack = () => {
@@ -81,6 +86,11 @@ export const ViewSubject = () => {
         params: { id: id },
       }),
     );
+  };
+
+  const handleCompleteTask = (task: TTask) => {
+    const newTask: TTask = { ...task, completed: !task.completed };
+    dispatch(editTask(newTask));
   };
 
   const handleDeleteSubject = () => {
@@ -131,31 +141,16 @@ export const ViewSubject = () => {
           text={tasks.length > 0 ? taskCount : 'Нет задач'}
           onPress={handleCreateTask}></InfoLine>
 
-        <View style={styles.tasksView}>
-          {tasks.map((task) => {
-            if (!task.completed)
-              return (
-                <TaskCard
-                  key={uuid4()}
-                  task={task}
-                  onPress={() => handleViewTask(task.id)}
-                  short
-                />
-              );
-          })}
-        </View>
-        <View style={styles.tasksView}>
-          {tasks.map((task) => {
-            if (task.completed)
-              return (
-                <TaskCard
-                  key={uuid4()}
-                  task={task}
-                  onPress={() => handleViewTask(task.id)}
-                  short
-                />
-              );
-          })}
+        <View style={{ marginHorizontal: 24, marginTop: 16 }}>
+          {tasks.map((t) => (
+            <TaskCard
+              key={uuid4()}
+              short={false}
+              task={t}
+              onComplete={() => handleCompleteTask(t)}
+              onPress={() => handleViewTask(t.id)}
+            />
+          ))}
         </View>
       </ScrollView>
 

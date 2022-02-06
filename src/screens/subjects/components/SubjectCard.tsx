@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
+import { Icon } from '../../../components/Icon';
 import { useAppSelector } from '../../../redux/store';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { decline } from '../../../utils';
@@ -15,7 +16,10 @@ export const SubjectCard = ({ subject, onPress }: Props) => {
   const tasks = useAppSelector((state) =>
     state.tasks.tasks.filter((task) => task.subject === subject.id),
   );
-  const tasksCount = tasks.filter((task) => !task.completed).length;
+  const tasksCount = tasks.filter((task) => !task.archived).length;
+  const completedTasksCount = tasks.filter(
+    (task) => task.completed && !task.archived,
+  ).length;
 
   return (
     <CardBase onPress={onPress}>
@@ -26,15 +30,24 @@ export const SubjectCard = ({ subject, onPress }: Props) => {
           {!!subject.teacher && (
             <Text style={styles.teacher}>{subject.teacher}</Text>
           )}
-          {tasksCount > 0 && (
-            <Text style={styles.teacher}>{`${decline(tasksCount, [
-              'задача',
-              'задачи',
-              'задач',
-            ])}`}</Text>
-          )}
         </View>
       </View>
+      {(completedTasksCount > 0 || tasksCount > 0) && (
+        <View style={{ marginTop: 12 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon icon="check" color="#e2e2e2" />
+            <Text
+              style={{
+                fontSize: 12,
+                color: '#e2e2e2',
+                fontWeight: 'bold',
+                marginLeft: 8,
+              }}>
+              {`${completedTasksCount} / ${tasksCount}`}
+            </Text>
+          </View>
+        </View>
+      )}
     </CardBase>
   );
 };

@@ -8,6 +8,7 @@ import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
 import { uuid4 } from '../../utils';
+import { toWordUppercase } from './subjectUtils';
 
 export const EditSubject = () => {
   const navigation = useNavigation();
@@ -78,8 +79,8 @@ export const EditSubject = () => {
         <Input
           label="Преподаватель"
           placeholder="Иванов Иван Иванович"
-          value={subjectDraft.teacher}
-          onChange={(value) =>
+          value={toWordUppercase(subjectDraft.teacher)}
+          onType={(value) =>
             setSubjectraft({ ...subjectDraft, teacher: value })
           }
           clearInput

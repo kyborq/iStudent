@@ -1,11 +1,3 @@
-export const toTime = (s: number, addSecond?: boolean) => {
-  const hours = `${Math.floor(s / 3600)}`.padStart(2, '0');
-  const minutes = `${Math.floor((s % 3600) / 60)}`.padStart(2, '0');
-  const seconds = `${Math.floor((s % 3600) % 60)}`.padStart(2, '0');
-
-  return addSecond ? `${hours}:${minutes}:${seconds}` : `${hours}:${minutes}`;
-};
-
 export const getTime = (s: number) => {
   const hours = Math.floor(s / 3600);
   const minutes = Math.floor((s % 3600) / 60);
@@ -13,17 +5,32 @@ export const getTime = (s: number) => {
   return { hours, minutes, seconds };
 };
 
-export const getTimeString = (s: number, d?: string) => {
-  const hours = Math.floor(s / 3600);
-  const minutes = Math.floor((s % 3600) / 60);
-  const seconds = Math.floor((s % 3600) % 60);
+export const getTimes = (s: number) => {
+  const { hours, minutes, seconds } = getTime(s);
+  const sHours = `${hours}`.padStart(2, '0');
+  const sMinutes = `${minutes}`.padStart(2, '0');
+  const sSeconds = `${seconds}`.padStart(2, '0');
 
-  const hString = !!hours && hours > 0 ? `${hours}ч` : '';
-  const mString = !!minutes && minutes > 0 ? `${minutes}м` : '';
-  const sString = !!seconds && seconds > -1 ? `${seconds}с` : '';
-  const dString = !!d && d !== '' ? d : '';
+  return { hours: sHours, minutes: sMinutes, seconds: sSeconds };
+};
 
-  const arr = [dString, hString, mString, sString];
+export const getTimeString = (s: number) => {
+  const { hours, minutes, seconds } = getTimes(s);
 
-  return arr.filter((str) => str !== '').join(' ');
+  const arr = [hours, minutes];
+
+  return arr.filter((str) => str !== '').join(':');
+};
+
+export const getTimeOfTime = (s1: number = 0, s2: number = 0) => {
+  const time1 = getTimes(s1);
+  const time2 = getTimes(s2);
+
+  const arr1 = [time1.hours, time1.minutes];
+  const arr2 = [time2.hours, time2.minutes];
+
+  const str1 = arr1.join(':');
+  const str2 = arr2.join(':');
+
+  return `${str1} / ${str2}`;
 };
