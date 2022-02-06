@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { InfoLine } from '../../../components/InfoLine';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
+import { getTimeOfTime, getTimeString } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
@@ -28,6 +29,8 @@ export const TaskInfo = ({
     onSetTimer && onSetTimer(task.id);
   };
 
+  const timerExists = task.spended && task.estimate;
+
   return (
     <View>
       <InfoLine
@@ -47,9 +50,20 @@ export const TaskInfo = ({
       )}
 
       <InfoLine
+        icon="calendar"
+        label="Дата"
+        text={'Функция не реализована'}
+        disabled={task.completed}
+        onPress={() => {}}
+      />
+
+      <InfoLine
         icon="time"
         label="Таймер"
-        text={'Не установлен'}
+        text={
+          (!timerExists && 'Не установлен') ||
+          `${getTimeOfTime(task.spended, task.estimate)}`
+        }
         disabled={task.completed}
         onPress={handleSetTimer}
       />

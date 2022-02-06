@@ -5,15 +5,16 @@ import { COLORS } from '../../../colors';
 type Props = {
   value: number;
   max: number;
+  color?: string;
 };
 
-export const ProgressBar = ({ value, max }: Props) => {
+export const ProgressBar = ({ value, color, max }: Props) => {
   const progress = `${(value / max) * 100}%`;
   const out = value > max;
 
   const progressStyle: StyleProp<ViewStyle> = {
     width: progress,
-    backgroundColor: out ? COLORS.dangerF26969 : COLORS.primary5A9EEE,
+    backgroundColor: out ? COLORS.dangerF26969 : color,
   };
 
   return (
@@ -25,10 +26,10 @@ export const ProgressBar = ({ value, max }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 16,
-    borderRadius: 8,
+    height: 4,
+    borderRadius: 4,
     backgroundColor: '#f2f2f2',
-    width: '100%',
+    width: 100,
     overflow: 'hidden',
   },
   progress: {

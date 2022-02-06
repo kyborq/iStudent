@@ -6,6 +6,7 @@ import { Check } from '../../../components/inputs/Check';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { editTask, TTask } from '../../../redux/tasksSlice';
 import { getTextLetters } from '../../../utils';
+import { getTimeOfTime } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
@@ -46,7 +47,9 @@ export const TaskCard = ({ task, onPress, short, onComplete, last }: Props) => {
           {!short &&
             !task.archived &&
             !task.completed &&
-            (!!subject?.title || !!task.deadline) && (
+            (!!subject?.title ||
+              !!task.deadline ||
+              (!!task.spended && !!task.estimate)) && (
               <View style={styles.footer}>
                 {!!subject?.title && (
                   <Text
@@ -61,6 +64,11 @@ export const TaskCard = ({ task, onPress, short, onComplete, last }: Props) => {
                 {!!task.deadline && (
                   <Text style={[styles.footerText, styles.chip]}>
                     {task.deadline}
+                  </Text>
+                )}
+                {!!task.spended && !!task.estimate && (
+                  <Text style={[styles.footerText, styles.chip]}>
+                    {getTimeOfTime(task.spended, task.estimate)}
                   </Text>
                 )}
               </View>

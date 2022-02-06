@@ -29,7 +29,8 @@ export type TTask = {
   priority?: boolean;
   created?: string;
   deadline?: string;
-  spended?: string;
+  estimate?: number;
+  spended?: number;
   subject?: string;
 };
 
@@ -71,6 +72,21 @@ export const tasksSlice = createSlice({
       state.tasks = state.tasks.filter((task) => task.id !== id);
     },
 
+    // Действия с таймером
+    setTimer(
+      state,
+      action: PayloadAction<{
+        task: string;
+        estimated: number;
+        spended: number;
+      }>,
+    ) {
+      const { spended, estimated, task } = action.payload;
+      state.tasks = state.tasks.map((t) =>
+        t.id === task ? { ...t, spended, estimate: estimated } : t,
+      );
+    },
+
     // Действия с сортировкой
     changeTaskSorting(state, action: PayloadAction<ETaskSorting>) {
       const sorting = action.payload;
@@ -90,6 +106,7 @@ export const {
   editTask,
   changeTaskSorting,
   sortTasks,
+  setTimer,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;
