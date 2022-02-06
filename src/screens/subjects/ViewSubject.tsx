@@ -4,7 +4,7 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Linking,
   ScrollView,
@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   View,
 } from 'react-native';
+import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { IconButton } from '../../components/inputs/IconButton';
@@ -20,11 +21,12 @@ import { Dialogue } from '../../components/modals/Dialogue';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import {
+  addViewsToSubject,
   deleteSubject,
   editSubject,
   TSubject,
 } from '../../redux/subjectsSlice';
-import { editTask, TTask } from '../../redux/tasksSlice';
+import { archiveTasks, editTask, TTask } from '../../redux/tasksSlice';
 import { decline, uuid4 } from '../../utils';
 import { TaskCard } from '../tasks/components/TaskCard';
 import { TasksPanel } from '../tasks/components/TasksPanel';
@@ -46,6 +48,10 @@ export const ViewSubject = () => {
         task.subject === subject?.id && !task.completed && !task.archived,
     ),
   );
+
+  useEffect(() => {
+    dispatch(addViewsToSubject(subject?.id || id));
+  }, []);
 
   const handleBack = () => {
     navigation.goBack();
@@ -103,8 +109,11 @@ export const ViewSubject = () => {
   };
 
   const handleArchive = () => {
+    !subject?.archived && handleBack();
+
     const newSubject = { ...subject, archived: !subject?.archived } as TSubject;
     dispatch(editSubject(newSubject));
+    dispatch(archiveTasks(tasks.map((t) => t.id)));
   };
 
   const taskCount = decline(tasks.length, ['задача', 'задачи', 'задач']);
@@ -119,54 +128,71 @@ export const ViewSubject = () => {
       />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <InfoLine
-          icon="book"
-          label="Название дисциплины"
-          text={subject?.title}
-        />
-        {!!subject?.teacher && (
-          <InfoLine icon="user" label="Преподаватель" text={subject?.teacher} />
-        )}
-        {!!subject?.link && (
-          <InfoLine
-            icon="link"
-            label="Сайт"
-            text={subject?.link}
-            onPress={openWebURL}
+        {!subject?.archived ? (
+          <View>
+            <InfoLine
+              icon="book"
+              label="Название дисциплины"
+              text={subject?.title}
+            />
+            {!!subject?.teacher && (
+              <InfoLine
+                icon="user"
+                label="Преподаватель"
+                text={subject?.teacher}
+              />
+            )}
+            {!!subject?.link && (
+              <InfoLine
+                icon="link"
+                label="Сайт"
+                text={subject?.link}
+                onPress={openWebURL}
+              />
+            )}
+            <InfoLine
+              icon="check"
+              label="Задачи"
+              text={tasks.length > 0 ? taskCount : 'Нет задач'}
+              onPress={handleCreateTask}></InfoLine>
+
+            <View style={{ marginHorizontal: 24, marginTop: 16 }}>
+              {tasks.map((t) => (
+                <TaskCard
+                  key={uuid4()}
+                  short={false}
+                  task={t}
+                  onComplete={() => handleCompleteTask(t)}
+                  onPress={() => handleViewTask(t.id)}
+                />
+              ))}
+            </View>
+          </View>
+        ) : (
+          <Empty
+            text="Эта дисциплина архвивирована. Вы можете вернуть ее или удалить навсегда"
+            icon="archive"
+            onDelete={handleShowDeleteModal}
+            onReturn={handleArchive}
           />
         )}
-        <InfoLine
-          icon="check"
-          label="Задачи"
-          text={tasks.length > 0 ? taskCount : 'Нет задач'}
-          onPress={handleCreateTask}></InfoLine>
-
-        <View style={{ marginHorizontal: 24, marginTop: 16 }}>
-          {tasks.map((t) => (
-            <TaskCard
-              key={uuid4()}
-              short={false}
-              task={t}
-              onComplete={() => handleCompleteTask(t)}
-              onPress={() => handleViewTask(t.id)}
-            />
-          ))}
-        </View>
       </ScrollView>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 24,
-          justifyContent: 'flex-end',
-        }}>
-        <IconButton
-          icon="archive"
-          onPress={handleArchive}
-          containerStyle={{ marginRight: 12 }}
-        />
-        <IconButton icon="trash" onPress={handleShowDeleteModal} />
-      </View>
+      {!subject?.archived && (
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 24,
+            justifyContent: 'flex-end',
+          }}>
+          <IconButton
+            icon="archive"
+            onPress={handleArchive}
+            containerStyle={{ marginRight: 12 }}
+          />
+          <IconButton icon="trash" onPress={handleShowDeleteModal} />
+        </View>
+      )}
 
       <Dialogue
         visible={deleteModal}

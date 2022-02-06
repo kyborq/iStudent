@@ -4,15 +4,27 @@ import { getTextLetters } from '../../../utils';
 
 type Props = {
   label: string;
+  background?: string;
   color?: string;
 };
 
-export const SubjectIcon = ({ label, color }: Props) => {
+export const SubjectIcon = ({ label, color, background }: Props) => {
   const text = getTextLetters(label);
 
   return (
-    <View style={[styles.container, !!color && { backgroundColor: color }]}>
-      <Text style={[styles.text, { fontSize: text.length > 2 ? 12 : 18 }]}>
+    <View
+      style={[
+        styles.container,
+        !!background && { backgroundColor: background },
+      ]}>
+      <Text
+        style={[
+          styles.text,
+          {
+            fontSize: text.length > 2 ? 12 : 18,
+            color: !!color ? color : '#c7c7c7',
+          },
+        ]}>
         {text}
       </Text>
     </View>

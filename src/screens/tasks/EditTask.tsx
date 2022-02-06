@@ -25,8 +25,8 @@ export const EditTask = () => {
   const id = route?.params?.id;
   const subject = route?.params?.subject;
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
-  const subjects: TSubject[] = useAppSelector(
-    (state) => state.subjects.subjects,
+  const subjects: TSubject[] = useAppSelector((state) =>
+    state.subjects.subjects.filter((s) => !s.archived),
   );
   const task = id && tasks?.filter((t) => t.id === id)[0];
 

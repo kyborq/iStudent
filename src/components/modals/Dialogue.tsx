@@ -19,7 +19,7 @@ export const Dialogue = ({
   onContinue,
 }: Props) => {
   return (
-    <ModalView title={title} visible={visible}>
+    <ModalView title={title} visible={visible} onClose={onCancel}>
       <Text
         style={{
           paddingHorizontal: 24,
