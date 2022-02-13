@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { ScheduleWeek } from './components/ScheduleWeek';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { DateSelect } from './components/DateSelect';
@@ -19,6 +19,14 @@ export const ScheduleScreen = () => {
     state.tasks.tasks.filter((t) => t.deadline === date.format('DD.MM.YYYY')),
   );
 
+  const handleAddEvent = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'EditEvent',
+      }),
+    );
+  };
+
   const handleSetDate = (date: string) => {
     const newDate = moment(date, 'DD.MM.YYYY');
     setDate(newDate);
@@ -34,7 +42,7 @@ export const ScheduleScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Мое расписание" onAction={() => {}} />
+      <Header label="Мое расписание" onAction={handleAddEvent} />
       <ScheduleWeek
         date={date.format('DD.MM.YYYY')}
         color={theme}

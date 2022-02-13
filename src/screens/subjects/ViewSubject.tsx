@@ -121,7 +121,7 @@ export const ViewSubject = () => {
   return (
     <View style={styles.container}>
       <Header
-        label="Дисциплина"
+        label="Предмет"
         actionIcon={'edit'}
         onBack={handleBack}
         onAction={(!subject?.archived && handleEdit) || undefined}
