@@ -13,8 +13,8 @@ import { ProgressBar } from '../../timer/components/ProgressBar';
 
 type Props = {
   label: string;
-  progress: number;
-  estimate: number;
+  progress?: number;
+  estimate?: number;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 };
@@ -33,8 +33,12 @@ export const ScheduleTaskCard = ({
       <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
         <View style={styles.button}>
           <Text style={styles.label}>{label}</Text>
-          {progress > 0 && (
-            <ProgressBar value={progress} max={estimate} color={theme} />
+          {(progress || 0) > 0 && (
+            <ProgressBar
+              value={progress || 0}
+              max={estimate || 0}
+              color={theme}
+            />
           )}
         </View>
       </TouchableNativeFeedback>

@@ -1,6 +1,7 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Empty } from '../../components/Empty';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppSelector } from '../../redux/store';
@@ -79,7 +80,7 @@ export const SubjectsScreen = () => {
           filter={filter}
           onSetFilter={setFilter}
         />
-        {!searchQuery && filter !== 'ARCHIVED' && (
+        {!searchQuery && filter !== 'ARCHIVED' && recentSubjects.length > 0 && (
           <View style={{ marginBottom: 24, marginTop: 10 }}>
             <Text
               style={{
@@ -109,9 +110,13 @@ export const SubjectsScreen = () => {
           </View>
         )}
 
-        <View style={{ paddingHorizontal: 24, marginTop: 8 }}>
-          {subjectList}
-        </View>
+        {filteredSubjects.length > 0 ? (
+          <View style={{ paddingHorizontal: 24, marginTop: 8 }}>
+            {subjectList}
+          </View>
+        ) : (
+          <Empty icon="book" text="Список предметов пуст" />
+        )}
       </ScrollView>
     </View>
   );
