@@ -67,6 +67,12 @@ export const tasksSlice = createSlice({
         t.id === id ? { ...t, archived: !t.archived } : t,
       );
     },
+    archiveTasks(state, action: PayloadAction<string[]>) {
+      const ids = action.payload;
+      state.tasks = state.tasks.map((t) =>
+        ids.includes(t.id) ? { ...t, archived: !t.archived } : t,
+      );
+    },
     deleteTask(state, action: PayloadAction<string>) {
       const id = action.payload;
       state.tasks = state.tasks.filter((task) => task.id !== id);
@@ -107,6 +113,7 @@ export const {
   changeTaskSorting,
   sortTasks,
   setTimer,
+  archiveTasks,
 } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks;

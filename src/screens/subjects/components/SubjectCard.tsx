@@ -24,15 +24,28 @@ export const SubjectCard = ({ subject, onPress }: Props) => {
   return (
     <CardBase onPress={onPress}>
       <View style={styles.container}>
-        <SubjectIcon label={subject.title} color={subject.color} />
+        <SubjectIcon
+          label={subject.title}
+          background={subject.archived ? '#fafafa' : subject.color}
+          color={subject.archived ? '#c7c7c7' : '#fff'}
+        />
         <View style={styles.info}>
-          <Text style={styles.label}>{subject.title}</Text>
+          <Text
+            style={[
+              styles.label,
+              subject.archived && {
+                textDecorationLine: 'line-through',
+                color: '#c7c7c7',
+              },
+            ]}>
+            {subject.title}
+          </Text>
           {!!subject.teacher && (
             <Text style={styles.teacher}>{subject.teacher}</Text>
           )}
         </View>
       </View>
-      {(completedTasksCount > 0 || tasksCount > 0) && (
+      {(completedTasksCount > 0 || tasksCount > 0) && !subject.archived && (
         <View style={{ marginTop: 12 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Icon icon="check" color="#e2e2e2" />
