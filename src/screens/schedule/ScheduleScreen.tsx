@@ -7,6 +7,7 @@ import { ScheduleWeek } from './components/ScheduleWeek';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { DateSelect } from './components/DateSelect';
 import moment from 'moment';
+import { ScheduleTasks } from './components/ScheduleTasks';
 
 export const ScheduleScreen = () => {
   const [date, setDate] = useState(moment());
@@ -14,6 +15,9 @@ export const ScheduleScreen = () => {
   const navigation = useNavigation();
 
   const theme = useAppSelector((state) => state.settings.theme);
+  const todayTasks = useAppSelector((state) =>
+    state.tasks.tasks.filter((t) => t.deadline === date.format('DD.MM.YYYY')),
+  );
 
   const handleSetDate = (date: string) => {
     const newDate = moment(date, 'DD.MM.YYYY');
@@ -41,6 +45,7 @@ export const ScheduleScreen = () => {
         onPrev={prevDay}
         onNext={nextDay}
       />
+      {todayTasks.length > 0 && <ScheduleTasks tasks={todayTasks} />}
       <ScrollView contentContainerStyle={styles.content}>
         <Empty text="Событий на сегодня нет" icon="calendar" />
       </ScrollView>

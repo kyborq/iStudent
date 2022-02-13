@@ -6,9 +6,10 @@ type Props = {
   value: number;
   max: number;
   color?: string;
+  width?: number;
 };
 
-export const ProgressBar = ({ value, color, max }: Props) => {
+export const ProgressBar = ({ value, color, max, width }: Props) => {
   const progress = `${(value / max) * 100}%`;
   const out = value > max;
 
@@ -18,7 +19,7 @@ export const ProgressBar = ({ value, color, max }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, !!width && { width }]}>
       <View style={[styles.progress, progressStyle]} />
     </View>
   );
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 4,
     backgroundColor: '#f2f2f2',
-    width: 100,
+    width: '100%',
     overflow: 'hidden',
   },
   progress: {

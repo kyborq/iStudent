@@ -1,3 +1,4 @@
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { TTask } from '../../../redux/tasksSlice';
@@ -6,16 +7,28 @@ import { ScheduleTaskCard } from './ScheduleTaskCard';
 
 type Props = {
   tasks: TTask[];
-  onPress?: (id: string) => void;
 };
 
-export const ScheduleTasks = ({ tasks, onPress }: Props) => {
+export const ScheduleTasks = ({ tasks }: Props) => {
+  const navigation = useNavigation();
+
+  const handleViewTask = (id: string) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'ViewTask',
+        params: { id },
+      }),
+    );
+  };
+
   const taskList = tasks.map((task, index) => (
     <ScheduleTaskCard
       key={uuid4()}
-      label={task.label}
+      label={task.title}
+      progress={task.spended || 0}
+      estimate={task.estimate || 0}
       style={{ marginRight: tasks.length - 1 === index ? 0 : 12 }}
-      onPress={() => onPress && onPress(task.id)}
+      onPress={() => handleViewTask(task.id)}
     />
   ));
 

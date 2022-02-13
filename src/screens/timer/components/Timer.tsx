@@ -38,7 +38,12 @@ export const Timer = ({
             styles.clock
           }>{`${time.hours}:${time.minutes}:${time.seconds}`}</Text>
         {spended > 0 && (
-          <ProgressBar value={spended} max={estimate} color={color} />
+          <ProgressBar
+            value={spended}
+            max={estimate}
+            color={color}
+            width={100}
+          />
         )}
         <View style={{ flexDirection: 'row', marginTop: 12 }}>
           <IconButton
