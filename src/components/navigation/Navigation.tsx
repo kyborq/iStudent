@@ -52,11 +52,11 @@ export const TabsNavigation = () => {
         options={{ title: 'Задачи' }}
       />
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="ScheduleScreen"
         component={ScheduleScreen}
         options={{ title: 'Расписание' }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };

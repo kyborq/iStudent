@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import React from 'react';
 import { View, ScrollView } from 'react-native';
-import {
-  getDate,
-  getWeekArray,
-  getWeekName,
-} from '../../../components/calendar/calendarUtils';
 import { uuid4 } from '../../../utils';
+import { getWeek } from '../scheduleUtils';
 import { WeekDay } from './WeekDay';
 
 type Props = {
-  date: number;
-  onSelect?: (date: number) => void;
+  date: string;
+  color?: string;
+  onSelectDate?: (date: string) => void;
 };
 
-export const ScheduleWeek = ({ date, onSelect }: Props) => {
-  const [selectedDate, setDate] = useState(date);
-  const currentDate = new Date().valueOf();
+export const ScheduleWeek = ({ date, color, onSelectDate }: Props) => {
+  const currentDate = moment().format('DD.MM.YYYY');
 
-  useEffect(() => {
-    setDate(date);
-  }, [date]);
-
-  const week = getWeekArray(selectedDate);
+  const week = getWeek(date);
   const weekList = week.map((day, index) => (
     <WeekDay
       key={uuid4()}
-      day={getWeekName(day)}
-      number={getDate(day, 'day')}
       style={{ marginRight: index === week.length - 1 ? 0 : 8 }}
-      current={getDate(currentDate) === getDate(day)}
-      selected={getDate(day) === getDate(date)}
-      onPress={() => onSelect && onSelect(day)}
+      date={day}
+      color={color}
+      current={currentDate === day}
+      selected={date === day}
+      onPress={() => onSelectDate && onSelectDate(day)}
     />
   ));
 

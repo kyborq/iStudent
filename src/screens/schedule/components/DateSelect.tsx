@@ -4,18 +4,16 @@ import { getDate } from '../../../components/calendar/calendarUtils';
 import { IconButton } from '../../../components/inputs/IconButton';
 
 type Props = {
-  date: number;
+  date: string;
   onPrev?: () => void;
   onNext?: () => void;
 };
 
 export const DateSelect = ({ date, onPrev, onNext }: Props) => {
-  const dateString = getDate(date);
-
   return (
     <View style={styles.container}>
       <IconButton icon="chevronLeft" onPress={onPrev} />
-      <Text style={styles.label}>{dateString}</Text>
+      <Text style={styles.label}>{date}</Text>
       <IconButton icon="chevronRight" onPress={onNext} />
     </View>
   );

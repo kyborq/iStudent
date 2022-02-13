@@ -1,8 +1,10 @@
+import moment from 'moment';
 import React from 'react';
 import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableNativeFeedback,
   View,
   ViewStyle,
@@ -10,8 +12,8 @@ import {
 import { COLORS } from '../../../colors';
 
 type Props = {
-  number: string;
-  day: string;
+  date: string;
+  color?: string;
   style?: StyleProp<ViewStyle>;
   current?: boolean;
   selected?: boolean;
@@ -19,36 +21,61 @@ type Props = {
 };
 
 export const WeekDay = ({
-  number,
-  day,
+  date,
+  color,
   style,
   current,
   selected,
   onPress,
 }: Props) => {
+  const currentDate = moment(date, 'DD.MM.YYYY');
+  const day = currentDate.format('dd');
+  const number = currentDate.format('DD');
+
+  const currentStyle = {
+    container: {
+      borderColor: color,
+    },
+    text: {
+      color: color,
+    },
+  };
+
+  const selectedStyle = {
+    container: {
+      borderColor: color,
+      backgroundColor: color,
+    },
+    text: {
+      color: '#fff',
+    },
+  };
+
   return (
     <View
       style={[
         styles.ripple,
         style,
-        current && { borderColor: COLORS.primary5A9EEE },
-        selected && {
-          borderColor: COLORS.primary5A9EEE,
-          backgroundColor: COLORS.primary5A9EEE,
-        },
+        current && currentStyle.container,
+        selected && selectedStyle.container,
       ]}>
       <TouchableNativeFeedback
         background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', true)}
         onPress={onPress}>
         <View style={styles.container}>
-          <Text style={[styles.label, selected && { color: '#fff' }]}>
+          <Text
+            style={[
+              styles.label,
+              current && currentStyle.text,
+              selected && selectedStyle.text,
+            ]}>
             {day}
           </Text>
           <Text
             style={[
               styles.text,
-              current && { color: COLORS.primary5A9EEE },
-              selected && { color: '#fff' },
+              current && currentStyle.text,
+              selected && selectedStyle.text,
             ]}>
             {number}
           </Text>
