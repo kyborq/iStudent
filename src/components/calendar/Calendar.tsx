@@ -1,31 +1,41 @@
+import moment from 'moment';
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { uuid4 } from '../../utils';
-import { getDate, getMonthArray } from './calendarUtils';
+import { getMonth } from './calendarUtils';
 import { CalendarWeek } from './CalendarWeek';
 
 type Props = {
-  date: number;
-  selectedDate: number;
+  date: string;
+  selectedDate: string;
   style?: StyleProp<ViewStyle>;
-  onSelect?: (date: number) => void;
+  onSelect?: (date: string) => void;
 };
 
 export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
-  const month = getMonthArray(date);
+  const currentDate = moment().format('DD.MM.YYYY');
+  const month = getMonth(date);
 
   const monthList = month.map((week, index) => {
     return (
       <CalendarWeek
         key={uuid4()}
         week={week}
-        selectedDate={selectedDate}
-        month={getDate(date, 'month')}
         style={{ marginBottom: index === month.length - 1 ? 0 : 4 }}
         onSelect={onSelect}
+        monthDate={date}
+        currentDate={currentDate}
+        selectedDate={selectedDate}
       />
     );
   });
 
-  return <View style={style}>{monthList}</View>;
+  return <View style={[styles.container, style]}>{monthList}</View>;
 };
+
+const styles = StyleSheet.create({
+  container: {
+    // paddingHorizontal: 16,
+    // paddingVertical: 8,
+  },
+});

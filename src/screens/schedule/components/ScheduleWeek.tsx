@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React from 'react';
 import { View, ScrollView } from 'react-native';
+import { getWeek } from '../../../components/calendar/calendarUtils';
 import { uuid4 } from '../../../utils';
-import { getWeek } from '../scheduleUtils';
 import { WeekDay } from './WeekDay';
 
 type Props = {

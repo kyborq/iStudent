@@ -1,10 +1,13 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { useAppSelector } from '../../redux/store';
 
 export const HomeScreen = () => {
+  const date = moment();
+
   const navigation = useNavigation();
   const name = useAppSelector((state) => state.settings.name);
 
@@ -16,6 +19,8 @@ export const HomeScreen = () => {
     );
   };
 
+  const today = `${date.format('D MMMM')}, ${date.format('dddd')}`;
+
   return (
     <View style={styles.container}>
       <Header
@@ -23,7 +28,12 @@ export const HomeScreen = () => {
         onAction={goToSettings}
         actionIcon="settings"
       />
-      <ScrollView contentContainerStyle={styles.content}></ScrollView>
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text style={{ fontSize: 14, color: '#c7c7c7' }}>Сегодня</Text>
+        <Text style={{ fontSize: 26, fontWeight: 'bold', marginTop: 8 }}>
+          {today}
+        </Text>
+      </ScrollView>
     </View>
   );
 };

@@ -52,7 +52,6 @@ export const ViewTask = () => {
   };
 
   const handleBack = () => {
-    // dispatch(sortTasks());
     navigation.goBack();
   };
 
@@ -74,6 +73,11 @@ export const ViewTask = () => {
     );
   };
 
+  const handleSetDeadline = (date: string) => {
+    const newTask: TTask = { ...task, deadline: date };
+    dispatch(editTask(newTask));
+  };
+
   return (
     <View style={styles.container}>
       <Header
@@ -90,6 +94,7 @@ export const ViewTask = () => {
             subject={subject}
             onShowSubject={handleShowSubject}
             onSetTimer={handleSetTimer}
+            onSetDeadline={handleSetDeadline}
           />
         ) : (
           <Empty

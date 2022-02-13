@@ -1,50 +1,38 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from '../../inputs/IconButton';
-import { getMonthName } from '../calendarUtils';
 
 type Props = {
-  date: number;
+  month: string;
   onNextMonth?: () => void;
   onPrevMonth?: () => void;
   onClearDate?: () => void;
 };
 
-export const CalendarFormHeader = ({
-  date,
+export const CalendarHeader = ({
+  month,
   onNextMonth,
   onPrevMonth,
   onClearDate,
 }: Props) => {
-  const month = getMonthName(date);
-
   return (
     <View style={styles.calendarHeader}>
       <Text style={styles.monthLabel}>{month}</Text>
       <View style={styles.calendarButtons}>
         <IconButton
           icon="trash"
-          color="#c7c7c7"
-          background="#fff"
-          size={32}
           buttonStyle={styles.buttonStyle}
           containerStyle={{ marginRight: 10 }}
           onPress={onClearDate}
         />
         <IconButton
           icon="chevronLeft"
-          color="#c7c7c7"
-          background="#fff"
-          size={32}
           buttonStyle={styles.buttonStyle}
           containerStyle={{ marginRight: 10 }}
           onPress={onPrevMonth}
         />
         <IconButton
           icon="chevronRight"
-          color="#c7c7c7"
-          background="#fff"
-          size={32}
           buttonStyle={styles.buttonStyle}
           onPress={onNextMonth}
         />
@@ -64,6 +52,7 @@ const styles = StyleSheet.create({
   monthLabel: {
     fontSize: 18,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   calendarButtons: {
     flexDirection: 'row',

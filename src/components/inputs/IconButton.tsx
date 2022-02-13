@@ -20,7 +20,7 @@ type Props = {
 export const IconButton = ({
   icon,
   label,
-  size = 48,
+  size,
   primary,
   containerStyle,
   buttonStyle,
@@ -56,7 +56,7 @@ export const IconButton = ({
       style={[
         styles.container,
         containerStyle,
-        { borderRadius: Math.round(size / 2) },
+        { borderRadius: Math.round((size || 48) / 2) },
       ]}>
       <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
         <View
@@ -65,6 +65,7 @@ export const IconButton = ({
             buttonStyle,
             primary ? primaryTheme.container : defaultTheme.container,
             !!label && styleWithLabel,
+            !label && !!size && { width: size, height: size },
           ]}>
           <Icon icon={icon} color={!primary ? color : '#FFF'} />
           {!!label && (

@@ -7,50 +7,52 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { COLORS } from '../../colors';
-import { getDate } from './calendarUtils';
+import { COLORS, TOUCHABLE_COLOR } from '../../colors';
+import { useAppSelector } from '../../redux/store';
 
 type Props = {
-  date: number;
+  day: string;
   style?: StyleProp<ViewStyle>;
   current?: boolean;
   selected?: boolean;
   month?: boolean;
-  onPress?: (date: number) => void;
+  onPress?: () => void;
 };
 
 export const CalendarDay = ({
-  date,
+  day,
   style,
   current,
   selected,
   month,
   onPress,
 }: Props) => {
-  const day = getDate(date, 'day');
+  const theme = useAppSelector((s) => s.settings.theme);
 
   const handleSelect = () => {
-    onPress && onPress(date);
+    onPress && onPress();
   };
 
   return (
     <View style={[styles.ripple, style]}>
-      <TouchableNativeFeedback onPress={handleSelect}>
+      <TouchableNativeFeedback
+        background={TOUCHABLE_COLOR}
+        onPress={handleSelect}>
         <View
           style={[
             styles.day,
             month && { borderColor: COLORS.grayF2F2F2 },
-            current && { borderColor: COLORS.primary5A9EEE },
+            current && { borderColor: theme },
             selected && {
-              borderColor: COLORS.primary5A9EEE,
-              backgroundColor: COLORS.primary5A9EEE,
+              borderColor: theme,
+              backgroundColor: theme,
             },
           ]}>
           <Text
             style={[
               styles.dayLabel,
               !month && { color: '#e2e2e2' },
-              current && { color: COLORS.primary5A9EEE },
+              current && { color: theme },
               selected && { color: '#fff' },
             ]}>
             {day}

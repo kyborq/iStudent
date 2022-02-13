@@ -1,51 +1,49 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Calendar } from '../Calendar';
-import { addDateMonth } from '../calendarUtils';
-import { CalendarFormHeader } from './CalendarFormHeader';
+import { CalendarHeader } from './CalendarHeader';
 
 type Props = {
-  selectedDate?: Date;
-  date: number;
-  onSelectDate?: (date: number) => void;
+  date: string;
+  onSelectDate?: (date: string) => void;
 };
 
 export const CalendarForm = ({ date, onSelectDate }: Props) => {
-  const [formDate, setFormDate] = useState(date);
-
-  useEffect(() => {
-    setFormDate(date);
-  }, [date]);
+  const [currentDate, setCurrentDate] = useState(moment(date, 'DD.MM.YYYY'));
+  const month = currentDate.format('MMMM');
 
   const nextMonth = () => {
-    const currentDate = new Date(formDate);
-    const newDate = addDateMonth(currentDate, 1);
-    setFormDate(newDate.valueOf());
+    const newDate = currentDate.clone().add(1, 'M');
+    setCurrentDate(newDate);
   };
 
   const prevMonth = () => {
-    const currentDate = new Date(formDate);
-    const newDate = addDateMonth(currentDate, -1);
-    setFormDate(newDate.valueOf());
+    const newDate = currentDate.clone().subtract(1, 'M');
+    setCurrentDate(newDate);
   };
 
   const clearDate = () => {
-    onSelectDate && onSelectDate(0);
+    onSelectDate && onSelectDate('');
+  };
+
+  const setDate = (date: string) => {
+    onSelectDate && onSelectDate(date);
   };
 
   return (
     <View style={styles.container}>
-      <CalendarFormHeader
-        date={formDate}
+      <CalendarHeader
+        month={month}
         onPrevMonth={prevMonth}
         onNextMonth={nextMonth}
         onClearDate={clearDate}
       />
       <Calendar
+        date={currentDate.format('DD.MM.YYYY')}
         selectedDate={date}
-        date={formDate}
         style={styles.calendarStyle}
-        onSelect={onSelectDate}
+        onSelect={setDate}
       />
     </View>
   );

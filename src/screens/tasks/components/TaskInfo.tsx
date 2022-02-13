@@ -1,16 +1,19 @@
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
+import { CalendarForm } from '../../../components/calendar/form/CalendarForm';
 import { InfoLine } from '../../../components/InfoLine';
+import { ModalView } from '../../../components/modals/ModalView';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
-import { getTimeOfTime, getTimeString } from '../../timer/timerUtils';
+import { getTimeOfTime } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
   subject?: TSubject;
   onShowSubject?: (id: string) => void;
   onSetTimer?: (id: string) => void;
+  onSetDeadline?: (date: string) => void;
 };
 
 export const TaskInfo = ({
@@ -18,7 +21,9 @@ export const TaskInfo = ({
   subject,
   onShowSubject,
   onSetTimer,
+  onSetDeadline,
 }: Props) => {
+  const [dateModal, setDateModal] = useState(false);
   const currentDate = moment().format('DD.MM.YYYY');
 
   const handleShowSubject = () => {
@@ -29,7 +34,14 @@ export const TaskInfo = ({
     onSetTimer && onSetTimer(task.id);
   };
 
-  const timerExists = task.spended && task.estimate;
+  const handleToggleModal = () => {
+    setDateModal(!dateModal);
+  };
+
+  const handleSetDeadline = (date: string) => {
+    onSetDeadline && onSetDeadline(date);
+    handleToggleModal();
+  };
 
   return (
     <View>
@@ -51,22 +63,26 @@ export const TaskInfo = ({
 
       <InfoLine
         icon="calendar"
-        label="Дата"
-        text={'Функция не реализована'}
+        label="Срок выполнения"
+        text={(!!task.deadline && task.deadline) || 'Не установлен'}
         disabled={task.completed}
-        onPress={() => {}}
+        onPress={handleToggleModal}
       />
 
       <InfoLine
         icon="time"
-        label="Таймер"
-        text={
-          (!timerExists && 'Не установлен') ||
-          `${getTimeOfTime(task.spended, task.estimate)}`
-        }
+        label="Самоконтроль"
+        text={`${getTimeOfTime(task.spended, task.estimate)}`}
         disabled={task.completed}
         onPress={handleSetTimer}
       />
+
+      <ModalView visible={dateModal} onClose={handleToggleModal}>
+        <CalendarForm
+          date={task.deadline || currentDate}
+          onSelectDate={handleSetDeadline}
+        />
+      </ModalView>
     </View>
   );
 };
