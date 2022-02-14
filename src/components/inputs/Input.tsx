@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
@@ -18,9 +20,11 @@ type Props = {
   value?: string;
   icon?: TIcon;
   clearInput?: boolean;
+  disableInput?: boolean;
   style?: StyleProp<ViewStyle>;
   onChange?: (value: string) => void;
   onType?: (value: string) => void;
+  onFocus?: () => void;
 };
 
 export const Input = ({
@@ -31,8 +35,10 @@ export const Input = ({
   icon,
   style,
   clearInput,
+  disableInput,
   onChange,
   onType,
+  onFocus,
 }: Props) => {
   const [focused, setFocused] = useState(false);
   const [text, setText] = useState(value || '');
@@ -52,12 +58,12 @@ export const Input = ({
   }, [value]);
 
   useEffect(() => {
-    onType && onType(text);
+    !disableInput && onType && onType(text);
   }, [text]);
 
   const handleClearInput = () => {
-    onChange && onChange('');
-    onType && onType('');
+    !disableInput && onChange && onChange('');
+    !disableInput && onType && onType('');
   };
 
   return (
@@ -83,13 +89,13 @@ export const Input = ({
           style={styles.input}
           multiline={multiline}
           value={text}
-          onChangeText={setText}
+          onChangeText={(text) => !disableInput && setText(text)}
           onEndEditing={handleSubmit}
           onFocus={handleFocus}
           onBlur={handleFocus}
           placeholderTextColor="#c7c7c7"
         />
-        {clearInput && value !== '' && (
+        {!disableInput && clearInput && value !== '' && (
           <IconButton
             icon="clear"
             background

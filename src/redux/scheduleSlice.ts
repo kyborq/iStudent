@@ -26,6 +26,7 @@ export const scheduleSlice = createSlice({
   reducers: {
     addEvent(state, action: PayloadAction<TEvent>) {
       // ...
+      state.schedule = [...state.schedule, action.payload];
     },
   },
 });

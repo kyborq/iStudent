@@ -8,9 +8,18 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { DateSelect } from './components/DateSelect';
 import moment from 'moment';
 import { ScheduleTasks } from './components/ScheduleTasks';
+import { ScheduleCard } from './components/ScheduleCard';
+import { uuid4 } from '../../utils';
+import { sortEvents } from './scheduleUtils';
+import useInterval from '../../hooks/useInterval';
 
 export const ScheduleScreen = () => {
   const [date, setDate] = useState(moment());
+  const [currentDate, setCurrentDate] = useState(moment().format('HH:mm'));
+
+  useInterval(() => {
+    setCurrentDate(moment().format('HH:mm'));
+  }, 1000);
 
   const navigation = useNavigation();
 
@@ -18,6 +27,12 @@ export const ScheduleScreen = () => {
   const todayTasks = useAppSelector((state) =>
     state.tasks.tasks.filter((t) => t.deadline === date.format('DD.MM.YYYY')),
   );
+  const events = useAppSelector((state) =>
+    state.schedule.schedule.filter(
+      (event) => event.date === date.format('DD.MM.YYYY'),
+    ),
+  );
+  const todayEvents = sortEvents(events);
 
   const handleAddEvent = () => {
     navigation.dispatch(
@@ -55,7 +70,19 @@ export const ScheduleScreen = () => {
       />
       {todayTasks.length > 0 && <ScheduleTasks tasks={todayTasks} />}
       <ScrollView contentContainerStyle={styles.content}>
-        <Empty text="Событий на сегодня нет" icon="calendar" />
+        <View>
+          {todayEvents.map((event) => (
+            <ScheduleCard
+              key={uuid4()}
+              event={event}
+              current={
+                currentDate > event.time.start && currentDate < event.time.end
+              }
+              past={currentDate > event.time.end}
+            />
+          ))}
+        </View>
+        {/* <Empty text="Событий на сегодня нет" icon="calendar" /> */}
       </ScrollView>
     </View>
   );
@@ -69,5 +96,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 24,
     flexGrow: 1,
+    paddingTop: 16,
   },
 });
