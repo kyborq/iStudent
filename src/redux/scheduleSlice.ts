@@ -10,6 +10,7 @@ export type TEvent = {
   };
   subject?: string;
   task?: string;
+  repeat?: number;
 };
 
 interface IScheduleSclice {

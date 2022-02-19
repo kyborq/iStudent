@@ -11,9 +11,15 @@ type CardBaseProps = {
   children?: React.ReactNode;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
-export const CardBase = ({ children, onPress, style }: CardBaseProps) => {
+export const CardBase = ({
+  children,
+  onPress,
+  style,
+  containerStyle,
+}: CardBaseProps) => {
   return (
     <View style={[styles.touchable, style]}>
       <TouchableNativeFeedback
@@ -22,7 +28,7 @@ export const CardBase = ({ children, onPress, style }: CardBaseProps) => {
           'rgba(0, 0, 0, 0.02)',
           false,
         )}>
-        <View style={styles.container}>{children}</View>
+        <View style={[styles.container, containerStyle]}>{children}</View>
       </TouchableNativeFeedback>
     </View>
   );

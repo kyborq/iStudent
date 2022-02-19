@@ -15,6 +15,8 @@ import moment from 'moment';
 import { FakeInput } from '../../components/inputs/FakeInput';
 import { Button } from '../../components/inputs/Button';
 
+const repeats = ['Каждый день', 'Каждую неделю', 'Каждые две недели'];
+
 export const EditEvent = () => {
   const [eventDraft, setEventDraft] = useState<TEvent>({
     id: uuid4(),
@@ -111,17 +113,26 @@ export const EditEvent = () => {
     handleBack();
   };
 
+  const onChangeRepeat = (id?: string) => {
+    setEventDraft({
+      ...eventDraft,
+      repeat: (!!id && parseInt(id)) || undefined,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Header label="Добавить занятие" onBack={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
-        <Input
-          label="Название занятия"
-          placeholder="Пара по информатике"
-          value={eventDraft.title}
-          onChange={(text) => setEventDraft({ ...eventDraft, title: text })}
-          multiline
-        />
+        {!eventDraft.subject && (
+          <Input
+            label="Название занятия"
+            placeholder="Пара по информатике"
+            value={eventDraft.title}
+            onChange={(text) => setEventDraft({ ...eventDraft, title: text })}
+            multiline
+          />
+        )}
         <Select
           label="Предмет"
           items={subjects.map((subject) => {
@@ -131,6 +142,7 @@ export const EditEvent = () => {
           value={subjects.find((s) => s.id === eventDraft.subject)?.title}
           onSelect={onSubjectChange}
         />
+
         <FakeInput
           label="Дата"
           placeholder={eventDraft.date}
@@ -156,6 +168,15 @@ export const EditEvent = () => {
             onPress={onShowEndTime}
           />
         </View>
+        {/* <Select
+          label="Повторять"
+          items={repeats.map((r, i) => {
+            return { title: r, value: `${i + 1}` };
+          })}
+          placeholder={'Не повторять'}
+          value={repeats.find((s, i) => i + 1 === eventDraft.repeat && s)}
+          onSelect={onChangeRepeat}
+        /> */}
       </ScrollView>
       <View style={{ padding: 24 }}>
         <Button
