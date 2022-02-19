@@ -49,6 +49,9 @@ export const ScheduleScreen = () => {
     navigation.dispatch(
       CommonActions.navigate({
         name: 'EditEvent',
+        params: {
+          date: date.format('DD.MM.YYYY'),
+        },
       }),
     );
   };

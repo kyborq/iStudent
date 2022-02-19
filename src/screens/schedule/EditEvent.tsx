@@ -21,6 +21,7 @@ const repeats = ['Каждый день', 'Каждую неделю', 'Кажд
 export const EditEvent = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'EditEvent'>>();
   const id = route?.params?.id;
+  const date = route?.params?.date;
 
   const event = useAppSelector((s) =>
     s.schedule.schedule.find((e) => e.id === id),
@@ -32,7 +33,7 @@ export const EditEvent = () => {
       : {
           id: uuid4(),
           title: '',
-          date: moment().format('DD.MM.YYYY'),
+          date: date || moment().format('DD.MM.YYYY'),
           time: {
             start: moment().format('HH:mm'),
             end: moment().add(1, 'hour').add(45, 'minute').format('HH:mm'),
