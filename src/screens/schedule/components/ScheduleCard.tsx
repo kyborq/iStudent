@@ -10,9 +10,16 @@ type Props = {
   current?: boolean;
   past?: boolean;
   color?: string;
+  onPress?: (id: string) => void;
 };
 
-export const ScheduleCard = ({ event, current, past, color }: Props) => {
+export const ScheduleCard = ({
+  event,
+  current,
+  past,
+  color,
+  onPress,
+}: Props) => {
   const overdue = moment(`${event.date} ${event.time.end}`, 'DD.MM.YYYY HH:mm')
     .endOf('minute')
     .fromNow();
@@ -27,8 +34,12 @@ export const ScheduleCard = ({ event, current, past, color }: Props) => {
     text: { color: '#c7c7c7', textDecorationLine: 'line-through' },
   };
 
+  const handlePress = () => onPress && onPress(event.id);
+
   return (
-    <CardBase containerStyle={current && currentStyle.base}>
+    <CardBase
+      containerStyle={current && currentStyle.base}
+      onPress={handlePress}>
       <View style={styles.schedule}>
         <View style={styles.time}>
           <Text style={[styles.timeText, past && { color: '#c7c7c7' }]}>

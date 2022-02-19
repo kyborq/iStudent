@@ -53,6 +53,15 @@ export const ScheduleScreen = () => {
     );
   };
 
+  const handleShowEvent = (id: string) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'ViewEvent',
+        params: { id: id },
+      }),
+    );
+  };
+
   const handleSetDate = (date: string) => {
     const newDate = moment(date, 'DD.MM.YYYY');
     setDate(newDate);
@@ -94,6 +103,7 @@ export const ScheduleScreen = () => {
                 }
                 past={currentDate > `${event.date} ${event.time.end}`}
                 color={theme}
+                onPress={handleShowEvent}
               />
             );
           })}

@@ -26,12 +26,21 @@ export const scheduleSlice = createSlice({
   initialState,
   reducers: {
     addEvent(state, action: PayloadAction<TEvent>) {
-      // ...
       state.schedule = [...state.schedule, action.payload];
+    },
+    deleteEvent(state, action: PayloadAction<string>) {
+      state.schedule = state.schedule.filter(
+        (event) => event.id !== action.payload,
+      );
+    },
+    editEvent(state, action: PayloadAction<TEvent>) {
+      state.schedule = state.schedule.map((event) =>
+        event.id === action.payload.id ? action.payload : event,
+      );
     },
   },
 });
 
-export const { addEvent } = scheduleSlice.actions;
+export const { addEvent, deleteEvent, editEvent } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

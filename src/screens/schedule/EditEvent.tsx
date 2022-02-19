@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import DateTimePicker, {
   DateTimePickerResult,
@@ -7,26 +7,38 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { Select } from '../../components/inputs/Select';
-import { addEvent, TEvent } from '../../redux/scheduleSlice';
+import { addEvent, editEvent, TEvent } from '../../redux/scheduleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
 import { uuid4 } from '../../utils';
 import moment from 'moment';
 import { FakeInput } from '../../components/inputs/FakeInput';
 import { Button } from '../../components/inputs/Button';
+import { RootStackParamList } from '../../components/navigation/Navigation';
 
 const repeats = ['Каждый день', 'Каждую неделю', 'Каждые две недели'];
 
 export const EditEvent = () => {
-  const [eventDraft, setEventDraft] = useState<TEvent>({
-    id: uuid4(),
-    title: '',
-    date: moment().format('DD.MM.YYYY'),
-    time: {
-      start: moment().format('HH:mm'),
-      end: moment().add(1, 'hour').add(45, 'minute').format('HH:mm'),
-    },
-  });
+  const route = useRoute<RouteProp<RootStackParamList, 'EditEvent'>>();
+  const id = route?.params?.id;
+
+  const event = useAppSelector((s) =>
+    s.schedule.schedule.find((e) => e.id === id),
+  );
+
+  const [eventDraft, setEventDraft] = useState<TEvent>(
+    !!event
+      ? event
+      : {
+          id: uuid4(),
+          title: '',
+          date: moment().format('DD.MM.YYYY'),
+          time: {
+            start: moment().format('HH:mm'),
+            end: moment().add(1, 'hour').add(45, 'minute').format('HH:mm'),
+          },
+        },
+  );
   const [startPickerVisible, setStartPickerVisible] = useState(false);
   const [endPickerVisible, setEndPickerVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -40,7 +52,7 @@ export const EditEvent = () => {
 
   const onStartTimeChange = (event: Event, selectedDate?: Date) => {
     const date = moment(selectedDate);
-    const endDate = moment(selectedDate).add(1, 'hour').add(45, 'minute');
+    const endDate = moment(selectedDate).add(1, 'hour').add(35, 'minute');
 
     const startHour = date.format('HH:mm');
 
@@ -113,6 +125,11 @@ export const EditEvent = () => {
     handleBack();
   };
 
+  const handleEdit = () => {
+    dispatch(editEvent(eventDraft));
+    handleBack();
+  };
+
   const onChangeRepeat = (id?: string) => {
     setEventDraft({
       ...eventDraft,
@@ -124,7 +141,7 @@ export const EditEvent = () => {
     <View style={styles.container}>
       <Header label="Добавить занятие" onBack={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
-        {!eventDraft.subject && (
+        {/* {!eventDraft.subject && (
           <Input
             label="Название занятия"
             placeholder="Пара по информатике"
@@ -132,7 +149,7 @@ export const EditEvent = () => {
             onChange={(text) => setEventDraft({ ...eventDraft, title: text })}
             multiline
           />
-        )}
+        )} */}
         <Select
           label="Предмет"
           items={subjects.map((subject) => {
@@ -182,8 +199,8 @@ export const EditEvent = () => {
         <Button
           label="Сохранить"
           primary
-          disabled={eventDraft.subject === ''}
-          onPress={handleSave}
+          disabled={!eventDraft.subject}
+          onPress={!!id ? handleEdit : handleSave}
         />
       </View>
 
