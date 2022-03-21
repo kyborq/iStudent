@@ -23,11 +23,7 @@ export const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header
-        label={`Привет, ${name}!`}
-        onAction={goToSettings}
-        actionIcon="settings"
-      />
+      <Header title="Главная" />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={{ fontSize: 14, color: '#c7c7c7' }}>Сегодня</Text>
         <Text style={{ fontSize: 26, fontWeight: 'bold', marginTop: 8 }}>

@@ -81,7 +81,7 @@ export const ScheduleScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Мое расписание" onAction={handleAddEvent} />
+      <Header title="Мое расписание" onRight={handleAddEvent} />
       <ScheduleWeek
         date={date.format('DD.MM.YYYY')}
         color={theme}

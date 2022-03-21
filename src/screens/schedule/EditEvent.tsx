@@ -140,7 +140,7 @@ export const EditEvent = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Добавить занятие" onBack={handleBack} />
+      <Header title="Главная" onRight={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
         {/* {!eventDraft.subject && (
           <Input

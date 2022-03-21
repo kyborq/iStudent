@@ -64,7 +64,7 @@ export const SubjectsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Мои предметы" onAction={handleAddSubject} />
+      <Header title="Мои предметы" onRight={handleAddSubject} />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           icon="search"

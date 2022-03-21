@@ -1,82 +1,35 @@
 import React from 'react';
-import { StyleProp, Text, TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { TouchableNativeFeedback, View } from 'react-native';
-import { COLORS, TOUCHABLE_COLOR } from '../../colors';
-import { useAppSelector } from '../../redux/store';
+import { TouchableNativeFeedback, View, StyleSheet } from 'react-native';
+
+import { TOUCHABLE_COLOR } from '../../colors';
 import { Icon, TIcon } from '../Icon';
 
 type Props = {
   icon: TIcon;
-  label?: string;
-  size?: number;
-  primary?: boolean;
-  containerStyle?: StyleProp<ViewStyle>;
-  buttonStyle?: StyleProp<ViewStyle>;
-  background?: boolean;
+  color?: string;
+  background?: string;
   onPress?: () => void;
+  onLongPress?: () => void;
 };
 
 export const IconButton = ({
   icon,
-  label,
-  size,
-  primary,
-  containerStyle,
-  buttonStyle,
   background,
+  color,
   onPress,
+  onLongPress,
 }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
-
-  const primaryTheme = {
-    text: {
-      color: '#FFF',
-    },
-    container: {
-      backgroundColor: background ? '#fff' : color,
-    },
-  };
-
-  const defaultTheme = {
-    text: {
-      color: color,
-    },
-    container: {
-      backgroundColor: background ? '#fff' : COLORS.lightFAFAFA,
-    },
-  };
-
-  const styleWithLabel: StyleProp<ViewStyle> = {
-    paddingHorizontal: 16,
-  };
+  const buttonStyle = { backgroundColor: background || '#FFFFFF' };
+  const iconStyle = color || '#C7C7C7';
 
   return (
-    <View
-      style={[
-        styles.container,
-        containerStyle,
-        { borderRadius: Math.round((size || 48) / 2) },
-      ]}>
-      <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
-        <View
-          style={[
-            styles.button,
-            buttonStyle,
-            primary ? primaryTheme.container : defaultTheme.container,
-            !!label && styleWithLabel,
-            !label && !!size && { width: size, height: size },
-          ]}>
-          <Icon icon={icon} color={!primary ? color : '#FFF'} />
-          {!!label && (
-            <Text
-              style={[
-                styles.label,
-                primary ? primaryTheme.text : defaultTheme.text,
-              ]}>
-              {label}
-            </Text>
-          )}
+    <View style={styles.container}>
+      <TouchableNativeFeedback
+        background={TOUCHABLE_COLOR}
+        onPress={onPress}
+        onLongPress={onLongPress}>
+        <View style={[styles.button, buttonStyle]}>
+          <Icon icon={icon} color={iconStyle} />
         </View>
       </TouchableNativeFeedback>
     </View>
@@ -89,17 +42,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   button: {
-    flexDirection: 'row',
-    minWidth: 48,
+    width: 48,
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.lightFAFAFA,
-  },
-  label: {
-    fontSize: 12,
-    marginLeft: 6,
-    marginRight: 6,
-    fontWeight: 'bold',
   },
 });

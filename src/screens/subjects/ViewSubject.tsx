@@ -121,10 +121,10 @@ export const ViewSubject = () => {
   return (
     <View style={styles.container}>
       <Header
-        label="Предмет"
-        actionIcon={'edit'}
-        onBack={handleBack}
-        onAction={(!subject?.archived && handleEdit) || undefined}
+        title="Предмет"
+        rightIcon={'edit'}
+        onLeft={handleBack}
+        onRight={(!subject?.archived && handleEdit) || undefined}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

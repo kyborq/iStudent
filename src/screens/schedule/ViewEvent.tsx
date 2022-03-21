@@ -58,10 +58,10 @@ export const ViewEvent = () => {
   return (
     <View style={styles.container}>
       <Header
-        label={event?.title || 'Событие'}
-        actionIcon={'edit'}
-        onBack={handleBack}
-        onAction={handleEdit}
+        title={event?.title || 'Событие'}
+        rightIcon={'edit'}
+        onLeft={handleBack}
+        onRight={handleEdit}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

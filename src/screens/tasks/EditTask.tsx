@@ -78,8 +78,8 @@ export const EditTask = () => {
   return (
     <View style={styles.container}>
       <Header
-        label={id ? 'Изменить задачу' : 'Новая задача'}
-        onBack={handleBack}
+        title={id ? 'Изменить задачу' : 'Новая задача'}
+        onLeft={handleBack}
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input

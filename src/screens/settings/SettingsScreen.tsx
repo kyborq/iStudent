@@ -52,7 +52,7 @@ export const SettingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Настройки" onBack={goBack} />
+      <Header title="Настройки" onLeft={goBack} />
       <ScrollView contentContainerStyle={styles.content}>
         <InfoLine icon="user" label="Имя">
           <Input

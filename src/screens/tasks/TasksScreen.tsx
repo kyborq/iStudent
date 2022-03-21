@@ -63,7 +63,7 @@ export const TasksScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Мои задачи" onAction={handleAddTask} />
+      <Header title="Мои задачи" onLeft={handleAddTask} />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           icon="search"

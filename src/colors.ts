@@ -14,3 +14,6 @@ export const TOUCHABLE_COLOR = TouchableNativeFeedback.Ripple(
   'rgba(0, 0, 0, 0.05)',
   false,
 );
+
+export const DEFAULT_COLOR = '#C7C7C7';
+export const DEFAULT_BACKGROUND = '#FAFAFA';

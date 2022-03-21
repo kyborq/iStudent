@@ -81,10 +81,10 @@ export const ViewTask = () => {
   return (
     <View style={styles.container}>
       <Header
-        label="Просмотр задачи"
-        actionIcon="edit"
-        onAction={(!task.completed && handleEditTask) || undefined}
-        onBack={handleBack}
+        title="Просмотр задачи"
+        rightIcon="edit"
+        onRight={(!task.completed && handleEditTask) || undefined}
+        onLeft={handleBack}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

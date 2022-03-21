@@ -69,7 +69,7 @@ export const TimerScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header label="Таймер" onBack={handleBack} />
+      <Header title="Таймер" onLeft={handleBack} />
       <Timer
         active={timerActive}
         spended={spendedTime}

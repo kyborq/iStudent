@@ -1,46 +1,35 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../colors';
 import { TIcon } from './Icon';
 import { IconButton } from './inputs/IconButton';
 
 type Props = {
-  label: string;
-  actionIcon?: TIcon;
-  hideAction?: boolean;
-  onBack?: () => void;
-  onAction?: () => void;
+  title?: string;
+  text?: string;
+  leftIcon?: TIcon;
+  rightIcon?: TIcon;
+  onLeft?: () => void;
+  onRight?: () => void;
 };
 
 export const Header = ({
-  onBack,
-  onAction,
-  actionIcon,
-  hideAction,
-  label,
+  title,
+  text,
+  leftIcon,
+  rightIcon,
+  onLeft,
+  onRight,
 }: Props) => {
   return (
     <View style={styles.container}>
-      {onBack && (
-        <IconButton
-          icon="back"
-          color={COLORS.primary5A9EEE}
-          containerStyle={styles.iconBack}
-          onPress={onBack}
-        />
-      )}
+      {leftIcon && <IconButton icon={leftIcon} onPress={onLeft} />}
+
       <View style={styles.header}>
-        <Text style={styles.label} numberOfLines={1}>
-          {label}
-        </Text>
+        {!!title && <Text style={styles.label}>{title}</Text>}
+        {!!text && <Text style={styles.text}>{text}</Text>}
       </View>
-      {onAction && !hideAction && (
-        <IconButton
-          icon={actionIcon || 'add'}
-          color={COLORS.primary5A9EEE}
-          onPress={onAction}
-        />
-      )}
+
+      {rightIcon && <IconButton icon={rightIcon} onPress={onRight} />}
     </View>
   );
 };
@@ -55,6 +44,10 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: 'bold',
     fontSize: 21,
+  },
+  text: {
+    fontSize: 12,
+    color: '#c7c7c7',
   },
   iconBack: {
     marginRight: 12,

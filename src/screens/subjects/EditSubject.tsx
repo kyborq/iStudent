@@ -63,8 +63,8 @@ export const EditSubject = () => {
   return (
     <View style={styles.container}>
       <Header
-        label={id ? 'Редактировать предмет' : 'Новый предмет'}
-        onBack={handleBack}
+        title={id ? 'Редактировать предмет' : 'Новый предмет'}
+        onLeft={handleBack}
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
