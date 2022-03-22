@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { getKeyByValue, sort } from '../utils';
 import { RootState } from './store';
 
@@ -52,7 +51,7 @@ export const tasksSlice = createSlice({
     addTask(state, action: PayloadAction<TTask>) {
       const task: TTask = {
         ...action.payload,
-        created: moment().format('DD.MM.YYYY HH:mm:ss'),
+        created: 'DD.MM.YYYY HH:mm:ss',
       };
 
       state.tasks = [...state.tasks, task];

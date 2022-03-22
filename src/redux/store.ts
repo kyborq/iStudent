@@ -6,7 +6,6 @@ import {
 } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import tasksSlice from './tasksSlice';
-import settingsSlice from './settingsSlice';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
@@ -15,7 +14,6 @@ import scheduleSlice from './scheduleSlice';
 
 const reducers = combineReducers({
   tasks: tasksSlice,
-  settings: settingsSlice,
   subjects: subjectSlice,
   schedule: scheduleSlice,
 });

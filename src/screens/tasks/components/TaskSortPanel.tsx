@@ -30,31 +30,7 @@ export const TaskSortPanel = ({
 
   return (
     <View style={styles.container}>
-      <SortButton
-        current={sorting.sorting}
-        items={[ETaskSorting.label, ETaskSorting.status, ETaskSorting.priority]}
-        onSelect={(value) => {
-          const item = value as ETaskSorting;
-          dispatch(
-            changeTaskSorting({
-              sorting: item,
-              direction: item === ETaskSorting.priority ? 1 : -1,
-            }),
-          );
-        }}
-      />
-      <View style={{ flexDirection: 'row' }}>
-        <IconButton
-          icon="check"
-          label={completed !== 0 ? completed?.toString() : ''}
-          onPress={onShowCompleted}
-        />
-        <IconButton
-          icon="archive"
-          label={archived !== 0 ? archived?.toString() : ''}
-          onPress={onShowArchived}
-        />
-      </View>
+      <View style={{ flexDirection: 'row' }}></View>
     </View>
   );
 };

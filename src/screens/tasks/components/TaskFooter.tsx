@@ -25,27 +25,7 @@ export const TaskFooter = ({
 
   return (
     <View style={styles.container}>
-      <IconButton
-        icon="checkLine"
-        primary={task.completed}
-        label={task.completed ? 'Завершена' : 'Завершить'}
-        size={54}
-        onPress={onComplete}
-      />
-      <View style={styles.buttons}>
-        <IconButton
-          icon="archive"
-          primary={task.archived}
-          size={54}
-          onPress={onArchive}
-        />
-        <IconButton
-          icon="trash"
-          size={54}
-          containerStyle={{ marginLeft: 12 }}
-          onPress={handleDelete}
-        />
-      </View>
+      <View style={styles.buttons}></View>
 
       <Dialogue
         visible={deleteModal}

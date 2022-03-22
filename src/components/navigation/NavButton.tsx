@@ -12,22 +12,14 @@ type Props = {
 };
 
 export const NavButton = ({ icon, label, active, onPress }: Props) => {
-  const { theme, labels } = useAppSelector((state) => state.settings);
-
-  const activeLabelStyle = {
-    color: active ? theme : COLORS.darkC7C7C7,
-  };
-
   return (
     <TouchableNativeFeedback
       style={{ overflow: 'visible' }}
       onPress={onPress}
       background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', true)}>
       <View style={styles.container}>
-        <Icon icon={icon} color={active ? theme : COLORS.darkC7C7C7} />
-        {labels && !!label && (
-          <Text style={[styles.label, activeLabelStyle]}>{label}</Text>
-        )}
+        <Icon icon={icon} color={COLORS.darkC7C7C7} />
+        {!!label && <Text style={styles.label}>{label}</Text>}
       </View>
     </TouchableNativeFeedback>
   );
@@ -35,8 +27,8 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 74,
-    height: 48,
+    width: 82,
+    height: 38,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8,

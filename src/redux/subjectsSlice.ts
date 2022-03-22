@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { getRandomColor } from '../utils';
 import { RootState } from './store';
 
@@ -29,7 +28,7 @@ export const subjectSlice = createSlice({
     addSubject(state, action: PayloadAction<TSubject>) {
       const subject: TSubject = {
         ...action.payload,
-        created: moment().format('DD.MM.YYYY HH:mm:ss'),
+        created: 'DD.MM.YYYY HH:mm:ss',
         color: getRandomColor(),
         viewed: 0,
       };

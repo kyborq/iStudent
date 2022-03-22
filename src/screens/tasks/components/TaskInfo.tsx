@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CalendarForm } from '../../../components/calendar/form/CalendarForm';
@@ -6,7 +5,6 @@ import { InfoLine } from '../../../components/InfoLine';
 import { ModalView } from '../../../components/modals/ModalView';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
-import { getTimeOfTime } from '../../timer/timerUtils';
 
 type Props = {
   task: TTask;
@@ -24,7 +22,6 @@ export const TaskInfo = ({
   onSetDeadline,
 }: Props) => {
   const [dateModal, setDateModal] = useState(false);
-  const currentDate = moment().format('DD.MM.YYYY');
 
   const handleShowSubject = () => {
     onShowSubject && onShowSubject(subject?.id || '');
@@ -68,21 +65,6 @@ export const TaskInfo = ({
         disabled={task.completed}
         onPress={handleToggleModal}
       />
-
-      <InfoLine
-        icon="time"
-        label="Самоконтроль"
-        text={`${getTimeOfTime(task.spended, task.estimate)}`}
-        disabled={task.completed}
-        onPress={handleSetTimer}
-      />
-
-      <ModalView visible={dateModal} onClose={handleToggleModal}>
-        <CalendarForm
-          date={task.deadline || currentDate}
-          onSelectDate={handleSetDeadline}
-        />
-      </ModalView>
     </View>
   );
 };

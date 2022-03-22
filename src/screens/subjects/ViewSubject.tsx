@@ -185,11 +185,6 @@ export const ViewSubject = () => {
             padding: 24,
             justifyContent: 'flex-end',
           }}>
-          <IconButton
-            icon="archive"
-            onPress={handleArchive}
-            containerStyle={{ marginRight: 12 }}
-          />
           <IconButton icon="trash" onPress={handleShowDeleteModal} />
         </View>
       )}
