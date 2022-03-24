@@ -1,7 +1,5 @@
 import React from 'react';
 import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
-import { COLORS } from '../../colors';
-import { useAppSelector } from '../../redux/store';
 
 type Props = {
   checked?: boolean;
@@ -9,7 +7,7 @@ type Props = {
 };
 
 export const Check = ({ checked, onPress }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
 
   return (
     <View style={styles.overflow}>

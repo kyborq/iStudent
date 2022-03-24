@@ -30,20 +30,18 @@ export const Button = ({
   primary,
   disabled,
 }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
-
   const primaryTheme = {
     text: {
       color: '#FFF',
     },
     container: {
-      backgroundColor: color,
+      backgroundColor: '#f2f2f2',
     },
   };
 
   const defaultTheme = {
     text: {
-      color: color,
+      color: '#f2f2f2',
     },
     container: {
       backgroundColor: COLORS.lightFAFAFA,
@@ -77,7 +75,7 @@ export const Button = ({
           {icon && (
             <Icon
               icon={icon}
-              color={primary ? color : '#FFF'}
+              color={primary ? '#f2f2f2' : '#FFF'}
               containerStyle={[styles.icon, { marginRight: !!label ? 10 : 0 }]}
             />
           )}

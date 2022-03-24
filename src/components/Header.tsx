@@ -24,7 +24,7 @@ export const Header = ({
     <View style={styles.container}>
       {leftIcon && <IconButton icon={leftIcon} onPress={onLeft} />}
 
-      <View style={styles.header}>
+      <View style={[styles.header, !!leftIcon && { marginLeft: 16 }]}>
         {!!title && <Text style={styles.label}>{title}</Text>}
         {!!text && <Text style={styles.text}>{text}</Text>}
       </View>
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFF',
     alignItems: 'center',
-    padding: 24,
+    paddingHorizontal: 20,
+    height: 84,
   },
   label: {
     fontWeight: 'bold',
@@ -48,9 +49,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     color: '#c7c7c7',
-  },
-  iconBack: {
-    marginRight: 12,
   },
   header: {
     flex: 1,

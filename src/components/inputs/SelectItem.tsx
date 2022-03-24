@@ -17,7 +17,7 @@ type Props = {
 };
 
 export const SelectItem = ({ title, value, active, onSelect }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
 
   const activeStyles = {
     button: {

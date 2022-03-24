@@ -38,12 +38,12 @@ export const IconButton = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 48,
+    borderRadius: 21,
     overflow: 'hidden',
   },
   button: {
-    width: 48,
-    height: 48,
+    width: 44,
+    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
   },

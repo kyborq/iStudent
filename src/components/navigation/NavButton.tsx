@@ -18,8 +18,16 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
       onPress={onPress}
       background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.05)', true)}>
       <View style={styles.container}>
-        <Icon icon={icon} color={COLORS.darkC7C7C7} />
-        {!!label && <Text style={styles.label}>{label}</Text>}
+        <Icon
+          icon={icon}
+          color={active ? COLORS.primary5A9EEE : COLORS.darkC7C7C7}
+        />
+        {!!label && (
+          <Text
+            style={[styles.label, active && { color: COLORS.primary5A9EEE }]}>
+            {label}
+          </Text>
+        )}
       </View>
     </TouchableNativeFeedback>
   );

@@ -14,106 +14,14 @@ import { TasksPanel } from './components/TasksPanel';
 import { sortTasks } from './tasksUtils';
 
 export const TasksScreen = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterQuery, setFilterQuery] = useState('ALL');
-
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-
-  const tasks = useAppSelector((state) =>
-    state.tasks.tasks.filter((t) => search(searchQuery, t.title)),
-  );
-  const sorting = useAppSelector((state) => state.tasks.sorting);
-  const filteredTasks = sortTasks(
-    tasks.filter((t) => filterTasks(t, filterQuery)),
-    sorting,
-  );
-
-  const allCount = tasks.filter((t) => !t.archived).length;
-  const todoCount = tasks.filter((t) => !t.archived && !t.completed).length;
-  const completedCount = tasks.filter((t) => !t.archived && t.completed).length;
-  const archivedCount = tasks.filter((t) => t.archived).length;
-
-  const handleAddTask = () => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'EditTask',
-      }),
-    );
+  const handleSearch = () => {
+    // ...
   };
-
-  const handleViewTask = (id: string) => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'ViewTask',
-        params: { id },
-      }),
-    );
-  };
-
-  const taskList = filteredTasks.map((task) => {
-    return (
-      <TaskCard
-        key={uuid4()}
-        task={task}
-        onPress={() => handleViewTask(task.id)}
-      />
-    );
-  });
 
   return (
     <View style={styles.container}>
-      <Header title="Мои задачи" onLeft={handleAddTask} />
-      <ScrollView contentContainerStyle={styles.content}>
-        <Input
-          icon="search"
-          placeholder="Поиск"
-          clearInput
-          value={searchQuery}
-          onType={setSearchQuery}
-          style={{ marginHorizontal: 24 }}
-        />
-        <TasksPanel
-          all={allCount}
-          todo={todoCount}
-          completed={completedCount}
-          archived={archivedCount}
-          filter={filterQuery}
-          onSetFilter={setFilterQuery}
-        />
-        <View
-          style={{
-            paddingHorizontal: 24,
-            flexDirection: 'row',
-            marginBottom: 8,
-          }}>
-          <SortButton
-            items={[
-              ETaskSorting.title,
-              ETaskSorting.completed,
-              ETaskSorting.created,
-            ]}
-            values={[
-              ETaskSorting.title,
-              ETaskSorting.completed,
-              ETaskSorting.created,
-            ]}
-            current={sorting}
-            onSelect={(value) => {
-              const s = value as ETaskSorting;
-              dispatch(changeTaskSorting(s));
-            }}
-          />
-        </View>
-
-        <View style={{ paddingHorizontal: 24 }}>{taskList}</View>
-        {filteredTasks.length === 0 && (
-          <Empty
-            text={!searchQuery ? 'Задач нет' : 'Ничего не найдено'}
-            icon={!searchQuery ? 'check' : 'search'}
-          />
-        )}
-      </ScrollView>
+      <Header title="Список задач" rightIcon="search" onRight={handleSearch} />
+      <ScrollView contentContainerStyle={styles.content}></ScrollView>
     </View>
   );
 };

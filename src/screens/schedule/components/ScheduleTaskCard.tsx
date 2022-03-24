@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { TOUCHABLE_COLOR } from '../../../colors';
 import { useAppSelector } from '../../../redux/store';
-import { ProgressBar } from '../../timer/components/ProgressBar';
 
 type Props = {
   label: string;
@@ -26,20 +25,20 @@ export const ScheduleTaskCard = ({
   estimate,
   onPress,
 }: Props) => {
-  const theme = useAppSelector((s) => s.settings.theme);
+  // const theme = useAppSelector((s) => s.settings.theme);
 
   return (
     <View style={[styles.container, style]}>
       <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
         <View style={styles.button}>
           <Text style={styles.label}>{label}</Text>
-          {(progress || 0) > 0 && (
+          {/* {(progress || 0) > 0 && (
             <ProgressBar
               value={progress || 0}
               max={estimate || 0}
               color={theme}
             />
-          )}
+          )} */}
         </View>
       </TouchableNativeFeedback>
     </View>

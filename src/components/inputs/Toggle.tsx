@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const Toggle = ({ toggled, onPress }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
 
   const toggledStyle: StyleProp<ViewStyle> = {
     backgroundColor: toggled ? color : '#F2F2F2',

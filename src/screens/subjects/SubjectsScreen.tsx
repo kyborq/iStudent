@@ -64,60 +64,8 @@ export const SubjectsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Мои предметы" onRight={handleAddSubject} />
-      <ScrollView contentContainerStyle={styles.content}>
-        <Input
-          icon="search"
-          placeholder="Поиск"
-          value={searchQuery}
-          onType={setSearchQuery}
-          clearInput
-          style={{ marginBottom: 16, marginHorizontal: 24 }}
-        />
-        <SubjectsPanel
-          all={allSubjects}
-          archived={archivedSubjects}
-          filter={filter}
-          onSetFilter={setFilter}
-        />
-        {!searchQuery && filter !== 'ARCHIVED' && recentSubjects.length > 0 && (
-          <View style={{ marginBottom: 24, marginTop: 10 }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                marginHorizontal: 24,
-                marginBottom: 8,
-                color: '#c7c7c7',
-              }}>
-              Важные
-            </Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ overflow: 'visible' }}
-              contentContainerStyle={styles.scroll}>
-              {recentSubjects.map((subject, index) => (
-                <ScheduleTaskCard
-                  key={uuid4()}
-                  label={subject.title}
-                  style={{
-                    marginRight: recentSubjects.length - 1 === index ? 0 : 12,
-                  }}
-                  onPress={() => handleViewSubject(subject.id)}
-                />
-              ))}
-            </ScrollView>
-          </View>
-        )}
-
-        {filteredSubjects.length > 0 ? (
-          <View style={{ paddingHorizontal: 24, marginTop: 8 }}>
-            {subjectList}
-          </View>
-        ) : (
-          <Empty icon="book" text="Список предметов пуст" />
-        )}
-      </ScrollView>
+      <Header title="Предметы" rightIcon="search" />
+      <ScrollView contentContainerStyle={styles.content}></ScrollView>
     </View>
   );
 };

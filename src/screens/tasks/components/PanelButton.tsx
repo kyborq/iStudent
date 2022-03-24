@@ -25,7 +25,7 @@ export const PanelButton = ({
   style,
   onPress,
 }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
 
   const selectedStyle = {
     container: {

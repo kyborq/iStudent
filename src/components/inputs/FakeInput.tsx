@@ -26,7 +26,7 @@ export const FakeInput = ({
   onPress,
   style,
 }: Props) => {
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
   return (
     <View style={[styles.container, style]}>
       {!!label && <Text style={styles.label}>{label}</Text>}

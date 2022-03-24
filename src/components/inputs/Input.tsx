@@ -43,7 +43,7 @@ export const Input = ({
   const [focused, setFocused] = useState(false);
   const [text, setText] = useState(value || '');
 
-  const color = useAppSelector((state) => state.settings.theme);
+  const color = '#f2f2f2';
 
   const handleSubmit = () => {
     onChange && onChange(text);
@@ -96,12 +96,7 @@ export const Input = ({
           placeholderTextColor="#c7c7c7"
         />
         {!disableInput && clearInput && value !== '' && (
-          <IconButton
-            icon="clear"
-            background
-            containerStyle={{ alignSelf: 'center', marginRight: 4 }}
-            onPress={handleClearInput}
-          />
+          <IconButton icon="clear" onPress={handleClearInput} />
         )}
       </View>
     </View>
