@@ -11,7 +11,20 @@ type Props = {
   color?: 'red' | 'blue';
 };
 
-export const Day = ({ week, number, last, past, current, color }: Props) => {
+export const WeekDay = ({
+  week,
+  number,
+  last,
+  past,
+  current,
+  color,
+}: Props) => {
+  const dotColor = {
+    backgroundColor:
+      color === 'red' ? COLORS.dangerF26969 : COLORS.primary5A9EEE,
+  };
+  const weekNumber = `${number}`.padStart(2, '0');
+
   return (
     <View
       style={[
@@ -34,21 +47,10 @@ export const Day = ({ week, number, last, past, current, color }: Props) => {
             current && { color: COLORS.primary5A9EEE },
             past && { color: COLORS.darkC7C7C7 },
           ]}>
-          {`${number}`.padStart(2, '0')}
+          {weekNumber}
         </Text>
-        {!!color && (
-          <View
-            style={{
-              marginTop: 2,
-              width: 6,
-              height: 6,
-              borderRadius: 3,
-              backgroundColor:
-                (color === 'red' && COLORS.dangerF26969) ||
-                COLORS.primary5A9EEE,
-            }}
-          />
-        )}
+
+        {!!color && <View style={[styles.weekColor, dotColor]} />}
       </View>
     </View>
   );
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 64,
+    width: 47,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -74,5 +77,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  weekColor: {
+    marginTop: 2,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
 });

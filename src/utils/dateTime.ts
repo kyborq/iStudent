@@ -3,6 +3,7 @@ import {
   endOfISOWeek,
   format,
   getDate,
+  getISOWeek,
   getMonth,
   getYear,
   startOfISOWeek,
@@ -47,6 +48,19 @@ export const compareDates = (firstDate: Date, secondDate: Date) => {
 
   if (date1 > date2) return 1;
   if (date1 < date2) return -1;
+  if (date1 === date2) return 0;
 
-  return 0;
+  return 999;
+};
+
+export const isEqualDates = (firstDate: Date, secondDate: Date) => {
+  const date1 = format(firstDate, 'dd.MM.yyyy');
+  const date2 = format(secondDate, 'dd.MM.yyyy');
+  console.log(date1, date2, date1 === date2);
+  return date1 === date2;
+};
+
+export const getWeekType = (currentDate: number | Date) => {
+  const week = getISOWeek(currentDate);
+  return week % 2 === 0 ? 'red' : 'blue';
 };

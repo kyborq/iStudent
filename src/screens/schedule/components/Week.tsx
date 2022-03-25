@@ -1,24 +1,31 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { uuid4 } from '../../../utils';
-import { compareDates, getWeekArray } from '../../../utils/dateTime';
-import { Day } from './Day';
+import {
+  compareDates,
+  getWeekArray,
+  getWeekType,
+  isEqualDates,
+} from '../../../utils/dateTime';
+import { WeekDay } from './WeekDay';
 
-type Props = {};
+type Props = {
+  date: number | Date;
+  currentDate: number | Date;
+};
 
-export const Week = ({}: Props) => {
-  const currentDate = new Date();
+export const Week = ({ date, currentDate }: Props) => {
+  const weekArray = getWeekArray(date);
 
-  const weekArray = getWeekArray(currentDate);
   const week = weekArray.map((day) => {
     return (
-      <Day
+      <WeekDay
         key={uuid4()}
         number={day.day}
         week={day.week}
-        past={compareDates(day.date, currentDate) === -1}
-        current={compareDates(day.date, currentDate) === 0}
-        color="red"
+        past={compareDates(day.date, new Date(currentDate)) === -1}
+        current={isEqualDates(day.date, new Date(currentDate))}
+        color={getWeekType(day.date)}
       />
     );
   });
@@ -30,5 +37,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: 20,
+    flex: 1,
   },
 });

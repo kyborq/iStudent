@@ -1,20 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type TEvent = {
+export type TTimeRange = {
+  start: string;
+  end: string;
+};
+
+export type TSchedule = {
   id: string;
-  title: string;
-  date: string;
-  time: {
-    start: string;
-    end: string;
-  };
-  subject?: string;
-  task?: string;
-  repeat?: number;
+  subject: string; // id предмета
+  teacher: string; // id преподавателя
+  time: TTimeRange; // время начала и конца 08:00-09:45
+  date?: string; // дата проведения, может и не быть если установлены повторения
+  repeats?: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
 };
 
 interface IScheduleSclice {
-  schedule: TEvent[];
+  schedule: TSchedule[];
 }
 
 const initialState: IScheduleSclice = {
@@ -25,7 +26,7 @@ export const scheduleSlice = createSlice({
   name: 'schedule',
   initialState,
   reducers: {
-    addEvent(state, action: PayloadAction<TEvent>) {
+    addEvent(state, action: PayloadAction<TSchedule>) {
       state.schedule = [...state.schedule, action.payload];
     },
     deleteEvent(state, action: PayloadAction<string>) {
@@ -33,7 +34,7 @@ export const scheduleSlice = createSlice({
         (event) => event.id !== action.payload,
       );
     },
-    editEvent(state, action: PayloadAction<TEvent>) {
+    editEvent(state, action: PayloadAction<TSchedule>) {
       state.schedule = state.schedule.map((event) =>
         event.id === action.payload.id ? action.payload : event,
       );

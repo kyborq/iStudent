@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Header } from '../../components/Header';
 import { Week } from './components/Week';
 
 export const ScheduleScreen = () => {
+  const [date, setDate] = useState(new Date());
+
   const handleSelectDate = () => {
     // ...
   };
@@ -16,7 +18,7 @@ export const ScheduleScreen = () => {
         rightIcon="calendar"
         onRight={handleSelectDate}
       />
-      <Week />
+      <Week date={date} currentDate={date} />
       <ScrollView contentContainerStyle={styles.content}></ScrollView>
     </View>
   );
