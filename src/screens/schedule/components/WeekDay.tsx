@@ -29,7 +29,7 @@ export const WeekDay = ({
     <View
       style={[
         styles.ripple,
-        !last && { marginRight: 6 },
+        { marginRight: last ? 0 : 6 },
         current && { borderColor: COLORS.primary5A9EEE },
       ]}>
       <View style={styles.container}>
@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 64,
-    width: 47,
     justifyContent: 'center',
     alignItems: 'center',
   },

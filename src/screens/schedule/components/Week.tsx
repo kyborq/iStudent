@@ -17,7 +17,7 @@ type Props = {
 export const Week = ({ date, currentDate }: Props) => {
   const weekArray = getWeekArray(date);
 
-  const week = weekArray.map((day) => {
+  const week = weekArray.map((day, index) => {
     return (
       <WeekDay
         key={uuid4()}
@@ -26,6 +26,7 @@ export const Week = ({ date, currentDate }: Props) => {
         past={compareDates(day.date, new Date(currentDate)) === -1}
         current={isEqualDates(day.date, new Date(currentDate))}
         color={getWeekType(day.date)}
+        last={index === 6}
       />
     );
   });
@@ -37,6 +38,5 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: 20,
-    flex: 1,
   },
 });

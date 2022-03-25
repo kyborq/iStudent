@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Header } from '../../components/Header';
+import { DateSelect } from './components/DateSelect';
+import { ScheduleCard } from './components/ScheduleCard';
 import { Week } from './components/Week';
 
 export const ScheduleScreen = () => {
@@ -19,7 +21,17 @@ export const ScheduleScreen = () => {
         onRight={handleSelectDate}
       />
       <Week date={date} currentDate={date} />
-      <ScrollView contentContainerStyle={styles.content}></ScrollView>
+      <DateSelect date={date} />
+      <ScrollView contentContainerStyle={styles.content}>
+        <ScheduleCard
+          title="Объектно-ориентированное программирование"
+          start="09:45"
+          end="11:20"
+        />
+        <ScheduleCard title="История россии" start="11:30" end="13:05" />
+        <ScheduleCard title="Старостат" start="13:05" end="13:30" />
+        <ScheduleCard title="Иностранный язык" start="13:30" end="15:05" />
+      </ScrollView>
     </View>
   );
 };

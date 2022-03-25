@@ -1,105 +1,57 @@
-import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CardBase } from '../../../components/CardBase';
-import { TEvent } from '../../../redux/scheduleSlice';
 import { useAppSelector } from '../../../redux/store';
 
 type Props = {
-  event: TEvent;
-  current?: boolean;
-  past?: boolean;
-  color?: string;
-  onPress?: (id: string) => void;
+  title: string;
+  start: string;
+  end: string;
 };
 
-export const ScheduleCard = ({
-  event,
-  current,
-  past,
-  color,
-  onPress,
-}: Props) => {
-  const overdue = moment(`${event.date} ${event.time.end}`, 'DD.MM.YYYY HH:mm')
-    .endOf('minute')
-    .fromNow();
-
-  const currentStyle = {
-    base: { borderColor: color },
-    text: { color: color },
-  };
-
-  const pastStyle = {
-    base: { borderColor: color },
-    text: { color: '#c7c7c7', textDecorationLine: 'line-through' },
-  };
-
-  const handlePress = () => onPress && onPress(event.id);
-
+export const ScheduleCard = ({ title, start, end }: Props) => {
   return (
-    <CardBase
-      containerStyle={current && currentStyle.base}
-      onPress={handlePress}>
-      <View style={styles.schedule}>
-        <View style={styles.time}>
-          <Text style={[styles.timeText, past && { color: '#c7c7c7' }]}>
-            {event.time.start}
-          </Text>
-          <View
-            style={[styles.divider, past && { backgroundColor: '#f2f2f2' }]}
-          />
-          <Text style={[styles.timeText, past && { color: '#c7c7c7' }]}>
-            {event.time.end}
-          </Text>
-        </View>
-        <View style={styles.info}>
-          <Text
-            style={[
-              styles.title,
-              current && currentStyle.text,
-              past && pastStyle.text,
-            ]}>
-            {event.title}
-          </Text>
-          <Text style={[styles.date, past && { color: '#c7c7c7' }]}>{`${
-            current ? 'закончится ' : past ? 'закончилось ' : ''
-          }${overdue}`}</Text>
-        </View>
+    <View style={styles.card}>
+      <View style={styles.indicatorContainer}>
+        <View style={styles.indicator} />
       </View>
-    </CardBase>
+      <View style={styles.cardContainer}>
+        <Text style={styles.time}>{`${start} - ${end}`}</Text>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  schedule: {
+  card: {
     flexDirection: 'row',
-  },
-  time: {
-    justifyContent: 'center',
+    marginBottom: 16,
     alignItems: 'center',
+  },
+  indicatorContainer: {
     marginRight: 16,
   },
-  divider: {
-    width: 16,
-    marginVertical: 4,
-    height: 3,
+  indicator: {
+    width: 6,
+    flex: 1,
+    backgroundColor: '#f2f2f2',
     borderRadius: 3,
-    backgroundColor: '#e2e2e2',
   },
-  timeText: {
-    fontSize: 14,
-    fontWeight: 'bold',
+  cardContainer: {
+    flex: 1,
   },
-  info: {
-    justifyContent: 'center',
+  time: {
+    fontSize: 12,
+    color: '#c7c7c7',
+    marginBottom: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
-  date: {
-    fontSize: 12,
-    marginTop: 4,
-    color: '#c7c7c7',
+  classroom: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

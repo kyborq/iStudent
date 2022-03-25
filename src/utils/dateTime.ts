@@ -56,11 +56,10 @@ export const compareDates = (firstDate: Date, secondDate: Date) => {
 export const isEqualDates = (firstDate: Date, secondDate: Date) => {
   const date1 = format(firstDate, 'dd.MM.yyyy');
   const date2 = format(secondDate, 'dd.MM.yyyy');
-  console.log(date1, date2, date1 === date2);
   return date1 === date2;
 };
 
 export const getWeekType = (currentDate: number | Date) => {
   const week = getISOWeek(currentDate);
-  return week % 2 === 0 ? 'red' : 'blue';
+  return week % 2 === 0 ? 'blue' : 'red';
 };

@@ -5,13 +5,18 @@ export type TTimeRange = {
   end: string;
 };
 
+export type TRepeats = {
+  index: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
+  time: TTimeRange;
+};
+
 export type TSchedule = {
   id: string;
   subject: string; // id предмета
   teacher: string; // id преподавателя
-  time: TTimeRange; // время начала и конца 08:00-09:45
+  time?: TTimeRange; // время начала и конца 08:00-09:45
   date?: string; // дата проведения, может и не быть если установлены повторения
-  repeats?: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
+  repeats?: TRepeats[];
 };
 
 interface IScheduleSclice {
