@@ -13,7 +13,6 @@ export type TRepeats = {
 export type TSchedule = {
   id: string;
   subject: string; // id предмета
-  teacher: string; // id преподавателя
   time?: TTimeRange; // время начала и конца 08:00-09:45
   date?: string; // дата проведения, может и не быть если установлены повторения
   repeats?: TRepeats[];
@@ -24,7 +23,28 @@ interface IScheduleSclice {
 }
 
 const initialState: IScheduleSclice = {
-  schedule: [],
+  schedule: [
+    {
+      id: '1',
+      subject: 'Объектно-ориентированное программирование',
+      repeats: [
+        {
+          index: 1,
+          time: {
+            start: '08:00',
+            end: '09:45',
+          },
+        },
+        {
+          index: 5,
+          time: {
+            start: '18:45',
+            end: '20:20',
+          },
+        },
+      ],
+    },
+  ],
 };
 
 export const scheduleSlice = createSlice({

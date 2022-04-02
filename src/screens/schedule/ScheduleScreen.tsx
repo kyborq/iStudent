@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FloatingButton } from '../../components/FloatingButton';
 
 import { Header } from '../../components/Header';
 import { DateSelect } from './components/DateSelect';
 import { ScheduleCard } from './components/ScheduleCard';
+import { ScheduleList } from './components/ScheduleList';
 import { WeekSelect } from './components/WeekSelect';
 
 export const ScheduleScreen = () => {
@@ -32,14 +34,8 @@ export const ScheduleScreen = () => {
       />
       <DateSelect date={selectedDate} />
       <ScrollView contentContainerStyle={styles.content}>
-        <ScheduleCard
-          title="Объектно-ориентированное программирование"
-          start="09:45"
-          end="11:20"
-        />
-        <ScheduleCard title="История россии" start="11:30" end="13:05" />
-        {/* <ScheduleCard title="Старостат" start="13:05" end="13:30" /> */}
-        <ScheduleCard title="Иностранный язык" start="13:30" end="15:05" />
+        <ScheduleList date={selectedDate} />
+        <FloatingButton icon="add" />
       </ScrollView>
     </View>
   );
@@ -54,5 +50,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     flexGrow: 1,
     paddingTop: 16,
+    position: 'relative',
   },
 });
