@@ -4,13 +4,18 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { DateSelect } from './components/DateSelect';
 import { ScheduleCard } from './components/ScheduleCard';
-import { Week } from './components/Week';
+import { WeekSelect } from './components/WeekSelect';
 
 export const ScheduleScreen = () => {
   const [date, setDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleSelectDate = () => {
     // ...
+  };
+
+  const handleSelectDay = (newDate: number | Date) => {
+    setSelectedDate(new Date(newDate));
   };
 
   return (
@@ -20,8 +25,12 @@ export const ScheduleScreen = () => {
         rightIcon="calendar"
         onRight={handleSelectDate}
       />
-      <Week date={date} currentDate={date} />
-      <DateSelect date={date} />
+      <WeekSelect
+        date={selectedDate}
+        currentDate={date}
+        onSelect={handleSelectDay}
+      />
+      <DateSelect date={selectedDate} />
       <ScrollView contentContainerStyle={styles.content}>
         <ScheduleCard
           title="Объектно-ориентированное программирование"
@@ -29,7 +38,7 @@ export const ScheduleScreen = () => {
           end="11:20"
         />
         <ScheduleCard title="История россии" start="11:30" end="13:05" />
-        <ScheduleCard title="Старостат" start="13:05" end="13:30" />
+        {/* <ScheduleCard title="Старостат" start="13:05" end="13:30" /> */}
         <ScheduleCard title="Иностранный язык" start="13:30" end="15:05" />
       </ScrollView>
     </View>

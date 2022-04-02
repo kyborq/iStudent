@@ -3,6 +3,7 @@ import {
   endOfISOWeek,
   format,
   getDate,
+  getISODay,
   getISOWeek,
   getMonth,
   getYear,
@@ -53,13 +54,30 @@ export const compareDates = (firstDate: Date, secondDate: Date) => {
   return 999;
 };
 
-export const isEqualDates = (firstDate: Date, secondDate: Date) => {
+export const isEqualDates = (
+  firstDate: Date | number,
+  secondDate: Date | number,
+) => {
   const date1 = format(firstDate, 'dd.MM.yyyy');
   const date2 = format(secondDate, 'dd.MM.yyyy');
   return date1 === date2;
 };
 
-export const getWeekType = (currentDate: number | Date) => {
-  const week = getISOWeek(currentDate);
-  return week % 2 === 0 ? 'blue' : 'red';
+// export const getWeekType = (currentDate: number | Date) => {
+//   const week = getISOWeek(currentDate);
+//   return week % 2 === 0 ? 'blue' : 'red';
+// };
+
+export const isDateEven = (
+  date: number | Date,
+  type: 'day' | 'week' | 'month' | 'year',
+) => {
+  const evens = {
+    day: getISODay(date) % 2 === 0,
+    week: getISOWeek(date) % 2 === 0,
+    month: getMonth(date) % 2 === 0,
+    year: getYear(date) % 2 === 0,
+  };
+
+  return evens[type];
 };

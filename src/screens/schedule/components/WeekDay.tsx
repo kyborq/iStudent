@@ -1,72 +1,80 @@
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../../../colors';
+import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
 
 type Props = {
-  week: string;
-  number: number;
-  last?: boolean;
-  past?: boolean;
+  selected?: boolean;
   current?: boolean;
   color?: 'red' | 'blue';
+  date: Date | number;
+  onSelect?: (date: Date | number) => void;
 };
 
 export const WeekDay = ({
-  week,
-  number,
-  last,
-  past,
+  date,
+  selected,
   current,
   color,
+  onSelect,
 }: Props) => {
-  const dotColor = {
-    backgroundColor:
-      color === 'red' ? COLORS.dangerF26969 : COLORS.primary5A9EEE,
+  const number = format(date, 'dd');
+  const day = format(date, 'iiiiii', { locale: ru });
+
+  const handleSelect = () => {
+    onSelect && onSelect(date);
   };
-  const weekNumber = `${number}`.padStart(2, '0');
 
   return (
-    <View
-      style={[
-        styles.ripple,
-        { marginRight: last ? 0 : 6 },
-        current && { borderColor: COLORS.primary5A9EEE },
-      ]}>
-      <View style={styles.container}>
-        <Text
+    <View style={styles.ripple}>
+      <TouchableNativeFeedback
+        onPress={handleSelect}
+        background={TOUCHABLE_COLOR}>
+        <View
           style={[
-            styles.label,
-            current && { color: COLORS.primary5A9EEE },
-            past && { color: '#e2e2e2' },
+            styles.container,
+            selected && styles.selectedContainer,
+            current && styles.currentContainer,
           ]}>
-          {week}
-        </Text>
-        <Text
-          style={[
-            styles.text,
-            current && { color: COLORS.primary5A9EEE },
-            past && { color: COLORS.darkC7C7C7 },
-          ]}>
-          {weekNumber}
-        </Text>
-
-        {!!color && <View style={[styles.weekColor, dotColor]} />}
-      </View>
+          <Text
+            style={[
+              styles.label,
+              selected && styles.selectedText,
+              current && !selected && styles.currentText,
+            ]}>
+            {day}
+          </Text>
+          <Text
+            style={[
+              styles.text,
+              selected && styles.selectedText,
+              current && !selected && styles.currentText,
+            ]}>
+            {number}
+          </Text>
+          {!!color && (
+            <View style={[styles.weekColor, !selected && styles[color]]} />
+          )}
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   ripple: {
-    flex: 1,
-    borderColor: '#f2f2f2',
+    width: 48,
     borderRadius: 8,
-    borderWidth: 1,
+    overflow: 'hidden',
   },
   container: {
     height: 64,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#f2f2f2',
+    borderRadius: 8,
   },
   label: {
     fontSize: 12,
@@ -81,6 +89,28 @@ const styles = StyleSheet.create({
     marginTop: 2,
     width: 6,
     height: 6,
+    backgroundColor: '#FFF',
+    borderRadius: 3,
+  },
+  selectedContainer: {
+    backgroundColor: COLORS.primary5A9EEE,
+    borderColor: COLORS.primary5A9EEE,
+  },
+  selectedText: {
+    color: '#FFF',
+  },
+  currentContainer: {
+    borderColor: COLORS.primary5A9EEE,
+  },
+  currentText: {
+    color: COLORS.primary5A9EEE,
+  },
+  red: {
+    backgroundColor: COLORS.redF26969,
+    borderRadius: 3,
+  },
+  blue: {
+    backgroundColor: COLORS.blue5A9EEE,
     borderRadius: 3,
   },
 });
