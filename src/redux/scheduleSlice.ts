@@ -8,6 +8,7 @@ export type TTimeRange = {
 export type TRepeats = {
   index: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
   time: TTimeRange;
+  period: 1 | 2 | 3; // четность: 1 - каждую неделю, 2 - в четную неделю, 3 - в нечетную неделю
 };
 
 export type TSchedule = {
@@ -34,6 +35,7 @@ const initialState: IScheduleSclice = {
             start: '08:00',
             end: '09:45',
           },
+          period: 1,
         },
         {
           index: 5,
@@ -41,6 +43,7 @@ const initialState: IScheduleSclice = {
             start: '18:45',
             end: '20:20',
           },
+          period: 2,
         },
       ],
     },

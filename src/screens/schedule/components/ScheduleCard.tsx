@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { CardBase } from '../../../components/CardBase';
-import { useAppSelector } from '../../../redux/store';
+import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { TOUCHABLE_COLOR } from '../../../colors';
 
 type Props = {
   title: string;
@@ -11,23 +10,31 @@ type Props = {
 
 export const ScheduleCard = ({ title, start, end }: Props) => {
   return (
-    <View style={styles.card}>
-      <View style={styles.indicatorContainer}>
-        <View style={styles.indicator} />
-      </View>
-      <View style={styles.cardContainer}>
-        <Text style={styles.time}>{`${start} - ${end}`}</Text>
-        <Text style={styles.title}>{title}</Text>
-      </View>
+    <View style={styles.ripple}>
+      <TouchableNativeFeedback background={TOUCHABLE_COLOR}>
+        <View style={styles.card}>
+          <View style={styles.indicatorContainer}>
+            <View style={styles.indicator} />
+          </View>
+          <View style={styles.cardContainer}>
+            <Text style={styles.time}>{`${start} - ${end}`}</Text>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  ripple: {
+    marginBottom: 16,
+  },
   card: {
     flexDirection: 'row',
-    marginBottom: 16,
     alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 8,
   },
   indicatorContainer: {
     marginRight: 16,

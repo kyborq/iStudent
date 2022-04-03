@@ -70,9 +70,10 @@ export const Navigation = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="Index" component={TabsNavigation} />
+      <Stack.Screen name="EditEvent" component={EditEvent} />
+
       {/* <Stack.Screen name="EditSubject" component={EditSubject} />
       <Stack.Screen name="EditTask" component={EditTask} />
-      <Stack.Screen name="EditEvent" component={EditEvent} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
       <Stack.Screen name="ViewEvent" component={ViewEvent} />
       <Stack.Screen name="ViewSubject" component={ViewSubject} />

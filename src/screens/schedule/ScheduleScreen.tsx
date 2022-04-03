@@ -1,3 +1,4 @@
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
@@ -12,12 +13,22 @@ export const ScheduleScreen = () => {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const navigation = useNavigation();
+
   const handleSelectDate = () => {
     // ...
   };
 
   const handleSelectDay = (newDate: number | Date) => {
     setSelectedDate(new Date(newDate));
+  };
+
+  const handleAddSchedule = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'EditEvent',
+      }),
+    );
   };
 
   return (
@@ -32,10 +43,10 @@ export const ScheduleScreen = () => {
         currentDate={date}
         onSelect={handleSelectDay}
       />
-      <DateSelect date={selectedDate} />
+      <DateSelect date={selectedDate} onSelect={handleSelectDay} />
       <ScrollView contentContainerStyle={styles.content}>
         <ScheduleList date={selectedDate} />
-        <FloatingButton icon="add" />
+        <FloatingButton icon="add" onPress={handleAddSchedule} />
       </ScrollView>
     </View>
   );
@@ -47,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
     flexGrow: 1,
     paddingTop: 16,
     position: 'relative',
