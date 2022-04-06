@@ -1,37 +1,28 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { TOUCHABLE_COLOR } from '../../colors';
-import { uuid4 } from '../../utils';
 import { Icon, TIcon } from '../Icon';
 import { ModalView } from '../modals/ModalView';
-import { SelectItem, TItem } from './SelectItem';
 
 type Props = {
   icon: TIcon;
   label?: string;
   value?: string;
   placeholder?: string;
-  items: TItem[];
-  onSelect?: (value?: string) => void;
+  children?: React.ReactNode;
 };
 
-export const Select = ({
+export const Picker = ({
   icon,
   label,
   placeholder,
   value,
-  items,
-  onSelect,
+  children,
 }: Props) => {
   const [popupVisible, setPopupVisible] = useState(false);
 
   const handleShowPopup = () => {
     setPopupVisible(!popupVisible);
-  };
-
-  const handleSelect = (value?: string) => {
-    onSelect && onSelect(value);
-    handleShowPopup();
   };
 
   return (
@@ -60,22 +51,7 @@ export const Select = ({
       </TouchableNativeFeedback>
 
       <ModalView visible={popupVisible} onClose={handleShowPopup}>
-        {!!placeholder && (
-          <SelectItem
-            title={placeholder}
-            active={!value}
-            onSelect={handleSelect}
-          />
-        )}
-        {items.map((item) => (
-          <SelectItem
-            key={uuid4()}
-            title={item.title}
-            active={item.title === value}
-            value={item.value}
-            onSelect={handleSelect}
-          />
-        ))}
+        {children}
       </ModalView>
     </View>
   );
@@ -84,6 +60,7 @@ export const Select = ({
 const styles = StyleSheet.create({
   container: {
     marginBottom: 8,
+    flex: 1,
   },
   touchable: {
     borderRadius: 10,

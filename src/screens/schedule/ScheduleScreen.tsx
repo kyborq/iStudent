@@ -1,11 +1,10 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 
 import { Header } from '../../components/Header';
 import { DateSelect } from './components/DateSelect';
-import { ScheduleCard } from './components/ScheduleCard';
 import { ScheduleList } from './components/ScheduleList';
 import { WeekSelect } from './components/WeekSelect';
 

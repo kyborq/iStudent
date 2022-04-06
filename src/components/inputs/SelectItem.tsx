@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
-import { TOUCHABLE_COLOR } from '../../colors';
-import { useAppSelector } from '../../redux/store';
+import { COLORS, TOUCHABLE_COLOR } from '../../colors';
 import { Icon } from '../Icon';
 
 export type TItem = {
@@ -17,15 +16,13 @@ type Props = {
 };
 
 export const SelectItem = ({ title, value, active, onSelect }: Props) => {
-  const color = '#f2f2f2';
-
   const activeStyles = {
     button: {
-      backgroundColor: color + '12',
+      backgroundColor: COLORS.primary5A9EEE + '12',
     },
     text: {
       marginLeft: 8,
-      color: color,
+      color: COLORS.primary5A9EEE,
     },
   };
 
@@ -39,7 +36,7 @@ export const SelectItem = ({ title, value, active, onSelect }: Props) => {
         background={TOUCHABLE_COLOR}
         onPress={handleSelect}>
         <View style={[styles.button, active && activeStyles.button]}>
-          {active && <Icon icon="checkLine" color={color} />}
+          {active && <Icon icon="checkLine" color={COLORS.primary5A9EEE} />}
           <Text style={[styles.title, active && activeStyles.text]}>
             {title}
           </Text>

@@ -35,7 +35,7 @@ export const Button = ({
       color: '#FFF',
     },
     container: {
-      backgroundColor: '#f2f2f2',
+      backgroundColor: COLORS.primary5A9EEE,
     },
   };
 
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary5A9EEE,
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#FFF',
   },
