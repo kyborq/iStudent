@@ -79,9 +79,8 @@ export const Input = ({
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              paddingLeft: 16,
             }}>
-            <Icon icon={icon} />
+            <Icon icon={icon} color="#c7c7c7" />
           </View>
         )}
         <TextInput
@@ -95,9 +94,11 @@ export const Input = ({
           onBlur={handleFocus}
           placeholderTextColor="#c7c7c7"
         />
-        {!disableInput && clearInput && value !== '' && (
-          <IconButton icon="clear" onPress={handleClearInput} />
-        )}
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          {!disableInput && clearInput && value !== '' && (
+            <IconButton icon="clear" onPress={handleClearInput} />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -105,24 +106,25 @@ export const Input = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginBottom: 8,
   },
   label: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#c7c7c7',
-    marginBottom: 6,
+    // marginBottom: 4,
   },
   inputContainer: {
     flexDirection: 'row',
     // backgroundColor: '#fafafa',
-    borderColor: '#f2f2f2',
-    borderWidth: 1,
-    borderRadius: 10,
+    // borderColor: '#f2f2f2',
+    // borderWidth: 1,
+    // borderRadius: 10,
   },
   input: {
     fontSize: 18,
     fontWeight: 'bold',
-    padding: 14,
+    // padding: 14,
     flex: 1,
+    marginLeft: 16,
   },
 });

@@ -2,11 +2,11 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Empty } from '../../components/Empty';
+import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/inputs/Input';
 import { useAppSelector } from '../../redux/store';
 import { search, uuid4 } from '../../utils';
-import { ScheduleTaskCard } from '../schedule/components/ScheduleTaskCard';
 import { SubjectCard } from './components/SubjectCard';
 import { SubjectsPanel } from './components/SubjectsPanel';
 import { filterSubjects, sortSubjects } from './subjectUtils';
@@ -65,7 +65,10 @@ export const SubjectsScreen = () => {
   return (
     <View style={styles.container}>
       <Header title="Предметы" rightIcon="search" />
-      <ScrollView contentContainerStyle={styles.content}></ScrollView>
+      <ScrollView contentContainerStyle={styles.content}>
+        <Empty text="Список предметов пуст" />
+        <FloatingButton icon="add" onPress={handleAddSubject} />
+      </ScrollView>
     </View>
   );
 };

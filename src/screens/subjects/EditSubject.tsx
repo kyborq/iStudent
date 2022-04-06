@@ -64,12 +64,14 @@ export const EditSubject = () => {
     <View style={styles.container}>
       <Header
         title={id ? 'Редактировать предмет' : 'Новый предмет'}
+        leftIcon="clear"
         onLeft={handleBack}
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
           label="Дисциплина"
           placeholder="Математика"
+          icon="book"
           value={subjectDraft.title}
           onChange={(value) =>
             setSubjectraft({ ...subjectDraft, title: value })
@@ -79,17 +81,11 @@ export const EditSubject = () => {
         <Input
           label="Преподаватель"
           placeholder="Иванов Иван Иванович"
+          icon="user"
           value={toWordUppercase(subjectDraft.teacher)}
           onType={(value) =>
             setSubjectraft({ ...subjectDraft, teacher: value })
           }
-          clearInput
-        />
-        <Input
-          label="Ссылка на сайт"
-          placeholder="https://example.com/"
-          value={subjectDraft.link}
-          onChange={(value) => setSubjectraft({ ...subjectDraft, link: value })}
           clearInput
         />
         <View style={{ flex: 1 }} />

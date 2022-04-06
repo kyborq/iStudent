@@ -1,46 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../colors';
 import { Icon, TIcon } from './Icon';
-import { IconButton } from './inputs/IconButton';
 
 type Props = {
   text: string;
-  onReturn?: () => void;
-  onDelete?: () => void;
   icon?: TIcon;
 };
 
-export const Empty = ({ text, icon, onReturn, onDelete }: Props) => {
+export const Empty = ({ text, icon }: Props) => {
   return (
     <View style={styles.container}>
       {icon && (
         <Icon icon={icon} color="#c7c7c7" containerStyle={styles.icon} />
       )}
       <Text style={styles.text}>{text}</Text>
-      {(onReturn || onDelete) && (
-        <View style={styles.actions}>
-          {onReturn && (
-            <IconButton
-              icon="addSquare"
-              label="Вернуть"
-              size={54}
-              color={COLORS.primary5A9EEE}
-              containerStyle={styles.leftButton}
-              onPress={onReturn}
-            />
-          )}
-          {onDelete && (
-            <IconButton
-              icon="trash"
-              label="Удалить"
-              size={54}
-              color={COLORS.dangerF26969}
-              onPress={onDelete}
-            />
-          )}
-        </View>
-      )}
     </View>
   );
 };
@@ -54,7 +27,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 12,
     color: '#c7c7c7',
     marginBottom: 32,
   },
