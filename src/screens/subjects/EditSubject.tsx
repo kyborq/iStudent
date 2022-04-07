@@ -7,8 +7,7 @@ import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
-import { uuid4 } from '../../utils';
-import { toWordUppercase } from './subjectUtils';
+import { getSubjectOrDefault, toWordUppercase } from './subjectUtils';
 
 export const EditSubject = () => {
   const navigation = useNavigation();
@@ -17,18 +16,10 @@ export const EditSubject = () => {
 
   const id = route?.params?.id;
 
-  const subjects: TSubject[] = useAppSelector(
-    (state) => state.subjects.subjects,
-  );
-  const subject = id && subjects?.filter((s) => s.id === id)[0];
+  const { subjects } = useAppSelector((state) => state.subjects);
 
   const [subjectDraft, setSubjectraft] = useState<TSubject>(
-    subject || {
-      id: uuid4(),
-      title: '',
-      teacher: '',
-      link: '',
-    },
+    getSubjectOrDefault(subjects, id),
   );
   const [valid, setValid] = useState<boolean>(false);
 

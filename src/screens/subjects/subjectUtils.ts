@@ -1,5 +1,5 @@
 import { TSubject } from '../../redux/subjectsSlice';
-import { sort } from '../../utils';
+import { sort, uuid4 } from '../../utils';
 
 export const toWordUppercase = (s: string = '') => {
   const str = s.toString();
@@ -27,4 +27,17 @@ export const filterSubjects = (subject: TSubject, type: string) => {
     default:
       return false;
   }
+};
+
+export const getSubjectOrDefault = (subjects: TSubject[], id: string) => {
+  const defaultSubject: TSubject = {
+    id: uuid4(),
+    title: '',
+    teacher: '',
+    archived: false,
+  };
+
+  const subject = subjects.find((s) => s.id === id);
+
+  return subject || defaultSubject;
 };

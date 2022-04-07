@@ -45,8 +45,8 @@ export const ScheduleScreen = () => {
       <DateSelect date={selectedDate} onSelect={handleSelectDay} />
       <ScrollView contentContainerStyle={styles.content}>
         <ScheduleList date={selectedDate} />
-        <FloatingButton icon="add" onPress={handleAddSchedule} />
       </ScrollView>
+      <FloatingButton icon="add" onPress={handleAddSchedule} />
     </View>
   );
 };

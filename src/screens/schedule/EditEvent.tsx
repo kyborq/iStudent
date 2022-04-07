@@ -2,7 +2,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { Select } from '../../components/inputs/Select';
 import { Picker } from '../../components/inputs/Picker';
@@ -16,6 +16,10 @@ export const EditEvent = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  const subjects = useAppSelector((s) =>
+    s.subjects.subjects.filter((s) => !s.archived),
+  );
+
   const handleBack = () => {
     navigation.goBack();
   };
@@ -28,10 +32,7 @@ export const EditEvent = () => {
       <ScrollView contentContainerStyle={styles.content}>
         <Select
           icon="book"
-          items={[
-            { title: 'Математика', value: '123' },
-            { title: 'Русский', value: '123' },
-          ]}
+          items={subjects.map((s) => ({ title: s.title, value: s.id }))}
           label="Выберите предмет"
           value="Математика"
         />

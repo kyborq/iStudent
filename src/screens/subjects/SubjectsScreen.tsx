@@ -8,6 +8,7 @@ import { Input } from '../../components/inputs/Input';
 import { useAppSelector } from '../../redux/store';
 import { search, uuid4 } from '../../utils';
 import { SubjectCard } from './components/SubjectCard';
+import { SubjectList } from './components/SubjectList';
 import { SubjectsPanel } from './components/SubjectsPanel';
 import { filterSubjects, sortSubjects } from './subjectUtils';
 
@@ -66,9 +67,9 @@ export const SubjectsScreen = () => {
     <View style={styles.container}>
       <Header title="Предметы" rightIcon="search" />
       <ScrollView contentContainerStyle={styles.content}>
-        <Empty text="Список предметов пуст" />
-        <FloatingButton icon="add" onPress={handleAddSubject} />
+        <SubjectList />
       </ScrollView>
+      <FloatingButton icon="add" onPress={handleAddSubject} />
     </View>
   );
 };

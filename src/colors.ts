@@ -12,7 +12,7 @@ export const COLORS = {
 };
 
 export const TOUCHABLE_COLOR = TouchableNativeFeedback.Ripple(
-  'rgba(0, 0, 0, 0.05)',
+  'rgba(0, 0, 0, 0.025)',
   false,
 );
 
