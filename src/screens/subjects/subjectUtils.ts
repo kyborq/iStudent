@@ -41,3 +41,13 @@ export const getSubjectOrDefault = (subjects: TSubject[], id: string) => {
 
   return subject || defaultSubject;
 };
+
+export const isSubjectExists = (subjectName: string, subjects: TSubject[]) => {
+  const subject = subjects.find((s) => s.title.includes(subjectName));
+  return subject?.title;
+};
+
+export const teacherExists = (teacherName: string, subjects: TSubject[]) => {
+  const subject = subjects.find((s) => s.teacher?.includes(teacherName));
+  return subject?.teacher || '';
+};

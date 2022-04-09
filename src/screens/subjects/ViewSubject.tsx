@@ -57,8 +57,8 @@ export const ViewSubject = () => {
   const handleCreateTask = () => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'EditTask',
-        params: { subject: subject?.id },
+        name: 'TasksScreen',
+        // params: { subject: subject?.id },
       }),
     );
   };
