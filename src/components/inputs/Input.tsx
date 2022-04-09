@@ -40,17 +40,10 @@ export const Input = ({
   onType,
   onFocus,
 }: Props) => {
-  const [focused, setFocused] = useState(false);
   const [text, setText] = useState(value || '');
-
-  const color = '#f2f2f2';
 
   const handleSubmit = () => {
     onChange && onChange(text);
-  };
-
-  const handleFocus = () => {
-    setFocused(!focused);
   };
 
   useEffect(() => {
@@ -69,11 +62,7 @@ export const Input = ({
   return (
     <View style={[styles.container, style]}>
       {!!label && <Text style={styles.label}>{label}</Text>}
-      <View
-        style={[
-          styles.inputContainer,
-          focused && { borderColor: color + 'AA' },
-        ]}>
+      <View style={[styles.inputContainer]}>
         {icon && (
           <View
             style={{
@@ -90,8 +79,6 @@ export const Input = ({
           value={text}
           onChangeText={(text) => !disableInput && setText(text)}
           onEndEditing={handleSubmit}
-          onFocus={handleFocus}
-          onBlur={handleFocus}
           placeholderTextColor="#c7c7c7"
         />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -111,19 +98,13 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     color: '#c7c7c7',
-    // marginBottom: 4,
   },
   inputContainer: {
     flexDirection: 'row',
-    // backgroundColor: '#fafafa',
-    // borderColor: '#f2f2f2',
-    // borderWidth: 1,
-    // borderRadius: 10,
   },
   input: {
     fontSize: 18,
     fontWeight: 'bold',
-    // padding: 14,
     flex: 1,
     marginLeft: 16,
   },

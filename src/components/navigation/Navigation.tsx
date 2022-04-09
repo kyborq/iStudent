@@ -71,6 +71,7 @@ export const Navigation = () => {
       }}>
       <Stack.Screen name="Index" component={TabsNavigation} />
 
+      <Stack.Screen name="ViewSubject" component={ViewSubject} />
       <Stack.Screen name="EditEvent" component={EditEvent} />
       <Stack.Screen name="EditSubject" component={EditSubject} />
 
@@ -78,7 +79,7 @@ export const Navigation = () => {
       <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
       <Stack.Screen name="ViewEvent" component={ViewEvent} />
-      <Stack.Screen name="ViewSubject" component={ViewSubject} />
+      
       <Stack.Screen name="Timer" component={TimerScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} /> */}
     </Stack.Navigator>

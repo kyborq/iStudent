@@ -6,13 +6,13 @@ import {
 } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { COLORS } from '../../colors';
+import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { editTask, TTask } from '../../redux/tasksSlice';
-import { decline, uuid4 } from '../../utils';
-import { TaskCard } from '../tasks/components/TaskCard';
+import { archiveSubject, deleteSubject } from '../../redux/subjectsSlice';
 
 export const ViewSubject = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ViewSubject'>>();
@@ -44,6 +44,16 @@ export const ViewSubject = () => {
     );
   };
 
+  const handleDelete = () => {
+    dispatch(deleteSubject(id));
+    handleBack();
+  };
+
+  const handleArchive = () => {
+    dispatch(archiveSubject(id));
+    handleBack();
+  };
+
   const handleCreateTask = () => {
     navigation.dispatch(
       CommonActions.navigate({
@@ -53,29 +63,12 @@ export const ViewSubject = () => {
     );
   };
 
-  const handleViewTask = (id: string) => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'ViewTask',
-        params: { id: id },
-      }),
-    );
-  };
-
-  const handleCompleteTask = (task: TTask) => {
-    const newTask: TTask = { ...task, completed: !task.completed };
-    dispatch(editTask(newTask));
-  };
-
-  const taskCount = decline(tasks.length, ['задача', 'задачи', 'задач']);
-
   return (
     <View style={styles.container}>
       <Header
-        title="Предмет"
-        rightIcon={'edit'}
-        onLeft={handleBack}
-        onRight={(!subject?.archived && handleEdit) || undefined}
+        title="Просмотр предмета"
+        rightIcon="clear"
+        onRight={handleBack}
       />
 
       <ScrollView contentContainerStyle={styles.content}>
@@ -95,22 +88,23 @@ export const ViewSubject = () => {
           <InfoLine
             icon="check"
             label="Задачи"
-            text={tasks.length > 0 ? taskCount : 'Нет задач'}
+            text={'Нет задач'}
             onPress={handleCreateTask}></InfoLine>
-
-          <View style={{ marginHorizontal: 24, marginTop: 16 }}>
-            {tasks.map((t) => (
-              <TaskCard
-                key={uuid4()}
-                short={false}
-                task={t}
-                onComplete={() => handleCompleteTask(t)}
-                onPress={() => handleViewTask(t.id)}
-              />
-            ))}
-          </View>
         </View>
       </ScrollView>
+      <FloatingButton icon="edit" onPress={handleEdit} />
+      <FloatingButton
+        icon="trash"
+        style={{ left: 64 }}
+        background={COLORS.redF26969}
+        onPress={handleDelete}
+      />
+      <FloatingButton
+        icon="archive"
+        style={{ left: 0 }}
+        background={COLORS.mediumF2BB69}
+        onPress={handleArchive}
+      />
     </View>
   );
 };

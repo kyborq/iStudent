@@ -28,25 +28,36 @@ export const InfoLine = ({
       disabled={!onPress || disabled}
       onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.icon}>
-          {icon && <Icon icon={icon} color="#c7c7c7" />}
-        </View>
-        <View style={styles.content}>
+        <View style={{ flex: 1 }}>
           <Text style={styles.label}>{label}</Text>
-          {!!text && (
-            <Text
-              style={[
-                styles.text,
-                {
-                  textDecorationLine: disabled ? 'line-through' : 'none',
-                  color: disabled ? '#c7c7c7' : '#000',
-                },
-                alert && { color: COLORS.dangerF26969 },
-              ]}>
-              {text}
-            </Text>
-          )}
-          {children && <View style={{ marginTop: 8 }}>{children}</View>}
+          <View style={styles.content}>
+            <View style={styles.icon}>
+              {icon && <Icon icon={icon} color="#c7c7c7" />}
+            </View>
+            {!!text && (
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    textDecorationLine: disabled ? 'line-through' : 'none',
+                    color: disabled ? '#c7c7c7' : '#000',
+                  },
+                  alert && { color: COLORS.redF26969 },
+                ]}>
+                {text}
+              </Text>
+            )}
+            {children && (
+              <View
+                style={{
+                  marginTop: 8,
+                  flex: 1,
+                  flexDirection: 'row',
+                }}>
+                {children}
+              </View>
+            )}
+          </View>
         </View>
         {!disabled && onPress && (
           <View style={{ justifyContent: 'center' }}>
@@ -59,31 +70,23 @@ export const InfoLine = ({
 };
 
 const styles = StyleSheet.create({
-  touchable: {
-    borderRadius: 10,
-    overflow: 'hidden',
-    marginHorizontal: 16,
-  },
   label: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#c7c7c7',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 4,
   },
   container: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     paddingVertical: 8,
+    marginBottom: 8,
     flexDirection: 'row',
-    marginBottom: 6,
   },
   icon: {
-    marginRight: 10,
-    width: 48,
-    height: 48,
+    marginRight: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -93,10 +96,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    // paddingRight: 32,
+    flexDirection: 'row',
   },
   action: {
     paddingTop: 8,
-    marginLeft: 16,
   },
 });

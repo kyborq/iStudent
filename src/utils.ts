@@ -64,12 +64,25 @@ export const getRandomColor = () => {
   return color;
 };
 
+export const getRandomColors = (amount: number) => {
+  const colors = [];
+  let index = 0;
+  while (index < amount) {
+    colors.push(getRandomColor());
+  }
+  return colors;
+};
+
 export const getTextLetters = (s: string) => {
   const words = s.split(/[ -]/);
-  if (words.length > 1) {
-    return words
-      .map((word) => (word.length === 1 ? word[0] : word[0].toUpperCase()))
-      .join('');
+  if (!!words) {
+    if (words.length > 1) {
+      return words
+        .map((word) =>
+          !!word && word.length === 1 ? word[0] : word[0]?.toUpperCase() || '',
+        )
+        .join('');
+    }
   }
 
   return words[0][0];

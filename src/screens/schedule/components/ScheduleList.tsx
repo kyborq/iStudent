@@ -26,7 +26,6 @@ export const ScheduleList = ({ date }: Props) => {
 
     const redWeek = repeated?.period === 2 && weekPeriod % 2 === 0;
     const blueWeek = repeated?.period === 3 && weekPeriod % 3 === 0;
-    console.log(redWeek, blueWeek);
 
     if (repeated)
       return (

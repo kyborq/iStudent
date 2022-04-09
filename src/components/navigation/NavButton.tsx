@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { COLORS } from '../../colors';
-import { useAppSelector } from '../../redux/store';
 import { Icon, TIcon } from './../Icon';
 
 type Props = {
@@ -35,8 +34,8 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 82,
-    height: 38,
+    width: 100,
+    height: 32,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8,

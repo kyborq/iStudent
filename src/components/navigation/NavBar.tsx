@@ -46,14 +46,22 @@ export const NavBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
-    // paddingVertical: 20,
-    // paddingBottom: 12,
-    height: 70,
+    paddingHorizontal: 12,
+    height: 64,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#fff',
     overflow: 'visible',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 13,
   },
 });

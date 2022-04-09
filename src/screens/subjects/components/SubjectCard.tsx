@@ -5,7 +5,6 @@ import { CardBase } from '../../../components/CardBase';
 import { Icon } from '../../../components/Icon';
 import { useAppSelector } from '../../../redux/store';
 import { TSubject } from '../../../redux/subjectsSlice';
-import { decline } from '../../../utils';
 import { SubjectIcon } from './SubjectIcon';
 
 type Props = {

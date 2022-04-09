@@ -23,7 +23,7 @@ export const SubjectsPanel = ({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 24 }}>
+        contentContainerStyle={{ paddingHorizontal: 20 }}>
         <PanelButton
           title="Все"
           selected={filter === 'ALL'}

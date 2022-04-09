@@ -7,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { TOUCHABLE_COLOR } from '../../../colors';
+import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
 import { useAppSelector } from '../../../redux/store';
 
 type Props = {
@@ -25,7 +25,7 @@ export const PanelButton = ({
   style,
   onPress,
 }: Props) => {
-  const color = '#f2f2f2';
+  const color = COLORS.primary5A9EEE;
 
   const selectedStyle = {
     container: {
@@ -53,11 +53,11 @@ export const PanelButton = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
   },
   touchable: {
-    borderRadius: 12,
+    borderRadius: 8,
     backgroundColor: '#fafafa',
     overflow: 'hidden',
     marginRight: 8,
@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     color: '#c7c7c7',
+    fontSize: 12,
   },
 });
