@@ -9,7 +9,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header } from '../../components/Header';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { deleteTask, editTask, sortTasks, TTask } from '../../redux/tasksSlice';
+import { deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
@@ -97,12 +97,7 @@ export const ViewTask = () => {
             onSetDeadline={handleSetDeadline}
           />
         ) : (
-          <Empty
-            text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда"
-            icon="archive"
-            onDelete={handleDelete}
-            onReturn={handleArchive}
-          />
+          <Empty text="Эта задача архвивирована. Вы можете вернуть ее или удалить навсегда" />
         )}
       </ScrollView>
 

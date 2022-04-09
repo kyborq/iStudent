@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { IconButton } from '../../../components/inputs/IconButton';
 import { Dialogue } from '../../../components/modals/Dialogue';
 import { TTask } from '../../../redux/tasksSlice';
 

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { CalendarForm } from '../../../components/calendar/form/CalendarForm';
 import { InfoLine } from '../../../components/InfoLine';
-import { ModalView } from '../../../components/modals/ModalView';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
 

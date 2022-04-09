@@ -58,9 +58,6 @@ export const EditSubject = () => {
     if (subjectDraft.title === '') {
       return false;
     }
-    // if (!!duplicateSubject) {
-    //   return false;
-    // }
 
     return true;
   };

@@ -1,27 +1,25 @@
-import { CommonActions, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
+import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
-import { Input } from '../../components/inputs/Input';
-import { SortButton } from '../../components/sorting/SortButton';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { changeTaskSorting, ETaskSorting, TTask } from '../../redux/tasksSlice';
-import { filterTasks, getKeyByValue, search, sort, uuid4 } from '../../utils';
-import { TaskCard } from './components/TaskCard';
-import { TasksPanel } from './components/TasksPanel';
-import { sortTasks } from './tasksUtils';
 
 export const TasksScreen = () => {
   const handleSearch = () => {
     // ...
   };
 
+  const handleAddTask = () => {
+    // ...
+  };
+
   return (
     <View style={styles.container}>
-      <Header title="Список задач" rightIcon="search" onRight={handleSearch} />
-      <ScrollView contentContainerStyle={styles.content}></ScrollView>
+      <Header title="Мои задачи" rightIcon="search" onRight={handleSearch} />
+      <ScrollView contentContainerStyle={styles.content}>
+        <Empty text="Список пуст" />
+      </ScrollView>
+      <FloatingButton icon="add" onPress={handleAddTask} />
     </View>
   );
 };
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    // paddingHorizontal: 24,
+    paddingHorizontal: 20,
     paddingBottom: 24,
     flexGrow: 1,
   },

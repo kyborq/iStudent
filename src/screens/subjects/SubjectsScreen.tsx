@@ -4,7 +4,6 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { SubjectList } from './components/SubjectList';
-import { SubjectsPanel } from './components/SubjectsPanel';
 
 export const SubjectsScreen = () => {
   const navigation = useNavigation();

@@ -8,7 +8,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
-import { useAppSelector } from '../../../redux/store';
 
 type Props = {
   title: string;

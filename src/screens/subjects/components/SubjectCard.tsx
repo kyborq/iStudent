@@ -1,9 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { TOUCHABLE_COLOR } from '../../../colors';
-import { CardBase } from '../../../components/CardBase';
-import { Icon } from '../../../components/Icon';
-import { useAppSelector } from '../../../redux/store';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { SubjectIcon } from './SubjectIcon';
 

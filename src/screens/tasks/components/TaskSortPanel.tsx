@@ -1,33 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { COLORS } from '../../../colors';
-import { IconButton } from '../../../components/inputs/IconButton';
-import { SortButton } from '../../../components/sorting/SortButton';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { changeTaskSorting, ETaskSorting } from '../../../redux/tasksSlice';
 
-type Props = {
-  archived?: number;
-  completed?: number;
-  showCompleted?: boolean;
-  showArchived?: boolean;
-  onSort?: () => void;
-  onShowArchived?: () => void;
-  onShowCompleted?: () => void;
-};
+type Props = {};
 
-export const TaskSortPanel = ({
-  archived,
-  completed,
-  showCompleted,
-  showArchived,
-  onSort,
-  onShowArchived,
-  onShowCompleted,
-}: Props) => {
-  const dispatch = useAppDispatch();
-  const sorting = useAppSelector((state) => state.tasks.sorting);
-
+export const TaskSortPanel = ({}: Props) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}></View>
