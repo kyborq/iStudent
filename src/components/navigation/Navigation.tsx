@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Index: undefined;
   EditTask: { id: string; subject?: string };
   EditSubject: { id: string };
-  EditEvent: { id: string; date?: string };
+  EditEvent: { id: string; date?: number };
   ViewTask: { id: string };
   ViewSubject: { id: string };
   ViewEvent: { id: string };

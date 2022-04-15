@@ -16,32 +16,32 @@ export const ScheduleList = ({ date }: Props) => {
   const weekDayNumber = getISODay(date);
   const weekPeriod = getISOWeek(date);
 
-  const len = schedule.filter(
-    (s) => !!s.repeats && s.repeats.find((r) => r.index === weekDayNumber),
-  ).length;
+  // const len = schedule.filter(
+  //   (s) => !!s.repeats && s.repeats.find((r) => r.index === weekDayNumber),
+  // ).length;
 
   const scheduleList = schedule.map((s) => {
-    const repeated =
-      (!!s.repeats && s.repeats.find((r) => r.index === weekDayNumber)) || null;
+    // const repeated =
+    // (!!s.repeats && s.repeats.find((r) => r.index === weekDayNumber)) || null;
 
-    const redWeek = repeated?.period === 2 && weekPeriod % 2 === 0;
-    const blueWeek = repeated?.period === 3 && weekPeriod % 3 === 0;
+    // const redWeek = repeated?.period === 2 && weekPeriod % 2 === 0;
+    // const blueWeek = repeated?.period === 3 && weekPeriod % 3 === 0;
 
-    if (repeated)
-      return (
-        <ScheduleCard
-          key={uuid4()}
-          end={repeated?.time.end || '00:00'}
-          start={repeated?.time.start || '00:00'}
-          title={s.subject}
-        />
-      );
+    // if (repeated)
+    return (
+      <ScheduleCard
+        key={uuid4()}
+        end={'00:00'}
+        start={'00:00'}
+        title={s.subject}
+      />
+    );
   });
 
   return (
     <View style={{ flex: 1 }}>
       {scheduleList}
-      {!len && <Empty text="Занятий на этот день нет" />}
+      {/* {!len && <Empty text="Занятий на этот день нет" />} */}
     </View>
   );
 };

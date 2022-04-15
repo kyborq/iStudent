@@ -50,7 +50,7 @@ export const Picker = ({
         </View>
       </TouchableNativeFeedback>
 
-      <ModalView visible={popupVisible} onClose={handleShowPopup}>
+      <ModalView title={label} visible={popupVisible} onClose={handleShowPopup}>
         {children}
       </ModalView>
     </View>

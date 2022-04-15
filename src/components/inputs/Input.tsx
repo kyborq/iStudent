@@ -68,6 +68,7 @@ export const Input = ({
             style={{
               justifyContent: 'center',
               alignItems: 'center',
+              marginRight: 16,
             }}>
             <Icon icon={icon} color="#c7c7c7" />
           </View>
@@ -106,6 +107,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     flex: 1,
-    marginLeft: 16,
+    // marginLeft: 16,
   },
 });

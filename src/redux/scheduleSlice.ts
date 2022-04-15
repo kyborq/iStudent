@@ -6,9 +6,9 @@ export type TTimeRange = {
 };
 
 export type TRepeats = {
-  index: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
-  time: TTimeRange;
-  period: 1 | 2 | 3; // четность: 1 - каждую неделю, 2 - в синюю неделю, 3 - в красную неделю
+  index?: number; // индексы повторений: 1, 2, 3, 4, 5, 6, 7 по дням недели
+  time?: TTimeRange;
+  period?: 1 | 2 | 3; // четность: 1 - каждую неделю, 2 - в синюю неделю, 3 - в красную неделю
 };
 
 export type TSchedule = {
@@ -16,7 +16,7 @@ export type TSchedule = {
   subject: string; // id предмета
   time?: TTimeRange; // время начала и конца 08:00-09:45
   date?: string; // дата проведения, может и не быть если установлены повторения
-  repeats?: TRepeats[];
+  repeats?: TRepeats;
 };
 
 interface IScheduleSclice {
@@ -28,47 +28,37 @@ const initialState: IScheduleSclice = {
     {
       id: '1',
       subject: 'Старостат',
-      repeats: [
-        {
-          index: 3,
-          time: {
-            start: '13:00',
-            end: '13:30',
-          },
-          period: 1,
+      repeats: {
+        index: 3,
+        time: {
+          start: '13:00',
+          end: '13:30',
         },
-      ],
-    },
-    {
-      id: '2',
-      subject: 'Логика и теория алгоритмов',
-      repeats: [
-        {
-          index: 4,
-          time: {
-            start: '15:15',
-            end: '16:50',
-          },
-          period: 3,
-        },
-      ],
-    },
-    {
-      id: '2',
-      subject: 'Логика и теория алгоритмов',
-      repeats: [
-        {
-          index: 4,
-          time: {
-            start: '17:00',
-            end: '18:35',
-          },
-          period: 2,
-        },
-      ],
+        period: 1,
+      },
     },
   ],
 };
+
+export enum WeekDays {
+  MON = 'Понедельник',
+  TUE = 'Вторник',
+  WED = 'Среда',
+  THU = 'Четверг',
+  FRI = 'Пятница',
+  SAT = 'Суббота',
+  SUN = 'Воскресенье',
+}
+
+export const weekdays = [
+  WeekDays.MON,
+  WeekDays.TUE,
+  WeekDays.WED,
+  WeekDays.THU,
+  WeekDays.FRI,
+  WeekDays.SAT,
+  WeekDays.SUN,
+];
 
 export const scheduleSlice = createSlice({
   name: 'schedule',
