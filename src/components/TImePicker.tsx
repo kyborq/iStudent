@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button } from './inputs/Button';
 import { Input } from './inputs/Input';
 
 type Props = {
+  value?: string;
   onSubmit?: (value: string) => void;
 };
 
-export const TimePicker = ({ onSubmit }: Props) => {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+export const TimePicker = ({ onSubmit, value }: Props) => {
+  const parsedValue = value?.split(':') || [];
+  const pHours = parseInt(parsedValue[0]);
+  const pMinutes = parseInt(parsedValue[1]);
+
+  const [hours, setHours] = useState(pHours || 0);
+  const [minutes, setMinutes] = useState(pMinutes || 0);
 
   const handleHours = (value: string) => {
     const h = parseInt(value, 10);
@@ -38,18 +43,20 @@ export const TimePicker = ({ onSubmit }: Props) => {
     <View style={styles.container}>
       <View style={styles.timeInputs}>
         <Input
-          placeholder="00"
+          placeholder={`${hours}`.padStart(2, '0')}
           label="Часы"
           style={{ flex: 1 }}
           value={`${hours}`.padStart(2, '0')}
           onChange={handleHours}
+          ghost
         />
         <Input
-          placeholder="00"
+          placeholder={`${minutes}`.padStart(2, '0')}
           label="Минуты"
           style={{ flex: 1 }}
           value={`${minutes}`.padStart(2, '0')}
           onChange={handleMinutes}
+          ghost
         />
       </View>
       <Button label="Сохранить" primary onPress={handleSubmit} />

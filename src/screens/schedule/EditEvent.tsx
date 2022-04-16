@@ -8,9 +8,10 @@ import { Select } from '../../components/inputs/Select';
 import { Picker } from '../../components/inputs/Picker';
 import { Button } from '../../components/inputs/Button';
 import { TimePicker } from '../../components/TImePicker';
-import { TSchedule, WeekDays } from '../../redux/scheduleSlice';
+import { addEvent, TSchedule, WeekDays } from '../../redux/scheduleSlice';
 import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
+import { addToTime, getCurrentTime } from './scheduleUtils';
 
 const weekdays = [
   { title: 'Понедельник', value: '1' },
@@ -29,6 +30,9 @@ const repeating = [
 ];
 
 export const EditEvent = () => {
+  const [startPicker, setStartPicker] = useState(false);
+  const [endPicker, setEndPicker] = useState(false);
+
   const route = useRoute<RouteProp<RootStackParamList, 'EditEvent'>>();
   const id = route?.params?.id;
   const date = route?.params?.date;
@@ -46,6 +50,10 @@ export const EditEvent = () => {
     repeats: {
       index: getISODay(date || new Date()),
       period: 1,
+      time: {
+        start: getCurrentTime(date || new Date()),
+        end: addToTime(getCurrentTime(date || new Date()), '01:35'),
+      },
     },
   });
 
@@ -54,6 +62,11 @@ export const EditEvent = () => {
   };
 
   const title = !!id ? 'Изменить расписание' : 'Добавить в расписание';
+
+  const handleAddEvent = () => {
+    dispatch(addEvent(eventDraft));
+    handleBack();
+  };
 
   return (
     <View style={styles.container}>
@@ -108,20 +121,58 @@ export const EditEvent = () => {
         />
 
         <View style={{ flexDirection: 'row' }}>
-          <Picker icon="time" label="Время начала" value="08:00">
+          <Picker
+            icon="time"
+            label="Время начала"
+            value={eventDraft.repeats?.time?.start}
+            visible={startPicker}
+            handleShow={() => setStartPicker(true)}
+            handleHide={() => setStartPicker(false)}>
             <TimePicker
+              value={eventDraft.repeats?.time?.start}
               onSubmit={(time) => {
-                console.log(time);
+                setStartPicker(false);
+                setEventDraft({
+                  ...eventDraft,
+                  repeats: {
+                    ...eventDraft.repeats,
+                    time: {
+                      start: time || '',
+                      end: addToTime(time || '', '01:35'),
+                    },
+                  },
+                });
               }}
             />
           </Picker>
-          <Picker icon="time" label="Время конца" value="09:35">
-            <TimePicker />
+          <Picker
+            icon="time"
+            label="Время конца"
+            value={eventDraft.repeats?.time?.end}
+            visible={endPicker}
+            handleShow={() => setEndPicker(true)}
+            handleHide={() => setEndPicker(false)}>
+            <TimePicker
+              value={eventDraft.repeats?.time?.end}
+              onSubmit={(time) => {
+                setEndPicker(false);
+                setEventDraft({
+                  ...eventDraft,
+                  repeats: {
+                    ...eventDraft.repeats,
+                    time: {
+                      start: eventDraft.repeats?.time?.start || '',
+                      end: time || '',
+                    },
+                  },
+                });
+              }}
+            />
           </Picker>
         </View>
       </ScrollView>
       <View style={{ paddingHorizontal: 24, paddingBottom: 24 }}>
-        <Button label="Сохранить" primary />
+        <Button label="Сохранить" primary onPress={handleAddEvent} />
       </View>
     </View>
   );

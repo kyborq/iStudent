@@ -25,6 +25,7 @@ type Props = {
   onChange?: (value: string) => void;
   onType?: (value: string) => void;
   onFocus?: () => void;
+  ghost?: boolean;
 };
 
 export const Input = ({
@@ -38,6 +39,7 @@ export const Input = ({
   disableInput,
   onChange,
   onType,
+  ghost,
   onFocus,
 }: Props) => {
   const [text, setText] = useState(value || '');
@@ -81,6 +83,8 @@ export const Input = ({
           onChangeText={(text) => !disableInput && setText(text)}
           onEndEditing={handleSubmit}
           placeholderTextColor="#c7c7c7"
+          onFocus={() => ghost && setText('')}
+          onBlur={() => ghost && text === '' && setText(value || '00')}
         />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           {!disableInput && clearInput && value !== '' && (

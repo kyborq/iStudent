@@ -10,6 +10,9 @@ type Props = {
   value?: string;
   placeholder?: string;
   children?: React.ReactNode;
+  visible?: boolean;
+  handleShow?: () => void;
+  handleHide?: () => void;
 };
 
 export const Picker = ({
@@ -18,6 +21,9 @@ export const Picker = ({
   placeholder,
   value,
   children,
+  visible,
+  handleShow,
+  handleHide,
 }: Props) => {
   const [popupVisible, setPopupVisible] = useState(false);
 
@@ -29,7 +35,7 @@ export const Picker = ({
     <View style={styles.container}>
       <TouchableNativeFeedback
         background={TOUCHABLE_COLOR}
-        onPress={handleShowPopup}>
+        onPress={handleShow}>
         <View
           style={{
             paddingHorizontal: 24,
@@ -50,7 +56,7 @@ export const Picker = ({
         </View>
       </TouchableNativeFeedback>
 
-      <ModalView title={label} visible={popupVisible} onClose={handleShowPopup}>
+      <ModalView title={label} visible={visible} onClose={handleHide}>
         {children}
       </ModalView>
     </View>
