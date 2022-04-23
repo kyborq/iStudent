@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { uuid4 } from '../../utils';
@@ -6,14 +6,14 @@ import { getMonth } from './calendarUtils';
 import { CalendarWeek } from './CalendarWeek';
 
 type Props = {
-  date: string;
+  date: Date | number;
   selectedDate: string;
   style?: StyleProp<ViewStyle>;
   onSelect?: (date: string) => void;
 };
 
 export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
-  const currentDate = moment().format('DD.MM.YYYY');
+  const currentDate = format(date, 'DD.MM.YYYY');
   const month = getMonth(date);
 
   const monthList = month.map((week, index) => {

@@ -6,16 +6,20 @@ import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { DateSelect } from './components/DateSelect';
 import { ScheduleList } from './components/ScheduleList';
+import { WeekScroller } from './components/WeekScroller';
 import { WeekSelect } from './components/WeekSelect';
 
 export const ScheduleScreen = () => {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const navigation = useNavigation();
 
   const handleSelectDate = () => {
     // ...
+    setModalVisible(true);
   };
 
   const handleSelectDay = (newDate: number | Date) => {
@@ -40,11 +44,7 @@ export const ScheduleScreen = () => {
         rightIcon="calendar"
         onRight={handleSelectDate}
       />
-      <WeekSelect
-        date={selectedDate}
-        currentDate={date}
-        onSelect={handleSelectDay}
-      />
+      <WeekScroller selectedDate={selectedDate} onChange={handleSelectDay} />
       <DateSelect date={selectedDate} onSelect={handleSelectDay} />
       <ScrollView contentContainerStyle={styles.content}>
         <ScheduleList date={selectedDate} />

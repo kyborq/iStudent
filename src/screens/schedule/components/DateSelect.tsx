@@ -3,6 +3,7 @@ import { ru } from 'date-fns/locale';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from '../../../components/inputs/IconButton';
+import { compareDates } from '../../../utils/date';
 
 type Props = {
   date: Date | number;
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export const DateSelect = ({ date, onSelect }: Props) => {
+  const currentDate = new Date();
+
   const handleNextDay = () => {
     const newDate = add(new Date(date), { days: 1 });
     onSelect && onSelect(newDate);
@@ -20,6 +23,10 @@ export const DateSelect = ({ date, onSelect }: Props) => {
     onSelect && onSelect(newDate);
   };
 
+  const handleSetToday = () => {
+    onSelect && onSelect(currentDate);
+  };
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
@@ -27,6 +34,10 @@ export const DateSelect = ({ date, onSelect }: Props) => {
           {format(date, 'd MMMM, iiii', { locale: ru })}
         </Text>
       </View>
+      {(compareDates(currentDate, date as Date) === -1 ||
+        compareDates(currentDate, date as Date) === 1) && (
+        <IconButton icon="calendar" onPress={handleSetToday} />
+      )}
       <IconButton icon="chevronLeft" onPress={handlePrevDay} />
       <IconButton icon="chevronRight" onPress={handleNextDay} />
     </View>

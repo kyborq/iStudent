@@ -7,10 +7,16 @@ import { WeekDay } from './WeekDay';
 type Props = {
   date: number | Date;
   currentDate: number | Date;
+  selectedDate: number | Date;
   onSelect?: (date: number | Date) => void;
 };
 
-export const WeekSelect = ({ date, currentDate, onSelect }: Props) => {
+export const WeekSelect = ({
+  date,
+  currentDate,
+  selectedDate,
+  onSelect,
+}: Props) => {
   const { width } = Dimensions.get('window');
   const weekArray = getWeekArray(date);
 
@@ -19,7 +25,7 @@ export const WeekSelect = ({ date, currentDate, onSelect }: Props) => {
       <WeekDay
         key={uuid4()}
         date={day.date}
-        selected={isEqualDates(day.date, new Date(date))}
+        selected={isEqualDates(day.date, new Date(selectedDate))}
         current={isEqualDates(day.date, new Date(currentDate))}
         color={isDateEven(day.date, 'week') ? 'blue' : 'red'}
         onSelect={onSelect}
