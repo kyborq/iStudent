@@ -25,7 +25,11 @@ export const Header = ({
       {leftIcon && <IconButton icon={leftIcon} onPress={onLeft} />}
 
       <View style={[styles.header, !!leftIcon && { marginLeft: 16 }]}>
-        {!!title && <Text style={styles.label}>{title}</Text>}
+        {!!title && (
+          <Text style={styles.label} numberOfLines={1}>
+            {title}
+          </Text>
+        )}
         {!!text && <Text style={styles.text}>{text}</Text>}
       </View>
 

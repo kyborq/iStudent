@@ -12,6 +12,7 @@ import { IconButton } from '../../components/inputs/IconButton';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { deleteEvent } from '../../redux/scheduleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { getScheduleTiming, isScheduleToday } from './scheduleUtils';
 
 export const ViewEvent = () => {
   const navigation = useNavigation();
@@ -58,7 +59,7 @@ export const ViewEvent = () => {
   return (
     <View style={styles.container}>
       <Header
-        title={event?.subject || 'Событие'}
+        title={subject?.title || 'Событие'}
         rightIcon={'edit'}
         leftIcon={'back'}
         onLeft={handleBack}
@@ -66,17 +67,27 @@ export const ViewEvent = () => {
       />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <InfoLine icon="calendar" label="Дата" text={event?.date} />
-        <InfoLine
-          icon="time"
-          label="Время"
-          text={`${event?.repeats?.time?.start}-${event?.repeats?.time?.start}`}
-        />
         <InfoLine
           icon="book"
           label="Предмет"
           text={subject?.title || ''}
           onPress={handleViewSubject}
+        />
+        {!!event?.room && (
+          <InfoLine icon="time" label="Место" text={event?.room} />
+        )}
+        <InfoLine
+          icon="time"
+          label="Время"
+          text={`${event?.repeats?.time?.start}-${event?.repeats?.time?.end}`}
+        />
+        <InfoLine
+          icon="info"
+          label="Состояние"
+          text={`${
+            (isScheduleToday(event) && getScheduleTiming(event)) ||
+            'Занятие завершилось или не началось'
+          }`}
         />
       </ScrollView>
 

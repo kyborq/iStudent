@@ -8,7 +8,12 @@ import { Select } from '../../components/inputs/Select';
 import { Picker } from '../../components/inputs/Picker';
 import { Button } from '../../components/inputs/Button';
 import { TimePicker } from '../../components/TImePicker';
-import { addEvent, TSchedule, WeekDays } from '../../redux/scheduleSlice';
+import {
+  addEvent,
+  editEvent,
+  TSchedule,
+  WeekDays,
+} from '../../redux/scheduleSlice';
 import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
 import { addToTime, getCurrentTime } from './scheduleUtils';
@@ -38,6 +43,10 @@ export const EditEvent = () => {
   const id = route?.params?.id;
   const date = route?.params?.date;
 
+  const event = useAppSelector((state) =>
+    state.schedule.schedule.find((s) => s.id === id),
+  );
+
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -45,18 +54,20 @@ export const EditEvent = () => {
     s.subjects.subjects.filter((s) => !s.archived),
   );
 
-  const [eventDraft, setEventDraft] = useState<TSchedule>({
-    id: uuid4(),
-    subject: `${subjects[0]?.id || ''}`,
-    repeats: {
-      index: getISODay(date || new Date()),
-      period: 1,
-      time: {
-        start: getCurrentTime(new Date()),
-        end: addToTime(getCurrentTime(new Date()), '01:35'),
+  const [eventDraft, setEventDraft] = useState<TSchedule>(
+    event || {
+      id: uuid4(),
+      subject: `${subjects[0]?.id || ''}`,
+      repeats: {
+        index: getISODay(date || new Date()),
+        period: 1,
+        time: {
+          start: getCurrentTime(new Date()),
+          end: addToTime(getCurrentTime(new Date()), '01:35'),
+        },
       },
     },
-  });
+  );
 
   const handleBack = () => {
     navigation.goBack();
@@ -65,7 +76,8 @@ export const EditEvent = () => {
   const title = !!id ? 'Изменить расписание' : 'Добавить в расписание';
 
   const handleAddEvent = () => {
-    dispatch(addEvent(eventDraft));
+    (event && dispatch(editEvent(eventDraft))) ||
+      dispatch(addEvent(eventDraft));
     handleBack();
   };
 

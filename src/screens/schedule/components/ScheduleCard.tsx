@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
-import { TOUCHABLE_COLOR } from '../../../colors';
+import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
 
 type Props = {
   title: string;
@@ -8,19 +8,54 @@ type Props = {
   teacher?: string;
   end: string;
   room?: string;
+  status?: 'going' | 'wait' | 'ended';
+  onPress?: () => void;
 };
 
-export const ScheduleCard = ({ title, start, teacher, room, end }: Props) => {
+export const ScheduleCard = ({
+  title,
+  start,
+  teacher,
+  room,
+  end,
+  status = 'wait',
+  onPress,
+}: Props) => {
+  const indicatorStyles = {
+    going: {
+      backgroundColor: COLORS.primary5A9EEE,
+    },
+    wait: {
+      backgroundColor: '#f2f2f2',
+    },
+    ended: {
+      backgroundColor: '#fafafa',
+    },
+  };
+
+  const textStyles = {
+    going: {
+      color: '#000',
+    },
+    wait: {
+      color: '#000',
+    },
+    ended: {
+      color: '#c7c7c7',
+      textDecorationLine: 'line-through',
+    },
+  };
+
   return (
     <View style={styles.ripple}>
-      <TouchableNativeFeedback background={TOUCHABLE_COLOR}>
+      <TouchableNativeFeedback background={TOUCHABLE_COLOR} onPress={onPress}>
         <View style={styles.card}>
           <View style={styles.indicatorContainer}>
-            <View style={styles.indicator} />
+            <View style={[styles.indicator, indicatorStyles[status]]} />
           </View>
           <View style={styles.cardContainer}>
             <Text style={styles.time}>{`${start} - ${end}`}</Text>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={[styles.title, textStyles[status]]}>{title}</Text>
             <View style={{ marginTop: 4, flexDirection: 'row' }}>
               {!!room && <Text style={styles.text}>{room}</Text>}
               {!!teacher && <Text style={styles.text}>{teacher}</Text>}
@@ -67,6 +102,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#000',
   },
   classroom: {
     fontSize: 18,

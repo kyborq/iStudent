@@ -1,17 +1,21 @@
-import { add, format, parse } from 'date-fns';
+import { add, format, getISODay, parse } from 'date-fns';
 import { TSchedule } from '../../redux/scheduleSlice';
+import { isDateEven } from '../../utils/date';
 
 export const sortEvents = (events: TSchedule[]): TSchedule[] => {
   const sortedTasks = events.slice().sort((a, b) => {
-    // if (!a.time.start && !b.time.start) {
-    //   return -1;
-    // }
-    // if (a.time.start > b.time.start) {
-    //   return 1;
-    // }
-    // if (a.time.start < b.time.start) {
-    //   return -1;
-    // }
+    const startA = a.repeats?.time?.start;
+    const startB = b.repeats?.time?.start;
+
+    if (!startA && !startB) {
+      return -1;
+    }
+    if (startA && startB && startA > startB) {
+      return 1;
+    }
+    if (startA && startB && startA < startB) {
+      return -1;
+    }
 
     return 0;
   });
@@ -33,4 +37,77 @@ export const addToTime = (time: string, addition: string) => {
   });
 
   return format(resTime, 'HH:mm');
+};
+
+export const getScheduleTiming = (schedule?: TSchedule) => {
+  const timeNow = format(new Date(), 'HH:mm');
+
+  if (
+    schedule &&
+    schedule.repeats &&
+    schedule.repeats.time &&
+    timeNow > schedule.repeats?.time?.start &&
+    timeNow < schedule.repeats?.time?.end
+  )
+    return 'Уже идет';
+
+  if (
+    schedule &&
+    schedule.repeats &&
+    schedule.repeats.time &&
+    timeNow < schedule.repeats?.time?.start
+  )
+    return 'Не начался';
+
+  if (
+    schedule &&
+    schedule.repeats &&
+    schedule.repeats.time &&
+    timeNow > schedule.repeats?.time?.end
+  )
+    return 'Закончился';
+};
+
+export const isEventGoing = (schedule?: TSchedule) => {
+  if (schedule && schedule.repeats && schedule.repeats.time) {
+    const timeNow = format(new Date(), 'HH:mm');
+    if (
+      timeNow > schedule.repeats?.time?.start &&
+      timeNow < schedule.repeats?.time?.end
+    )
+      return true;
+  }
+  return false;
+};
+
+export const isEventExpired = (schedule?: TSchedule) => {
+  if (schedule && schedule.repeats && schedule.repeats.time) {
+    const timeNow = format(new Date(), 'HH:mm');
+    if (timeNow > schedule.repeats?.time?.end) return true;
+  }
+  return false;
+};
+
+export const isEventNotStarted = (schedule?: TSchedule) => {
+  if (schedule && schedule.repeats && schedule.repeats.time) {
+    const timeNow = format(new Date(), 'HH:mm');
+    if (timeNow < schedule.repeats?.time?.start) return true;
+  }
+  return false;
+};
+
+export const isScheduleToday = (schedule?: TSchedule) => {
+  if (schedule) {
+    const date = new Date();
+    const weekDayNumber = getISODay(date);
+    const weekType = isDateEven(date, 'week') ? 2 : 3;
+    const isCurrentWeek = schedule.repeats?.index == weekDayNumber;
+    const isCurrentType =
+      schedule.repeats?.period !== 1 &&
+      schedule.repeats?.period &&
+      schedule.repeats?.period % weekType == 0;
+    if (isCurrentWeek && (schedule.repeats?.period === 1 || isCurrentType))
+      return true;
+  }
+  return false;
 };
