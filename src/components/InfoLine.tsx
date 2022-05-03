@@ -41,6 +41,7 @@ export const InfoLine = ({
                   {
                     textDecorationLine: disabled ? 'line-through' : 'none',
                     color: disabled ? '#c7c7c7' : '#000',
+                    paddingRight: 24,
                   },
                   alert && { color: COLORS.redF26969 },
                 ]}>

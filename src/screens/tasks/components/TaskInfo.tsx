@@ -56,13 +56,13 @@ export const TaskInfo = ({
         />
       )}
 
-      <InfoLine
+      {/* <InfoLine
         icon="calendar"
         label="Срок выполнения"
         text={(!!task.deadline && task.deadline) || 'Не установлен'}
         disabled={task.completed}
         onPress={handleToggleModal}
-      />
+      /> */}
     </View>
   );
 };

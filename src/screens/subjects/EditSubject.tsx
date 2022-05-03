@@ -6,6 +6,7 @@ import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
+import { strings } from '../../localization';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
 import {
@@ -65,7 +66,7 @@ export const EditSubject = () => {
   return (
     <View style={styles.container}>
       <Header
-        title={id ? 'Редактировать предмет' : 'Новый предмет'}
+        title={id ? strings.editSubject : strings.newSubject}
         rightIcon="clear"
         onRight={handleBack}
       />

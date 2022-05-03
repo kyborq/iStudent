@@ -21,7 +21,7 @@ export const Header = ({
   onRight,
 }: Props) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, !!leftIcon && { paddingLeft: 10 }]}>
       {leftIcon && <IconButton icon={leftIcon} onPress={onLeft} />}
 
       <View style={[styles.header, !!leftIcon && { marginLeft: 16 }]}>

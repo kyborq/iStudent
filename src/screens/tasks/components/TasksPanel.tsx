@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { strings } from '../../../localization';
 import { PanelButton } from './PanelButton';
 
 type Props = {
@@ -32,25 +33,25 @@ export const TasksPanel = ({
         style={{ marginHorizontal: -24 }}
         contentContainerStyle={{ paddingHorizontal: 24 }}>
         <PanelButton
-          title="Все"
+          title={strings.all}
           selected={filter === 'ALL'}
           number={all}
           onPress={showAll}
         />
         <PanelButton
-          title="Новые"
+          title={strings.new}
           selected={filter === 'TODO'}
           number={todo}
           onPress={showTodo}
         />
         <PanelButton
-          title="Завершенные"
+          title={strings.completed}
           selected={filter === 'COMPLETED'}
           number={completed}
           onPress={showCompleted}
         />
         <PanelButton
-          title="Архивированные"
+          title={strings.archived}
           selected={filter === 'ARCHIVED'}
           number={archived}
           onPress={showArchived}
@@ -64,6 +65,6 @@ export const TasksPanel = ({
 const styles = StyleSheet.create({
   panel: {
     flexDirection: 'row',
-    marginBottom: 8,
+    marginBottom: 16,
   },
 });

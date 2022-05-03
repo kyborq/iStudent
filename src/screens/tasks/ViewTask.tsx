@@ -13,6 +13,8 @@ import { deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { Empty } from '../../components/Empty';
 import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
+import { FloatingButton } from '../../components/FloatingButton';
+import { COLORS } from '../../colors';
 
 export const ViewTask = () => {
   const navigation = useNavigation();
@@ -80,12 +82,7 @@ export const ViewTask = () => {
 
   return (
     <View style={styles.container}>
-      <Header
-        title="Просмотр задачи"
-        rightIcon="edit"
-        onRight={(!task.completed && handleEditTask) || undefined}
-        onLeft={handleBack}
-      />
+      <Header leftIcon="back" onLeft={handleBack} />
 
       <ScrollView contentContainerStyle={styles.content}>
         {!task.archived ? (
@@ -101,13 +98,35 @@ export const ViewTask = () => {
         )}
       </ScrollView>
 
-      {!task.archived && (
-        <TaskFooter
-          task={task}
-          onDelete={handleDelete}
-          onComplete={handleComplete}
-          onArchive={handleArchive}
-        />
+      {(!task.archived && (
+        <View>
+          <FloatingButton icon="edit" onPress={handleEditTask} />
+          <FloatingButton
+            icon="trash"
+            style={{ left: 64 }}
+            background={COLORS.redF26969}
+            onPress={handleDelete}
+          />
+          <FloatingButton
+            icon="archive"
+            style={{ left: 0 }}
+            background={COLORS.mediumF2BB69}
+            onPress={handleArchive}
+          />
+        </View>
+      )) || (
+        <View>
+          <FloatingButton
+            icon="back"
+            style={{ left: 0 }}
+            onPress={handleArchive}
+          />
+          <FloatingButton
+            icon="trash"
+            background={COLORS.redF26969}
+            onPress={handleDelete}
+          />
+        </View>
       )}
     </View>
   );

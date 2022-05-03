@@ -58,13 +58,7 @@ export const ViewEvent = () => {
 
   return (
     <View style={styles.container}>
-      <Header
-        title={subject?.title || 'Событие'}
-        rightIcon={'edit'}
-        leftIcon={'back'}
-        onLeft={handleBack}
-        onRight={handleEdit}
-      />
+      <Header leftIcon="back" onLeft={handleBack} />
 
       <ScrollView contentContainerStyle={styles.content}>
         <InfoLine
@@ -95,9 +89,10 @@ export const ViewEvent = () => {
         style={{
           flexDirection: 'row',
           padding: 24,
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
         }}>
         <IconButton icon="trash" onPress={handleDeleteEvent} />
+        <IconButton icon="edit" onPress={handleEdit} />
       </View>
     </View>
   );

@@ -13,6 +13,7 @@ import { InfoLine } from '../../components/InfoLine';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { archiveSubject, deleteSubject } from '../../redux/subjectsSlice';
+import { decline } from '../../utils';
 
 export const ViewSubject = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'ViewSubject'>>();
@@ -65,11 +66,7 @@ export const ViewSubject = () => {
 
   return (
     <View style={styles.container}>
-      <Header
-        title="Просмотр предмета"
-        rightIcon="clear"
-        onRight={handleBack}
-      />
+      <Header leftIcon="back" onLeft={handleBack} />
 
       <ScrollView contentContainerStyle={styles.content}>
         <View>
@@ -88,7 +85,10 @@ export const ViewSubject = () => {
           <InfoLine
             icon="check"
             label="Задачи"
-            text={'Нет задач'}
+            text={
+              (!tasks.length && 'Нет задач') ||
+              `${decline(tasks.length, ['задача', 'задачи', 'задач'])}`
+            }
             onPress={handleCreateTask}></InfoLine>
         </View>
       </ScrollView>

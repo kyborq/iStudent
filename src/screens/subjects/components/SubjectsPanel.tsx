@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { strings } from '../../../localization';
 import { PanelButton } from '../../tasks/components/PanelButton';
 
 type Props = {
@@ -25,13 +26,13 @@ export const SubjectsPanel = ({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 20 }}>
         <PanelButton
-          title="Все"
+          title={strings.all}
           selected={filter === 'ALL'}
           onPress={showAll}
           number={all}
         />
         <PanelButton
-          title="Архивированные"
+          title={strings.archived}
           selected={filter === 'ARCHIVED'}
           onPress={showArchived}
           number={archived}

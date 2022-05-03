@@ -18,6 +18,7 @@ import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
 import { addToTime, getCurrentTime } from './scheduleUtils';
 import { Input } from '../../components/inputs/Input';
+import { strings } from '../../localization';
 
 const weekdays = [
   { title: 'Понедельник', value: '1' },
@@ -73,7 +74,7 @@ export const EditEvent = () => {
     navigation.goBack();
   };
 
-  const title = !!id ? 'Изменить расписание' : 'Добавить в расписание';
+  const title = !!id ? strings.editEvent : strings.newEvent;
 
   const handleAddEvent = () => {
     (event && dispatch(editEvent(eventDraft))) ||
@@ -83,7 +84,7 @@ export const EditEvent = () => {
 
   return (
     <View style={styles.container}>
-      <Header title={title} leftIcon="clear" onLeft={handleBack} />
+      <Header title={title} leftIcon="back" onLeft={handleBack} />
       <ScrollView contentContainerStyle={styles.content}>
         {!!subjects.length && (
           <Select

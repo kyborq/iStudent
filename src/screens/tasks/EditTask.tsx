@@ -6,6 +6,7 @@ import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
+import { strings } from '../../localization';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
 import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
@@ -72,8 +73,9 @@ export const EditTask = () => {
   return (
     <View style={styles.container}>
       <Header
-        title={id ? 'Изменить задачу' : 'Новая задача'}
+        title={id ? strings.editTask : strings.newTask}
         onLeft={handleBack}
+        leftIcon="back"
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
@@ -105,15 +107,6 @@ export const EditTask = () => {
             primary
             disabled={!valid}
           />
-          {id && (
-            <Button
-              icon="archive"
-              onPress={handleDelete}
-              style={{ marginLeft: 16 }}
-              primary
-              disabled={!valid}
-            />
-          )}
         </View>
       </ScrollView>
     </View>

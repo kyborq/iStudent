@@ -1,19 +1,24 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { strings } from '../../localization';
 import { useAppSelector } from '../../redux/store';
-import { ETaskSorting } from '../../redux/tasksSlice';
+import { ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils/uuid4';
 import { TaskCard } from './components/TaskCard';
 import { TasksPanel } from './components/TasksPanel';
 import { sortTasks } from './tasksUtils';
 
+interface ITaskIterator {
+  [key: string]: TTask[];
+}
+
 export const TasksScreen = () => {
   const { tasks } = useAppSelector((state) => state.tasks);
+  const [filter, setFilter] = useState('TODO');
 
   const sortedTasks = sortTasks(tasks, ETaskSorting.title);
 
@@ -21,6 +26,21 @@ export const TasksScreen = () => {
   const newTasks = sortedTasks.filter((t) => !t.archived && !t.completed);
   const completedTasks = sortedTasks.filter((t) => !t.archived && t.completed);
   const archived = sortedTasks.filter((t) => t.archived);
+
+  const filteredTasks: ITaskIterator = {
+    ALL: allTasks,
+    TODO: newTasks,
+    COMPLETED: completedTasks,
+    ARCHIVED: archived,
+  };
+
+  const tasksList = filteredTasks[filter].map((task) => (
+    <TaskCard
+      task={task}
+      key={uuid4()}
+      onPress={() => handleViewTask(task.id)}
+    />
+  ));
 
   const navigation = useNavigation();
 
@@ -39,7 +59,7 @@ export const TasksScreen = () => {
   const handleViewTask = (id: string) => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'EditTask',
+        name: 'ViewTask',
         params: {
           id,
         },
@@ -56,16 +76,11 @@ export const TasksScreen = () => {
           archived={archived.length}
           completed={completedTasks.length}
           todo={newTasks.length}
-          filter="ALL"
+          filter={filter}
+          onSetFilter={setFilter}
         />
-        {/* <Empty text="Список пуст" /> */}
-        {tasks.map((t) => (
-          <TaskCard
-            task={t}
-            key={uuid4()}
-            onPress={() => handleViewTask(t.id)}
-          />
-        ))}
+        {filteredTasks[filter].length === 0 && <Empty text="Список пуст" />}
+        {tasksList}
       </ScrollView>
       <FloatingButton icon="add" onPress={handleAddTask} />
     </View>
