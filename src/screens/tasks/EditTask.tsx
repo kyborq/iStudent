@@ -17,6 +17,7 @@ export const EditTask = () => {
   const dispatch = useAppDispatch();
 
   const id = route?.params?.id;
+
   const subject = route?.params?.subject;
   const tasks: TTask[] = useAppSelector((state) => state.tasks.tasks);
   const subjects: TSubject[] = useAppSelector((state) =>
@@ -78,6 +79,8 @@ export const EditTask = () => {
         <Input
           label="Задача"
           placeholder="Подготовиться к контрольной"
+          icon="info"
+          style={{ paddingHorizontal: 24 }}
           multiline
           clearInput
           value={taskDraft.title}
@@ -94,7 +97,7 @@ export const EditTask = () => {
           onSelect={(value) => setTaskDraft({ ...taskDraft, subject: value })}
         />
         <View style={{ flex: 1 }} />
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', paddingHorizontal: 24 }}>
           <Button
             label={id ? 'Изменить' : 'Сохранить'}
             onPress={handleSave}
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
     paddingBottom: 24,
     flexGrow: 1,
   },

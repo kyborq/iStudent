@@ -14,6 +14,7 @@ import { ViewSubject } from '../../screens/subjects/ViewSubject';
 import { EditEvent } from '../../screens/schedule/EditEvent';
 import { ViewEvent } from '../../screens/schedule/ViewEvent';
 import { HomeScreen } from '../../screens/home/HomeScreen';
+import { strings } from '../../localization';
 
 export type RootStackParamList = {
   Index: undefined;
@@ -41,22 +42,22 @@ export const TabsNavigation = () => {
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ title: 'Главная' }}
+        options={{ title: strings.home }}
       />
       <Tab.Screen
         name="SubjectsScreen"
         component={SubjectsScreen}
-        options={{ title: 'Предметы' }}
+        options={{ title: strings.subjects }}
       />
       <Tab.Screen
         name="TasksScreen"
         component={TasksScreen}
-        options={{ title: 'Задачи' }}
+        options={{ title: strings.tasks }}
       />
       <Tab.Screen
         name="ScheduleScreen"
         component={ScheduleScreen}
-        options={{ title: 'Расписание' }}
+        options={{ title: strings.schedule }}
       />
     </Tab.Navigator>
   );
@@ -77,13 +78,8 @@ export const Navigation = () => {
       <Stack.Screen name="EditEvent" component={EditEvent} />
       <Stack.Screen name="EditSubject" component={EditSubject} />
 
-      {/* 
       <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
-      
-      
-      <Stack.Screen name="Timer" component={TimerScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} /> */}
     </Stack.Navigator>
   );
 };

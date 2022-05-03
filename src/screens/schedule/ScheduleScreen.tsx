@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 
 import { Header } from '../../components/Header';
+import { strings } from '../../localization';
 import { DateSelect } from './components/DateSelect';
 import { ScheduleList } from './components/ScheduleList';
 import { WeekScroller } from './components/WeekScroller';
@@ -40,7 +41,7 @@ export const ScheduleScreen = () => {
   return (
     <View style={styles.container}>
       <Header
-        title="Расписание"
+        title={strings.schedule}
         rightIcon="calendar"
         onRight={handleSelectDate}
       />

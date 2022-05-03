@@ -1,8 +1,10 @@
 import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { enUS, ru } from 'date-fns/locale';
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
+import { strings } from '../../../localization';
+import { ILocaleIterator } from './DateSelect';
 
 type Props = {
   selected?: boolean;
@@ -20,7 +22,13 @@ export const WeekDay = ({
   onSelect,
 }: Props) => {
   const number = format(date, 'dd');
-  const day = format(date, 'iiiiii', { locale: ru });
+
+  const locale: ILocaleIterator = {
+    en_US: enUS,
+    ru_RU: ru,
+  };
+
+  const day = format(date, 'iiiiii', { locale: locale[strings.getLanguage()] });
 
   const handleSelect = () => {
     onSelect && onSelect(date);

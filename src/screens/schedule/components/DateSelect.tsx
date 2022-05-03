@@ -1,8 +1,9 @@
-import { add, format, sub } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { add, format, Locale, sub } from 'date-fns';
+import { ru, enUS } from 'date-fns/locale';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from '../../../components/inputs/IconButton';
+import { strings } from '../../../localization';
 import { compareDates } from '../../../utils/date';
 
 type Props = {
@@ -10,8 +11,17 @@ type Props = {
   onSelect?: (date: Date | number) => void;
 };
 
+export interface ILocaleIterator {
+  [key: string]: Locale;
+}
+
 export const DateSelect = ({ date, onSelect }: Props) => {
   const currentDate = new Date();
+
+  const locale: ILocaleIterator = {
+    en_US: enUS,
+    ru_RU: ru,
+  };
 
   const handleNextDay = () => {
     const newDate = add(new Date(date), { days: 1 });
@@ -31,7 +41,9 @@ export const DateSelect = ({ date, onSelect }: Props) => {
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <Text style={styles.label}>
-          {format(date, 'd MMMM, iiii', { locale: ru })}
+          {format(date, 'd MMMM, iiii', {
+            locale: locale[strings.getLanguage()],
+          })}
         </Text>
       </View>
       {(compareDates(currentDate, date as Date) === -1 ||

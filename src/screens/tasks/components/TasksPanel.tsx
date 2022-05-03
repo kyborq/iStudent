@@ -29,6 +29,7 @@ export const TasksPanel = ({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={{ marginHorizontal: -24 }}
         contentContainerStyle={{ paddingHorizontal: 24 }}>
         <PanelButton
           title="Все"

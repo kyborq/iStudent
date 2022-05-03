@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
+import { strings } from '../../localization';
 import { SubjectList } from './components/SubjectList';
 
 export const SubjectsScreen = () => {
@@ -21,7 +22,7 @@ export const SubjectsScreen = () => {
       <ScrollView
         contentContainerStyle={styles.content}
         stickyHeaderIndices={[0]}>
-        <Header title="Предметы" rightIcon="search" />
+        <Header title={strings.subjects} rightIcon="search" />
         <SubjectList />
       </ScrollView>
       <FloatingButton icon="add" onPress={handleAddSubject} />
