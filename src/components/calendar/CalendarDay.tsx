@@ -8,7 +8,6 @@ import {
   ViewStyle,
 } from 'react-native';
 import { COLORS, TOUCHABLE_COLOR } from '../../colors';
-import { useAppSelector } from '../../redux/store';
 
 type Props = {
   day: string;
@@ -27,7 +26,7 @@ export const CalendarDay = ({
   month,
   onPress,
 }: Props) => {
-  const theme = useAppSelector((s) => s.settings.theme);
+  const theme = COLORS.primary5A9EEE;
 
   const handleSelect = () => {
     onPress && onPress();

@@ -19,23 +19,9 @@ export const CalendarHeader = ({
     <View style={styles.calendarHeader}>
       <Text style={styles.monthLabel}>{month}</Text>
       <View style={styles.calendarButtons}>
-        <IconButton
-          icon="trash"
-          buttonStyle={styles.buttonStyle}
-          containerStyle={{ marginRight: 10 }}
-          onPress={onClearDate}
-        />
-        <IconButton
-          icon="chevronLeft"
-          buttonStyle={styles.buttonStyle}
-          containerStyle={{ marginRight: 10 }}
-          onPress={onPrevMonth}
-        />
-        <IconButton
-          icon="chevronRight"
-          buttonStyle={styles.buttonStyle}
-          onPress={onNextMonth}
-        />
+        <IconButton icon="trash" onPress={onClearDate} />
+        <IconButton icon="chevronLeft" onPress={onPrevMonth} />
+        <IconButton icon="chevronRight" onPress={onNextMonth} />
       </View>
     </View>
   );
@@ -45,8 +31,11 @@ const styles = StyleSheet.create({
   calendarHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
+    paddingLeft: 20,
+    paddingTop: 8,
     marginBottom: 16,
+    // paddingRight: -4,
     alignItems: 'center',
   },
   monthLabel: {

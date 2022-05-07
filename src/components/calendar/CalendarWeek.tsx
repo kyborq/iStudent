@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format, parse } from 'date-fns';
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { uuid4 } from '../../utils';
@@ -6,7 +6,7 @@ import { CalendarDay } from './CalendarDay';
 
 type Props = {
   week: string[];
-  monthDate?: string;
+  monthDate?: Date | number;
   currentDate?: string;
   selectedDate?: string;
   style?: StyleProp<ViewStyle>;
@@ -21,19 +21,26 @@ export const CalendarWeek = ({
   selectedDate,
   onSelect,
 }: Props) => {
-  const weekList = week.map((date) => (
-    <CalendarDay
-      key={uuid4()}
-      day={moment(date, 'DD.MM.YYYY').format('DD')}
-      month={
-        moment(date, 'DD.MM.YYYY').format('MM') ===
-        moment(monthDate, 'DD.MM.YYYY').format('MM')
-      }
-      onPress={() => onSelect && onSelect(date)}
-      current={currentDate === date}
-      selected={selectedDate === date}
-    />
-  ));
+  const weekList = week.map((date) => {
+    const parsedDate = parse(date, 'dd.MM.yyyy', new Date());
+
+    const day = format(parsedDate, 'dd');
+    const currentDay = format(new Date(), 'dd.MM.yyyy');
+
+    const month = format(parsedDate, 'MM');
+    const selectedMonth = format(monthDate as Date | number, 'MM');
+
+    return (
+      <CalendarDay
+        key={uuid4()}
+        day={day}
+        onPress={() => onSelect && onSelect(date)}
+        current={currentDay === date}
+        selected={selectedDate === date}
+        month={month === selectedMonth}
+      />
+    );
+  });
 
   return <View style={[styles.container, style]}>{weekList}</View>;
 };

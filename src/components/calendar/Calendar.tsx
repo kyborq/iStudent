@@ -7,13 +7,13 @@ import { CalendarWeek } from './CalendarWeek';
 
 type Props = {
   date: Date | number;
-  selectedDate: string;
+  selectedDate: Date | number;
   style?: StyleProp<ViewStyle>;
   onSelect?: (date: string) => void;
 };
 
 export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
-  const currentDate = format(date, 'DD.MM.YYYY');
+  const currentDate = format(date, 'dd.MM.yyyy');
   const month = getMonth(date);
 
   const monthList = month.map((week, index) => {
@@ -25,7 +25,7 @@ export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
         onSelect={onSelect}
         monthDate={date}
         currentDate={currentDate}
-        selectedDate={selectedDate}
+        selectedDate={format(selectedDate, 'dd.MM.yyyy')}
       />
     );
   });
@@ -35,7 +35,8 @@ export const Calendar = ({ date, selectedDate, style, onSelect }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 16,
+    paddingHorizontal: 16,
     // paddingVertical: 8,
+    paddingBottom: 8,
   },
 });

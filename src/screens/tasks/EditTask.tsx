@@ -1,9 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/core';
+import { add, format, parse, setDate, sub } from 'date-fns';
+import { enUS, ru } from 'date-fns/locale';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { Calendar } from '../../components/calendar/Calendar';
+import { CalendarHeader } from '../../components/calendar/form/CalendarHeader';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
+import { Picker } from '../../components/inputs/Picker';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { strings } from '../../localization';
@@ -11,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
 import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils';
+import { ILocaleIterator } from '../schedule/components/DateSelect';
 
 export const EditTask = () => {
   const navigation = useNavigation();
@@ -36,6 +42,9 @@ export const EditTask = () => {
   );
 
   const [valid, setValid] = useState<boolean>(false);
+  const [datePicker, setDatePicker] = useState<boolean>(false);
+
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     setValid(isValid());
@@ -70,6 +79,11 @@ export const EditTask = () => {
     return true;
   };
 
+  const locale: ILocaleIterator = {
+    en_US: enUS,
+    ru_RU: ru,
+  };
+
   return (
     <View style={styles.container}>
       <Header
@@ -98,6 +112,38 @@ export const EditTask = () => {
           })}
           onSelect={(value) => setTaskDraft({ ...taskDraft, subject: value })}
         />
+        <Picker
+          icon="calendar"
+          label="Срок"
+          visible={datePicker}
+          handleShow={() => setDatePicker(true)}
+          handleHide={() => setDatePicker(false)}
+          disableLabel
+          value={!!taskDraft.deadline ? taskDraft.deadline : 'Не задан'}>
+          <CalendarHeader
+            month={format(date, 'MMMM', {
+              locale: locale[strings.getLanguage()],
+            })}
+            onNextMonth={() => setDate(add(date, { months: 1 }))}
+            onPrevMonth={() => setDate(sub(date, { months: 1 }))}
+            onClearDate={() => {
+              setTaskDraft({ ...taskDraft, deadline: undefined });
+              setDatePicker(false);
+            }}
+          />
+          <Calendar
+            date={date}
+            selectedDate={
+              taskDraft.deadline
+                ? parse(taskDraft.deadline, 'dd.MM.yyyy', new Date())
+                : date
+            }
+            onSelect={(date) => {
+              setTaskDraft({ ...taskDraft, deadline: date });
+              setDatePicker(false);
+            }}
+          />
+        </Picker>
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row', paddingHorizontal: 24 }}>
           <Button

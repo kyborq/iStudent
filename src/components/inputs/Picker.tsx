@@ -11,6 +11,7 @@ type Props = {
   placeholder?: string;
   children?: React.ReactNode;
   visible?: boolean;
+  disableLabel?: boolean;
   handleShow?: () => void;
   handleHide?: () => void;
 };
@@ -22,6 +23,7 @@ export const Picker = ({
   value,
   children,
   visible,
+  disableLabel,
   handleShow,
   handleHide,
 }: Props) => {
@@ -56,7 +58,10 @@ export const Picker = ({
         </View>
       </TouchableNativeFeedback>
 
-      <ModalView title={label} visible={visible} onClose={handleHide}>
+      <ModalView
+        title={(!disableLabel && label) || undefined}
+        visible={visible}
+        onClose={handleHide}>
         {children}
       </ModalView>
     </View>

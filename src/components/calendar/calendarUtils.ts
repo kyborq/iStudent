@@ -1,34 +1,41 @@
-import moment from 'moment';
+import {
+  add,
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns';
 
-export const getWeek = (date: string) => {
-  const currentDate = moment(date, 'DD.MM.YYYY');
-  const startDate = currentDate.clone().startOf('isoWeek');
-  const endDate = currentDate.clone().endOf('isoWeek');
+export const getWeek = (date: Date | number) => {
+  const currentDate = new Date(date);
+  const startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
+  const endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
 
   const week = [];
   let day = startDate;
 
   while (day <= endDate) {
-    week.push(day.format('DD.MM.YYYY'));
-    day = day.clone().add(1, 'd');
+    week.push(format(day, 'dd.MM.yyyy'));
+    day = add(day, { days: 1 });
   }
 
   return week;
 };
 
-export const getMonth = (date: string) => {
-  const currentDate = moment(date, 'DD.MM.YYYY');
+export const getMonth = (date: Date | number) => {
+  const currentDate = new Date(date);
 
-  const startDate = currentDate.clone().startOf('month').startOf('isoWeek');
-  const endDate = currentDate.clone().endOf('month').endOf('isoWeek');
+  const startDate = startOfMonth(startOfWeek(currentDate, { weekStartsOn: 1 }));
+  const endDate = endOfWeek(endOfMonth(currentDate), { weekStartsOn: 1 });
 
   const month = [];
   let weekDay = startDate;
 
   while (weekDay <= endDate) {
-    const week = getWeek(weekDay.format('DD.MM.YYYY'));
+    const week = getWeek(weekDay);
     month.push(week);
-    weekDay = weekDay.clone().add(1, 'w');
+    weekDay = add(weekDay, { weeks: 1 });
   }
 
   return month;
