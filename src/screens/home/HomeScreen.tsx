@@ -6,6 +6,8 @@ import { Header } from '../../components/Header';
 import useInterval from '../../hooks/useInterval';
 import { strings } from '../../localization';
 import { useAppSelector } from '../../redux/store';
+import { uuid4 } from '../../utils';
+import { TaskLine } from '../tasks/components/TaskLine';
 import { CurrentLesson } from './components/CurrentLesson';
 import { StatsCard } from './components/StatsCard';
 
@@ -17,6 +19,7 @@ export const HomeScreen = () => {
   }, 1000);
 
   const today = format(date, 'HH:mm');
+  const todate = format(date, 'dd.MM.yyyy');
 
   const tasksCount = useAppSelector((state) =>
     state.tasks.tasks.filter((t) => !t.completed && !t.archived),
@@ -24,6 +27,10 @@ export const HomeScreen = () => {
   const subjectsCount = useAppSelector(
     (state) => state.subjects.subjects,
   ).length;
+
+  const tasksToday = useAppSelector((state) =>
+    state.tasks.tasks.filter((t) => t.deadline === todate),
+  );
 
   return (
     <View style={styles.container}>
@@ -33,7 +40,6 @@ export const HomeScreen = () => {
           <Text style={styles.label}>Сейчас</Text>
           <Text style={styles.text}>{today}</Text>
         </View>
-
         <View style={{ flexDirection: 'row', marginBottom: 24 }}>
           <StatsCard
             label={strings.tasks}
@@ -47,11 +53,40 @@ export const HomeScreen = () => {
           /> */}
           <StatsCard label={strings.subjects} number={subjectsCount} />
         </View>
-
         <Text style={styles.label}>Расписание</Text>
         <CurrentLesson />
-
-        <Text style={[styles.label, { marginTop: 24 }]}>Задачи</Text>
+        <Text style={[styles.label, { marginTop: 24, marginBottom: 10 }]}>
+          Задачи
+        </Text>
+        <View
+          style={{
+            padding: 16,
+            backgroundColor: '#fafafa',
+            borderRadius: 10,
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              fontSize: 12,
+              marginBottom: 8,
+              textTransform: 'capitalize',
+            }}>
+            Сегодня
+          </Text>
+          {tasksToday.map((t, i) => (
+            <TaskLine
+              key={uuid4()}
+              title={t.title}
+              taskId={t.id}
+              last={i === tasksToday.length - 1}
+            />
+          ))}
+          {tasksToday.length === 0 && (
+            <Text style={{ fontSize: 14, color: '#c7c7c7' }}>
+              Нет задач на сегодня
+            </Text>
+          )}
+        </View>
       </ScrollView>
     </View>
   );
@@ -65,6 +100,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
     flexGrow: 1,
+    paddingBottom: 100,
   },
   label: {
     fontSize: 12,

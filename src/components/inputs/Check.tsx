@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import { COLORS } from '../../colors';
 
 type Props = {
   checked?: boolean;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 export const Check = ({ checked, onPress }: Props) => {
-  const color = '#f2f2f2';
+  const color = COLORS.primary5A9EEE;
 
   return (
     <View style={styles.overflow}>
