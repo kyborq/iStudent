@@ -11,6 +11,7 @@ import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { RootStackParamList } from '../../components/navigation/Navigation';
+import { strings } from '../../localizations/localization';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { archiveSubject, deleteSubject } from '../../redux/subjectsSlice';
 import { decline } from '../../utils';
@@ -70,25 +71,18 @@ export const ViewSubject = () => {
 
       <ScrollView contentContainerStyle={styles.content}>
         <View>
-          <InfoLine
-            icon="book"
-            label="Название дисциплины"
-            text={subject?.title}
-          />
+          <InfoLine icon="book" label={strings.subject} text={subject?.title} />
           {!!subject?.teacher && (
             <InfoLine
               icon="user"
-              label="Преподаватель"
+              label={strings.teacher}
               text={subject?.teacher}
             />
           )}
           <InfoLine
             icon="check"
-            label="Задачи"
-            text={
-              (!tasks.length && 'Нет задач') ||
-              `${decline(tasks.length, ['задача', 'задачи', 'задач'])}`
-            }
+            label={strings.tasks}
+            text={`${tasks.length} ${strings.tasks.toLocaleLowerCase()}`}
             onPress={handleCreateTask}></InfoLine>
         </View>
       </ScrollView>

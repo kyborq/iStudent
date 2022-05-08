@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { InfoLine } from '../../../components/InfoLine';
+import { strings } from '../../../localizations/localization';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
 
@@ -42,14 +43,14 @@ export const TaskInfo = ({
     <View>
       <InfoLine
         icon="textInfo"
-        label="Название задачи"
+        label={strings.task}
         text={task.title}
         disabled={task.completed}
       />
       {!!subject?.title && (
         <InfoLine
           icon="book"
-          label="Предмет"
+          label={strings.subject}
           text={subject?.title}
           disabled={task.completed}
           onPress={handleShowSubject}
@@ -58,8 +59,8 @@ export const TaskInfo = ({
 
       <InfoLine
         icon="calendar"
-        label="Срок выполнения"
-        text={(!!task.deadline && task.deadline) || 'Не установлен'}
+        label={strings.deadline}
+        text={(!!task.deadline && task.deadline) || strings.notSelect}
         disabled={task.completed}
       />
     </View>

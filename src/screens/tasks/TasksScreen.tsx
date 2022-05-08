@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Empty } from '../../components/Empty';
 import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
-import { strings } from '../../localization';
+import { strings } from '../../localizations/localization';
 import { useAppSelector } from '../../redux/store';
 import { ETaskSorting, TTask } from '../../redux/tasksSlice';
 import { uuid4 } from '../../utils/uuid4';

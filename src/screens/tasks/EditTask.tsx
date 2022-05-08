@@ -11,7 +11,7 @@ import { Input } from '../../components/inputs/Input';
 import { Picker } from '../../components/inputs/Picker';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localization';
+import { strings } from '../../localizations/localization';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
 import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';
@@ -93,8 +93,8 @@ export const EditTask = () => {
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
-          label="Задача"
-          placeholder="Подготовиться к контрольной"
+          label={strings.task}
+          placeholder={strings.taskPlaceholder}
           icon="info"
           style={{ paddingHorizontal: 24 }}
           multiline
@@ -104,8 +104,8 @@ export const EditTask = () => {
         />
         <Select
           icon="book"
-          label="Предмет"
-          placeholder="Не выбран"
+          label={strings.subject}
+          placeholder={strings.notSelect}
           value={subjects.find((s) => s.id === taskDraft.subject)?.title}
           items={subjects.map((subject) => {
             return { title: subject.title, value: subject.id };
@@ -114,12 +114,12 @@ export const EditTask = () => {
         />
         <Picker
           icon="calendar"
-          label="Срок"
+          label={strings.deadline}
           visible={datePicker}
           handleShow={() => setDatePicker(true)}
           handleHide={() => setDatePicker(false)}
           disableLabel
-          value={!!taskDraft.deadline ? taskDraft.deadline : 'Не задан'}>
+          value={!!taskDraft.deadline ? taskDraft.deadline : strings.notSelect}>
           <CalendarHeader
             month={format(date, 'MMMM', {
               locale: locale[strings.getLanguage()],
@@ -147,7 +147,7 @@ export const EditTask = () => {
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row', paddingHorizontal: 24 }}>
           <Button
-            label={id ? 'Изменить' : 'Сохранить'}
+            label={id ? strings.edit : strings.save}
             onPress={handleSave}
             style={{ flex: 1 }}
             primary

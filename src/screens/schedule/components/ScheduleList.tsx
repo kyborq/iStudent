@@ -3,6 +3,7 @@ import { getISODay, getISOWeek } from 'date-fns';
 import React from 'react';
 import { View } from 'react-native';
 import { Empty } from '../../../components/Empty';
+import { strings } from '../../../localizations/localization';
 import { useAppSelector } from '../../../redux/store';
 import { isDateEven } from '../../../utils/date';
 import { uuid4 } from '../../../utils/uuid4';
@@ -77,7 +78,7 @@ export const ScheduleList = ({ date }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       {scheduleList}
-      {!filteredSchedule.length && <Empty text="Занятий на этот день нет" />}
+      {!filteredSchedule.length && <Empty text={strings.empty} />}
     </View>
   );
 };

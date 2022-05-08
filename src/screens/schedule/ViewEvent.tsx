@@ -10,6 +10,7 @@ import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { IconButton } from '../../components/inputs/IconButton';
 import { RootStackParamList } from '../../components/navigation/Navigation';
+import { strings } from '../../localizations/localization';
 import { deleteEvent } from '../../redux/scheduleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { getScheduleTiming, isScheduleToday } from './scheduleUtils';
@@ -63,7 +64,7 @@ export const ViewEvent = () => {
       <ScrollView contentContainerStyle={styles.content}>
         <InfoLine
           icon="book"
-          label="Предмет"
+          label={strings.subject}
           text={subject?.title || ''}
           onPress={handleViewSubject}
         />
@@ -72,15 +73,15 @@ export const ViewEvent = () => {
         )}
         <InfoLine
           icon="time"
-          label="Время"
+          label={strings.time}
           text={`${event?.repeats?.time?.start}-${event?.repeats?.time?.end}`}
         />
         <InfoLine
           icon="info"
-          label="Состояние"
+          label={strings.status}
           text={`${
             (isScheduleToday(event) && getScheduleTiming(event)) ||
-            'Занятие завершилось или не началось'
+            strings.notStarted
           }`}
         />
       </ScrollView>

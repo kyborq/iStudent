@@ -3,7 +3,7 @@ import { ru, enUS } from 'date-fns/locale';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from '../../../components/inputs/IconButton';
-import { strings } from '../../../localization';
+import { strings } from '../../../localizations/localization';
 import { compareDates } from '../../../utils/date';
 
 type Props = {

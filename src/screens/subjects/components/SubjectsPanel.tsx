@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { strings } from '../../../localization';
+import { strings } from '../../../localizations/localization';
 import { PanelButton } from '../../tasks/components/PanelButton';
 
 type Props = {

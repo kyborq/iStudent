@@ -1,4 +1,5 @@
 import { add, format, getISODay, parse } from 'date-fns';
+import { strings } from '../../localizations/localization';
 import { TSchedule } from '../../redux/scheduleSlice';
 import { isDateEven } from '../../utils/date';
 
@@ -49,7 +50,7 @@ export const getScheduleTiming = (schedule?: TSchedule) => {
     timeNow > schedule.repeats?.time?.start &&
     timeNow < schedule.repeats?.time?.end
   )
-    return 'Уже идет';
+    return strings.going;
 
   if (
     schedule &&
@@ -57,7 +58,7 @@ export const getScheduleTiming = (schedule?: TSchedule) => {
     schedule.repeats.time &&
     timeNow < schedule.repeats?.time?.start
   )
-    return 'Не начался';
+    return strings.notStarted;
 
   if (
     schedule &&
@@ -65,7 +66,7 @@ export const getScheduleTiming = (schedule?: TSchedule) => {
     schedule.repeats.time &&
     timeNow > schedule.repeats?.time?.end
   )
-    return 'Закончился';
+    return strings.ended;
 };
 
 export const isEventGoing = (schedule?: TSchedule) => {

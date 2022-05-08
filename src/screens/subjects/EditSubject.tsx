@@ -6,7 +6,7 @@ import { Header } from '../../components/Header';
 import { Button } from '../../components/inputs/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localization';
+import { strings } from '../../localizations/localization';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
 import {
@@ -72,8 +72,8 @@ export const EditSubject = () => {
       />
       <ScrollView contentContainerStyle={styles.content}>
         <Input
-          label="Дисциплина"
-          placeholder="Математика"
+          label={strings.subject}
+          placeholder={strings.subjectPlaceholder}
           icon="book"
           value={subjectDraft.title}
           onChange={(value) =>
@@ -93,8 +93,8 @@ export const EditSubject = () => {
           </Text>
         )}
         <Input
-          label="Преподаватель"
-          placeholder="Иванов Иван Иванович"
+          label={strings.teacher}
+          placeholder={strings.teacherPlaceholder}
           icon="user"
           value={toWordUppercase(subjectDraft.teacher)}
           onType={(value) =>
@@ -122,7 +122,7 @@ export const EditSubject = () => {
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row' }}>
           <Button
-            label={id ? 'Изменить' : 'Сохранить'}
+            label={id ? strings.edit : strings.save}
             onPress={handleSave}
             style={{ flex: 1 }}
             primary

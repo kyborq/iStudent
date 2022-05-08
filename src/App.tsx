@@ -6,7 +6,7 @@ import { persistStore } from 'redux-persist';
 import { store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NativeModules } from 'react-native';
-import { strings } from './localization';
+import { setLocale } from './localizations/localization';
 
 const App = () => {
   const persistor = persistStore(store);
@@ -14,7 +14,7 @@ const App = () => {
   const locale = NativeModules.I18nManager.localeIdentifier;
 
   useEffect(() => {
-    strings.setLanguage(locale);
+    setLocale(locale);
   }, [locale]);
 
   return (

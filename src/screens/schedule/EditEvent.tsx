@@ -18,22 +18,22 @@ import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
 import { addToTime, getCurrentTime } from './scheduleUtils';
 import { Input } from '../../components/inputs/Input';
-import { strings } from '../../localization';
+import { strings } from '../../localizations/localization';
 
 const weekdays = [
-  { title: 'Понедельник', value: '1' },
-  { title: 'Вторник', value: '2' },
-  { title: 'Среда', value: '3' },
-  { title: 'Четверг', value: '4' },
-  { title: 'Пятница', value: '5' },
-  { title: 'Суббота', value: '6' },
-  { title: 'Воскресенье', value: '7' },
+  { title: strings.week.monday, value: '1' },
+  { title: strings.week.tuesday, value: '2' },
+  { title: strings.week.wednesday, value: '3' },
+  { title: strings.week.thursday, value: '4' },
+  { title: strings.week.friday, value: '5' },
+  { title: strings.week.saturday, value: '6' },
+  { title: strings.week.sunday, value: '7' },
 ];
 
 const repeating = [
-  { title: 'Раз в неделю', value: '1' },
-  { title: 'По синим неделям', value: '2' },
-  { title: 'По красным неделям', value: '3' },
+  { title: strings.repeating.onceAtWeek, value: '1' },
+  { title: strings.repeating.onBlueWeek, value: '2' },
+  { title: strings.repeating.onRedWeek, value: '3' },
 ];
 
 export const EditEvent = () => {
@@ -90,7 +90,7 @@ export const EditEvent = () => {
           <Select
             icon="book"
             items={subjects.map((s) => ({ title: s.title, value: s.id }))}
-            label="Выберите предмет"
+            label={strings.subject}
             value={subjects.find((s) => s.id === eventDraft.subject)?.title}
             onSelect={(item) => {
               setEventDraft({ ...eventDraft, subject: item as string });
@@ -100,7 +100,7 @@ export const EditEvent = () => {
         {!subjects.length && (
           <Input
             icon="book"
-            label="Введите название"
+            label={strings.name}
             value={eventDraft.subject}
             onChange={(value) =>
               setEventDraft({ ...eventDraft, subject: value })
@@ -111,7 +111,7 @@ export const EditEvent = () => {
 
         <Input
           icon="book"
-          label="Аудитория"
+          label={strings.classRoom}
           value={eventDraft.room}
           onChange={(value) => setEventDraft({ ...eventDraft, room: value })}
           style={{ marginHorizontal: 24 }}
@@ -120,7 +120,7 @@ export const EditEvent = () => {
         <Select
           icon="calendar"
           items={repeating}
-          label="Повторения"
+          label={strings.repeats}
           value={
             repeating.find((r) => r.value === `${eventDraft.repeats?.period}`)
               ?.title
@@ -139,7 +139,7 @@ export const EditEvent = () => {
         <Select
           icon="calendar"
           items={weekdays}
-          label="День недели"
+          label={strings.dayOfWeek}
           value={
             weekdays.find((w) => w.value === `${eventDraft.repeats?.index}`)
               ?.title
@@ -158,7 +158,7 @@ export const EditEvent = () => {
         <View style={{ flexDirection: 'row' }}>
           <Picker
             icon="time"
-            label="Время начала"
+            label={strings.startTime}
             value={eventDraft.repeats?.time?.start}
             visible={startPicker}
             handleShow={() => setStartPicker(true)}
@@ -182,7 +182,7 @@ export const EditEvent = () => {
           </Picker>
           <Picker
             icon="time"
-            label="Время конца"
+            label={strings.endTime}
             value={eventDraft.repeats?.time?.end}
             visible={endPicker}
             handleShow={() => setEndPicker(true)}
@@ -207,7 +207,7 @@ export const EditEvent = () => {
         </View>
       </ScrollView>
       <View style={{ paddingHorizontal: 24, paddingBottom: 24 }}>
-        <Button label="Сохранить" primary onPress={handleAddEvent} />
+        <Button label={strings.save} primary onPress={handleAddEvent} />
       </View>
     </View>
   );

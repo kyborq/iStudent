@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Header } from '../../components/Header';
 import useInterval from '../../hooks/useInterval';
-import { strings } from '../../localization';
+import { strings } from '../../localizations/localization';
 import { useAppSelector } from '../../redux/store';
 import { uuid4 } from '../../utils';
 import { TaskLine } from '../tasks/components/TaskLine';
@@ -37,7 +37,7 @@ export const HomeScreen = () => {
       <Header title={strings.home} />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={{ marginBottom: 16 }}>
-          <Text style={styles.label}>Сейчас</Text>
+          <Text style={styles.label}>{strings.now}</Text>
           <Text style={styles.text}>{today}</Text>
         </View>
         <View style={{ flexDirection: 'row', marginBottom: 24 }}>
@@ -53,10 +53,10 @@ export const HomeScreen = () => {
           /> */}
           <StatsCard label={strings.subjects} number={subjectsCount} />
         </View>
-        <Text style={styles.label}>Расписание</Text>
+        <Text style={styles.label}>{strings.schedule}</Text>
         <CurrentLesson />
         <Text style={[styles.label, { marginTop: 24, marginBottom: 10 }]}>
-          Задачи
+          {strings.tasks}
         </Text>
         <View
           style={{
@@ -71,7 +71,7 @@ export const HomeScreen = () => {
               marginBottom: 8,
               textTransform: 'capitalize',
             }}>
-            Сегодня
+            {strings.today}
           </Text>
           {tasksToday.map((t, i) => (
             <TaskLine
@@ -83,7 +83,7 @@ export const HomeScreen = () => {
           ))}
           {tasksToday.length === 0 && (
             <Text style={{ fontSize: 14, color: '#c7c7c7' }}>
-              Нет задач на сегодня
+              {strings.empty}
             </Text>
           )}
         </View>

@@ -3,7 +3,7 @@ import { enUS, ru } from 'date-fns/locale';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../../colors';
-import { strings } from '../../../localization';
+import { strings } from '../../../localizations/localization';
 import { TSchedule } from '../../../redux/scheduleSlice';
 import { useAppSelector } from '../../../redux/store';
 import { getTextLetters } from '../../../utils';
@@ -101,7 +101,7 @@ export const CurrentLesson = () => {
         })}
         {currentSchedule.length === 0 && (
           <Text style={{ fontSize: 14, color: '#c7c7c7' }}>
-            Нет занятий на сегодня
+            {strings.empty}
           </Text>
         )}
       </View>
