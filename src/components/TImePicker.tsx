@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button } from './inputs/Button';
+import { Button } from './button/Button';
 import { Input } from './inputs/Input';
 
 type Props = {

@@ -98,20 +98,20 @@ export const Button = ({
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
-    borderRadius: 10,
+    borderRadius: 8,
   },
   button: {
     overflow: 'hidden',
-    borderRadius: 10,
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.primary5A9EEE,
   },
   label: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#FFF',
+    textTransform: 'uppercase',
   },
   icon: {},
 });

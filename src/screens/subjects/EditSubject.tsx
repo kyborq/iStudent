@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../colors';
 import { Header } from '../../components/Header';
-import { Button } from '../../components/inputs/Button';
+import { Button } from '../../components/button/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { strings } from '../../localizations/localization';

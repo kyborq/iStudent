@@ -9,13 +9,20 @@ type Props = {
   containerStyle?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<ViewStyle>;
   color?: string;
+  fill?: string;
 };
 
-export const Icon = ({ icon, containerStyle, iconStyle, color }: Props) => {
+export const Icon = ({
+  icon,
+  fill,
+  color,
+  containerStyle,
+  iconStyle,
+}: Props) => {
   const IconComponent = icons[icon];
   return (
     <View style={containerStyle}>
-      <IconComponent stroke={color} style={iconStyle} />
+      <IconComponent stroke={color} fill={fill} style={iconStyle} />
     </View>
   );
 };

@@ -11,11 +11,13 @@ import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import subjectSlice from './subjectsSlice';
 import scheduleSlice from './scheduleSlice';
+import commonSlice from './commonSlice';
 
 const reducers = combineReducers({
   tasks: tasksSlice,
   subjects: subjectSlice,
   schedule: scheduleSlice,
+  common: commonSlice,
 });
 
 const persistConfig = {

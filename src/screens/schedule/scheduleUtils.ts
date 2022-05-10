@@ -1,4 +1,4 @@
-import { add, format, getISODay, parse } from 'date-fns';
+import { add, differenceInMinutes, format, getISODay, parse } from 'date-fns';
 import { strings } from '../../localizations/localization';
 import { TSchedule } from '../../redux/scheduleSlice';
 import { isDateEven } from '../../utils/date';
@@ -111,4 +111,40 @@ export const isScheduleToday = (schedule?: TSchedule) => {
       return true;
   }
   return false;
+};
+
+export const getCurrentSchedule = (schedule: TSchedule[], date: string) => {
+  const parsedDate = parse(date, 'dd.MM.yyyy', new Date());
+  const weekDayNumber = getISODay(parsedDate);
+  const weekType = isDateEven(parsedDate, 'week') ? 2 : 3;
+
+  const todaySchedule = schedule.filter((s) => {
+    const isCurrentWeek = s.repeats?.index == weekDayNumber;
+    const isCurrentType =
+      s.repeats?.period !== 1 &&
+      s.repeats?.period &&
+      s.repeats?.period % weekType == 0;
+    if (isCurrentWeek && (s.repeats?.period === 1 || isCurrentType)) return s;
+  });
+
+  return sortEvents(todaySchedule);
+};
+
+export const getNextEvent = (schedule: TSchedule[], time: string) => {
+  const event = schedule.find((s) => {
+    if (s.repeats?.time && time < s.repeats?.time?.start) {
+      return s;
+    }
+  });
+
+  return event;
+};
+
+export const timeDiff = (start: string, end: string) => {
+  const timeStart = parse(start, 'HH:mm', new Date());
+  const timeEnd = parse(start, 'HH:mm', new Date());
+
+  const diff = differenceInMinutes(timeStart, timeEnd);
+
+  return diff;
 };

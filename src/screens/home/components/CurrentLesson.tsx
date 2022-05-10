@@ -10,10 +10,12 @@ import { getTextLetters } from '../../../utils';
 import { isDateEven } from '../../../utils/date';
 import { ILocaleIterator } from '../../schedule/components/DateSelect';
 import {
+  getNextEvent,
   isEventExpired,
   isEventGoing,
   isEventNotStarted,
   sortEvents,
+  timeDiff,
 } from '../../schedule/scheduleUtils';
 
 export const CurrentLesson = () => {
@@ -99,6 +101,8 @@ export const CurrentLesson = () => {
             </View>
           );
         })}
+        <Text>{format(new Date(), 'HH:mm')}</Text>
+
         {currentSchedule.length === 0 && (
           <Text style={{ fontSize: 14, color: '#c7c7c7' }}>
             {strings.empty}

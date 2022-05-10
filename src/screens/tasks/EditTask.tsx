@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Calendar } from '../../components/calendar/Calendar';
 import { CalendarHeader } from '../../components/calendar/form/CalendarHeader';
 import { Header } from '../../components/Header';
-import { Button } from '../../components/inputs/Button';
+import { Button } from '../../components/button/Button';
 import { Input } from '../../components/inputs/Input';
 import { Picker } from '../../components/inputs/Picker';
 import { Select } from '../../components/inputs/Select';

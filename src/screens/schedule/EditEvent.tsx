@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { RootStackParamList } from '../../components/navigation/Navigation';
 import { Select } from '../../components/inputs/Select';
 import { Picker } from '../../components/inputs/Picker';
-import { Button } from '../../components/inputs/Button';
+import { Button } from '../../components/button/Button';
 import { TimePicker } from '../../components/TImePicker';
 import {
   addEvent,

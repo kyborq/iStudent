@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Button } from '../inputs/Button';
+import { Button } from '../button/Button';
 import { ModalView } from './ModalView';
 
 type Props = {

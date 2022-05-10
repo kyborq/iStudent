@@ -15,9 +15,12 @@ import { EditEvent } from '../../screens/schedule/EditEvent';
 import { ViewEvent } from '../../screens/schedule/ViewEvent';
 import { HomeScreen } from '../../screens/home/HomeScreen';
 import { strings } from '../../localizations/localization';
+import { useAppSelector } from '../../redux/store';
+import { WelcomeScreen } from '../../screens/WelcomeScreen';
 
 export type RootStackParamList = {
   Index: undefined;
+  Welcome: undefined;
   EditTask: { id: string; subject?: string };
   EditSubject: { id: string };
   EditEvent: { id: string; date?: number };
@@ -64,12 +67,15 @@ export const TabsNavigation = () => {
 };
 
 export const Navigation = () => {
+  const { welcome } = useAppSelector((state) => state.common);
+
   return (
     <Stack.Navigator
-      initialRouteName="Index"
+      initialRouteName={welcome ? 'Welcome' : 'Index'}
       screenOptions={{
         headerShown: false,
       }}>
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Index" component={TabsNavigation} />
 
       <Stack.Screen name="ViewSubject" component={ViewSubject} />
