@@ -6,7 +6,7 @@ import { Header } from '../../components/Header';
 import { Button } from '../../components/button/Button';
 import { Input } from '../../components/inputs/Input';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { addSubject, editSubject, TSubject } from '../../redux/subjectsSlice';
 import {

@@ -3,7 +3,7 @@ import { enUS, ru } from 'date-fns/locale';
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { COLORS, TOUCHABLE_COLOR } from '../../../colors';
-import { strings } from '../../../localizations/localization';
+import { strings } from '../../../locales';
 import { ILocaleIterator } from './DateSelect';
 
 type Props = {

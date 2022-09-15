@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { InfoLine } from '../../../components/InfoLine';
-import { strings } from '../../../localizations/localization';
+import { strings } from '../../../locales';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { TTask } from '../../../redux/tasksSlice';
 

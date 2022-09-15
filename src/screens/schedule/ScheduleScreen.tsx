@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 
 import { Header } from '../../components/Header';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { DateSelect } from './components/DateSelect';
 import { ScheduleList } from './components/ScheduleList';
 import { WeekScroller } from './components/WeekScroller';

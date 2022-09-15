@@ -14,7 +14,7 @@ import { ViewSubject } from '../../screens/subjects/ViewSubject';
 import { EditEvent } from '../../screens/schedule/EditEvent';
 import { ViewEvent } from '../../screens/schedule/ViewEvent';
 import { HomeScreen } from '../../screens/home/HomeScreen';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { useAppSelector } from '../../redux/store';
 import { WelcomeScreen } from '../../screens/WelcomeScreen';
 

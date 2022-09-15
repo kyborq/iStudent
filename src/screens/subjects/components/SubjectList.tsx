@@ -2,7 +2,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Empty } from '../../../components/Empty';
-import { strings } from '../../../localizations/localization';
+import { strings } from '../../../locales';
 import { useAppSelector } from '../../../redux/store';
 import { TSubject } from '../../../redux/subjectsSlice';
 import { uuid4 } from '../../../utils/uuid4';

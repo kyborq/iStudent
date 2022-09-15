@@ -1,5 +1,5 @@
 import { add, differenceInMinutes, format, getISODay, parse } from 'date-fns';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { TSchedule } from '../../redux/scheduleSlice';
 import { isDateEven } from '../../utils/date';
 

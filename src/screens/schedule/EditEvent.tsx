@@ -18,7 +18,7 @@ import { uuid4 } from '../../utils/uuid4';
 import { getISODay } from 'date-fns';
 import { addToTime, getCurrentTime } from './scheduleUtils';
 import { Input } from '../../components/inputs/Input';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 
 const weekdays = [
   { title: strings.week.monday, value: '1' },

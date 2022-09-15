@@ -15,7 +15,7 @@ import { TaskFooter } from './components/TaskFooter';
 import { TaskInfo } from './components/TaskInfo';
 import { FloatingButton } from '../../components/FloatingButton';
 import { COLORS } from '../../colors';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 
 export const ViewTask = () => {
   const navigation = useNavigation();

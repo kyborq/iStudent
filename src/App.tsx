@@ -6,7 +6,7 @@ import { persistStore } from 'redux-persist';
 import { store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NativeModules } from 'react-native';
-import { setLocale } from './localizations/localization';
+import { setLocale } from './locales';
 
 const App = () => {
   const persistor = persistStore(store);

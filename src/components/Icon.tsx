@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { icons } from '../icons/icons';
+import { icons } from '../icons';
 
 export type TIcon = keyof typeof icons;
 

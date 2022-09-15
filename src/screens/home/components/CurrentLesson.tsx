@@ -3,7 +3,7 @@ import { enUS, ru } from 'date-fns/locale';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../../colors';
-import { strings } from '../../../localizations/localization';
+import { strings } from '../../../locales';
 import { TSchedule } from '../../../redux/scheduleSlice';
 import { useAppSelector } from '../../../redux/store';
 import { getTextLetters } from '../../../utils';

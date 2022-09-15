@@ -11,7 +11,7 @@ import { Input } from '../../components/inputs/Input';
 import { Picker } from '../../components/inputs/Picker';
 import { Select } from '../../components/inputs/Select';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { TSubject } from '../../redux/subjectsSlice';
 import { addTask, deleteTask, editTask, TTask } from '../../redux/tasksSlice';

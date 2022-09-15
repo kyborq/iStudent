@@ -11,7 +11,7 @@ import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { archiveSubject, deleteSubject } from '../../redux/subjectsSlice';
 import { decline } from '../../utils';

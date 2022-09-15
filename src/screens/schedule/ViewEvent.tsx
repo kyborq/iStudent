@@ -10,7 +10,7 @@ import { Header } from '../../components/Header';
 import { InfoLine } from '../../components/InfoLine';
 import { IconButton } from '../../components/inputs/IconButton';
 import { RootStackParamList } from '../../components/navigation/Navigation';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { deleteEvent } from '../../redux/scheduleSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { getScheduleTiming, isScheduleToday } from './scheduleUtils';

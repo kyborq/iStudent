@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Header } from '../../components/Header';
 import useInterval from '../../hooks/useInterval';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { useAppSelector } from '../../redux/store';
 import { uuid4 } from '../../utils';
 import { TaskLine } from '../tasks/components/TaskLine';

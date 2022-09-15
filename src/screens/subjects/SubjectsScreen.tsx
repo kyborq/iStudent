@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { FloatingButton } from '../../components/FloatingButton';
 import { Header } from '../../components/Header';
-import { strings } from '../../localizations/localization';
+import { strings } from '../../locales';
 import { SubjectList } from './components/SubjectList';
 
 export const SubjectsScreen = () => {
