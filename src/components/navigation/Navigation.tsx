@@ -1,22 +1,23 @@
 import React from 'react';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { NavBar } from './NavBar';
+import { strings } from '../../locales';
 
-import { SubjectsScreen } from '../../screens/subjects/SubjectsScreen';
 import { TasksScreen } from '../../screens/tasks/TasksScreen';
-import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
 import { EditTask } from '../../screens/tasks/EditTask';
 import { ViewTask } from '../../screens/tasks/ViewTask';
+
+import { SubjectsScreen } from '../../screens/subjects/SubjectsScreen';
 import { EditSubject } from '../../screens/subjects/EditSubject';
 import { ViewSubject } from '../../screens/subjects/ViewSubject';
+
+import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
 import { EditEvent } from '../../screens/schedule/EditEvent';
 import { ViewEvent } from '../../screens/schedule/ViewEvent';
+
 import { HomeScreen } from '../../screens/home/HomeScreen';
-import { strings } from '../../locales';
-import { useAppSelector } from '../../redux/store';
-import { WelcomeScreen } from '../../screens/WelcomeScreen';
 
 export type RootStackParamList = {
   Index: undefined;
@@ -67,15 +68,12 @@ export const TabsNavigation = () => {
 };
 
 export const Navigation = () => {
-  const { welcome } = useAppSelector((state) => state.common);
-
   return (
     <Stack.Navigator
-      initialRouteName={welcome ? 'Welcome' : 'Index'}
+      initialRouteName={'Index'}
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Index" component={TabsNavigation} />
 
       <Stack.Screen name="ViewSubject" component={ViewSubject} />
