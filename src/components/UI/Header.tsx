@@ -12,6 +12,7 @@ type Props = {
   primaryAction?: () => void;
   secondaryAction?: () => void;
   children?: React.ReactNode;
+  smallTitle?: boolean;
 };
 
 export const Header = ({
@@ -23,6 +24,7 @@ export const Header = ({
   primaryAction,
   secondaryAction,
   children,
+  smallTitle,
 }: Props) => {
   return (
     <View style={styles.container}>
@@ -36,7 +38,9 @@ export const Header = ({
           />
         )}
         {!!title && (
-          <Text style={styles.label} numberOfLines={1}>
+          <Text
+            style={[styles.label, smallTitle && { fontSize: 21 }]}
+            numberOfLines={1}>
             {title}
           </Text>
         )}

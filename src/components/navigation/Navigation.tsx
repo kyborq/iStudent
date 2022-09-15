@@ -19,18 +19,18 @@ import { ViewEvent } from '../../screens/schedule/ViewEvent';
 
 import { Home } from '../../screens/home/Home';
 import { Contacts } from '../../screens/contacts/Contacts';
+import { EditContact } from '../../screens/contacts/EditContact';
 
 export type RootStackParamList = {
   Index: undefined;
   Welcome: undefined;
   EditTask: { id: string; subject?: string };
-  EditSubject: { id: string };
   EditEvent: { id: string; date?: number };
+  EditSubject: { id: string };
+  EditContact: { id: string };
   ViewTask: { id: string };
   ViewSubject: { id: string };
   ViewEvent: { id: string };
-  Timer: { id: string };
-  Settings: undefined;
 };
 
 const Tab = createBottomTabNavigator();
@@ -87,6 +87,8 @@ export const Navigation = () => {
 
       <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="ViewTask" component={ViewTask} />
+
+      <Stack.Screen name="EditContact" component={EditContact} />
     </Stack.Navigator>
   );
 };
