@@ -1,5 +1,10 @@
 import React from 'react';
-import { TouchableNativeFeedback, View, StyleSheet } from 'react-native';
+import {
+  TouchableNativeFeedback,
+  View,
+  StyleSheet,
+  ViewStyle,
+} from 'react-native';
 
 import { TOUCHABLE_COLOR } from '../../colors';
 import { Icon, TIcon } from '../Icon';
@@ -7,28 +12,27 @@ import { Icon, TIcon } from '../Icon';
 type Props = {
   icon: TIcon;
   color?: string;
-  background?: string;
+  style?: ViewStyle;
   onPress?: () => void;
   onLongPress?: () => void;
 };
 
 export const IconButton = ({
   icon,
-  background,
   color,
+  style,
   onPress,
   onLongPress,
 }: Props) => {
-  const buttonStyle = { backgroundColor: background || '#FFFFFF' };
   const iconStyle = color || '#C7C7C7';
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <TouchableNativeFeedback
         background={TOUCHABLE_COLOR}
         onPress={onPress}
         onLongPress={onLongPress}>
-        <View style={[styles.button, buttonStyle]}>
+        <View style={styles.button}>
           <Icon icon={icon} color={iconStyle} />
         </View>
       </TouchableNativeFeedback>
@@ -37,14 +41,11 @@ export const IconButton = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 21,
-    overflow: 'hidden',
-  },
+  container: {},
   button: {
-    width: 44,
-    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 6,
+    margin: -6,
   },
 });

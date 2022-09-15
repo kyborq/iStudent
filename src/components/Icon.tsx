@@ -12,17 +12,11 @@ type Props = {
   fill?: string;
 };
 
-export const Icon = ({
-  icon,
-  fill,
-  color,
-  containerStyle,
-  iconStyle,
-}: Props) => {
+export const Icon = ({ icon, color, containerStyle, iconStyle }: Props) => {
   const IconComponent = icons[icon];
   return (
     <View style={containerStyle}>
-      <IconComponent stroke={color} fill={fill} style={iconStyle} />
+      <IconComponent stroke={color} style={iconStyle} />
     </View>
   );
 };

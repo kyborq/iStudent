@@ -3,6 +3,8 @@ export const enLocale = {
   subjects: 'Subjects',
   tasks: 'Tasks',
   schedule: 'Schedule',
+  contacts: 'Контакты',
+
   all: 'All',
   archived: 'Archived',
   completed: 'Completed',

@@ -3,6 +3,8 @@ export const ruLocale = {
   subjects: 'Предметы',
   tasks: 'Задачи',
   schedule: 'Расписание',
+  contacts: 'Контакты',
+
   all: 'Все',
   archived: 'Архивированные',
   completed: 'Завершенные',

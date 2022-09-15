@@ -98,7 +98,9 @@ export const Input = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 8,
+    backgroundColor: '#f2f2f2',
+    padding: 16,
+    borderRadius: 16,
   },
   label: {
     fontSize: 12,
@@ -112,5 +114,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flex: 1,
     // marginLeft: 16,
+    padding: 0,
   },
 });

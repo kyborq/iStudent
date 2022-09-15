@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getRandomColor } from '../utils';
+
 import { RootState } from './store';
 
 export type TSubject = {
@@ -25,7 +25,6 @@ export const subjectSlice = createSlice({
     addSubject(state, action: PayloadAction<TSubject>) {
       const subject: TSubject = {
         ...action.payload,
-        color: getRandomColor(),
         archived: false,
       };
 

@@ -1,15 +1,16 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { uuid4 } from '../../utils';
+
 import { TIcon } from '../Icon';
 import { NavButton } from './NavButton';
 
 const TabBarIcons: { [key: string]: string } = {
-  TasksScreen: 'check',
-  SubjectsScreen: 'book',
-  ScheduleScreen: 'calendar',
-  HomeScreen: 'home',
+  Schedule: 'calendar',
+  Tasks: 'check',
+  Home: 'home',
+  Subjects: 'book',
+  Contacts: 'users',
 };
 
 export const NavBar = ({
@@ -32,7 +33,7 @@ export const NavBar = ({
 
         return (
           <NavButton
-            key={uuid4()}
+            key={`${label}${index}`}
             icon={icon}
             label={`${label}`}
             active={isFocused}
@@ -46,22 +47,14 @@ export const NavBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 12,
-    height: 64,
+    paddingHorizontal: 24,
+    paddingVertical: 32,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#fff',
     overflow: 'visible',
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 13,
+    borderTopStartRadius: 24,
+    borderTopEndRadius: 24,
   },
 });

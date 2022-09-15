@@ -34,7 +34,7 @@ export const NavButton = ({ icon, label, active, onPress }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 100,
+    width: 64,
     height: 32,
     justifyContent: 'center',
     alignItems: 'center',
@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#c7c7c7',
     marginTop: 4,
+    fontWeight: 'bold',
   },
 });

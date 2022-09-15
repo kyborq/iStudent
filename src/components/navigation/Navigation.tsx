@@ -5,19 +5,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavBar } from './NavBar';
 import { strings } from '../../locales';
 
-import { TasksScreen } from '../../screens/tasks/TasksScreen';
+import { Tasks } from '../../screens/tasks/Tasks';
 import { EditTask } from '../../screens/tasks/EditTask';
 import { ViewTask } from '../../screens/tasks/ViewTask';
 
-import { SubjectsScreen } from '../../screens/subjects/SubjectsScreen';
+import { Subjects } from '../../screens/subjects/Subjects';
 import { EditSubject } from '../../screens/subjects/EditSubject';
 import { ViewSubject } from '../../screens/subjects/ViewSubject';
 
-import { ScheduleScreen } from '../../screens/schedule/ScheduleScreen';
+import { Schedule } from '../../screens/schedule/Schedule';
 import { EditEvent } from '../../screens/schedule/EditEvent';
 import { ViewEvent } from '../../screens/schedule/ViewEvent';
 
-import { HomeScreen } from '../../screens/home/HomeScreen';
+import { Home } from '../../screens/home/Home';
+import { Contacts } from '../../screens/contacts/Contacts';
 
 export type RootStackParamList = {
   Index: undefined;
@@ -38,30 +39,32 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const TabsNavigation = () => {
   return (
     <Tab.Navigator
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
       }}
       tabBar={(props) => <NavBar {...props} />}>
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ title: strings.home }}
+        name="Schedule"
+        component={Schedule}
+        options={{ title: 'Расписание' }}
       />
       <Tab.Screen
-        name="SubjectsScreen"
-        component={SubjectsScreen}
-        options={{ title: strings.subjects }}
+        name="Tasks"
+        component={Tasks}
+        options={{ title: 'Задачи' }}
+      />
+      <Tab.Screen name="Home" component={Home} options={{ title: 'Главная' }} />
+      <Tab.Screen
+        name="Subjects"
+        component={Subjects}
+        options={{ title: 'Предметы' }}
       />
       <Tab.Screen
-        name="TasksScreen"
-        component={TasksScreen}
-        options={{ title: strings.tasks }}
-      />
-      <Tab.Screen
-        name="ScheduleScreen"
-        component={ScheduleScreen}
-        options={{ title: strings.schedule }}
+        name="Contacts"
+        component={Contacts}
+        options={{ title: 'Контакты' }}
       />
     </Tab.Navigator>
   );

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getKeyByValue, sort } from '../utils';
+
 import { RootState } from './store';
 
 export enum ETaskSorting {
@@ -97,10 +97,6 @@ export const tasksSlice = createSlice({
       const sorting = action.payload;
       state.sorting = sorting;
     },
-    sortTasks(state) {
-      const key = getKeyByValue(ETaskSorting, state.sorting);
-      state.tasks = sort(state.tasks, key, false);
-    },
   },
 });
 
@@ -110,7 +106,6 @@ export const {
   deleteTask,
   editTask,
   changeTaskSorting,
-  sortTasks,
   setTimer,
   archiveTasks,
 } = tasksSlice.actions;
