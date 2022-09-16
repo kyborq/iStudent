@@ -13,20 +13,28 @@
 
 # iStudent
 
+## Download
+
 ## Functionality
 
-### 1. Contacts
+### Contacts
 
-### 2. Subjects
+### Subjects
 
-### 3. Tasks
+### Tasks
 
-### 4. Schedule
+### Schedule
 
-### 5. Home
+### Home
 
-### 6. Settings
+### Settings
 
-### 7. Syncronization
+### Syncronization
 
 Under construction
+
+## Development
+
+### Technologies
+
+### Setup
