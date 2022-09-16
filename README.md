@@ -9,6 +9,6 @@
   <img src="https://img.shields.io/github/issues/kyborq/iStudent" alt="" />
 </div>
 
-# iStudent
+![Frame 64 (1)](https://user-images.githubusercontent.com/52314985/190591571-fbe0114c-e0b8-42c7-822e-61eae7cd1067.png)
 
-With this app, your life being student will be easer as never! You can add subjects, tasks and create your own schedule.
+# iStudent
