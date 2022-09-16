@@ -47,7 +47,7 @@ export const NavBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingVertical: 32,
     alignItems: 'center',
     flexDirection: 'row',

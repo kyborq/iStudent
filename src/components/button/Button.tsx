@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   button: {
     overflow: 'hidden',
-    padding: 18,
+    padding: 21,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.primary5A9EEE,
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#FFF',
-    textTransform: 'uppercase',
   },
   icon: {},
 });

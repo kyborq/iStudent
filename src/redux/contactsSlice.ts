@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type TContact = {
   id: string;
@@ -6,6 +6,7 @@ export type TContact = {
   phone?: string;
   link?: string;
   mail?: string;
+  color?: string;
 };
 
 interface IContactsSlice {
@@ -19,9 +20,14 @@ const initialState: IContactsSlice = {
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {},
+  reducers: {
+    addContact(state, action: PayloadAction<TContact>) {
+      const contact: TContact = action.payload;
+      state.contacts = [...state.contacts, contact];
+    },
+  },
 });
 
-export const {} = contactsSlice.actions;
+export const { addContact } = contactsSlice.actions;
 
 export default contactsSlice.reducer;
