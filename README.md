@@ -12,3 +12,21 @@
 ![Frame 64 (1)](https://user-images.githubusercontent.com/52314985/190591571-fbe0114c-e0b8-42c7-822e-61eae7cd1067.png)
 
 # iStudent
+
+## Functionality
+
+### 1. Contacts
+
+### 2. Subjects
+
+### 3. Tasks
+
+### 4. Schedule
+
+### 5. Home
+
+### 6. Settings
+
+### 7. Syncronization
+
+Under construction
