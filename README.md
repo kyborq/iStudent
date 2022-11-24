@@ -61,4 +61,10 @@
 
 ### Technologies
 
+1. React for Web
+
+2. React Native for Mobile
+
+3. NodeJS for Backend 
+
 ### Setup
