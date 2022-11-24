@@ -17,21 +17,45 @@
 
 ## Functionality
 
-### Contacts
-
 ### Subjects
+
+- [ ] View subjects
+- [ ] Create subject
+- [ ] Edit subject
+- [ ] Delete subject
+- [ ] Attach teacher to subject
+- [ ] View tasks attached to subject
+- [ ] Attach or create task for subject
+- [ ] Load subjects from server
 
 ### Tasks
 
+- [ ] View tasks
+- [ ] Create task
+- [ ] Edit task
+- [ ] Complete task
+- [ ] Delete task
+- [ ] Schedule task
+- [ ] Linking to subject
+- [ ] Load tasks from server
+
 ### Schedule
+
+- [ ] View events
+- [ ] Create event
+- [ ] Edit event
+- [ ] Delete event
+- [ ] Adding repeats
 
 ### Home
 
-### Settings
+- [ ] View today tasks
+- [ ] View today schedule
+- [ ] View current progress
 
-### Syncronization
+### Profile
 
-Under construction
+- [ ] ...
 
 ## Development
 
