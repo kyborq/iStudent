@@ -59,12 +59,12 @@
 
 ## Development
 
-### Technologies
+### What used in this project
 
-1. React for Web
+1. React Native for Mobile
 
-2. React Native for Mobile
+2. NodeJS for Backend 
 
-3. NodeJS for Backend 
+3. MySQL hosting for serving database
 
 ### Setup
