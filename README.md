@@ -26,7 +26,7 @@
 - [ ] Attach teacher to subject
 - [ ] View tasks attached to subject
 - [ ] Attach or create task for subject
-- [ ] Load subjects from server
+- [ ] Load and save subjects to server
 
 ### Tasks
 
@@ -37,7 +37,8 @@
 - [ ] Delete task
 - [ ] Schedule task
 - [ ] Linking to subject
-- [ ] Load tasks from server
+- [ ] Load and save tasks to server
+- [ ] Show who else completed that task
 
 ### Schedule
 
@@ -46,16 +47,24 @@
 - [ ] Edit event
 - [ ] Delete event
 - [ ] Adding repeats
+- [ ] Load and save to server
+- [ ] Set attendance at event
+- [ ] Show who attended the event
 
 ### Home
 
 - [ ] View today tasks
 - [ ] View today schedule
-- [ ] View current progress
+- [ ] View statistics
+- [ ] View actions
 
 ### Profile
 
-- [ ] ...
+- [ ] Register form
+- [ ] Login form
+- [ ] Classmates list
+- [ ] Adding others to group
+- [ ] Force synchronization
 
 ## Development
 
