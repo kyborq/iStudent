@@ -13,67 +13,33 @@
 
 # iStudent
 
-## Download
-
-## Functionality
-
-### Subjects
-
-- [ ] View subjects
-- [ ] Create subject
-- [ ] Edit subject
-- [ ] Delete subject
-- [ ] Attach teacher to subject
-- [ ] View tasks attached to subject
-- [ ] Attach or create task for subject
-- [ ] Load and save subjects to server
-
-### Tasks
-
-- [ ] View tasks
-- [ ] Create task
-- [ ] Edit task
-- [ ] Complete task
-- [ ] Delete task
-- [ ] Schedule task
-- [ ] Linking to subject
-- [ ] Load and save tasks to server
-- [ ] Show who else completed that task
-
-### Schedule
-
-- [ ] View events
-- [ ] Create event
-- [ ] Edit event
-- [ ] Delete event
-- [ ] Adding repeats
-- [ ] Load and save to server
-- [ ] Set attendance at event
-- [ ] Show who attended the event
-
-### Home
-
-- [ ] View today tasks
-- [ ] View today schedule
-- [ ] View statistics
-- [ ] View actions
-
-### Profile
-
-- [ ] Register form
-- [ ] Login form
-- [ ] Classmates list
-- [ ] Adding others to group
-- [ ] Force synchronization
-
 ## Development
 
-### What used in this project
+### 1. Clone repository
 
-1. React Native for Mobile
+```
+git clone https://github.com/kyborq/iStudent.git
+cd iStudent
+```
 
-2. NodeJS for Backend 
+### 2. Install dependencies
 
-3. MySQL hosting for serving database
+```
+npm install
+```
 
-### Setup
+### 3. Run
+
+| Don't forget to connect your device to PC or run android emulator 
+
+Start metro server
+
+```
+npm start
+```
+
+Run app
+
+```
+npm react-native run-android
+```
