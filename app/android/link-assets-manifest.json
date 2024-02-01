@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Golos-Black.ttf",
+      "sha1": "af1187f1d3a5540cf0ea0e77bb0b1a365a19627f"
+    },
+    {
+      "path": "assets/fonts/Golos-Bold.ttf",
+      "sha1": "6324066076cc78dafbfe9a5e445a65b234380738"
+    },
+    {
+      "path": "assets/fonts/Golos-Demibold.ttf",
+      "sha1": "5a85c99020ce1f63ab7174e26ee4b3549759b79a"
+    },
+    {
+      "path": "assets/fonts/Golos-Medium.ttf",
+      "sha1": "0e55f9e73e0c20562f0e6ed67ca87ee82eba1862"
+    },
+    {
+      "path": "assets/fonts/Golos-Regular.ttf",
+      "sha1": "c7908bff0d1c0e698fde82948fcb617fa0e1250e"
+    }
+  ]
+}

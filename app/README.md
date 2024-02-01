@@ -30,7 +30,7 @@ npm install
 
 ### 3. Run
 
-| Don't forget to connect your device to PC or run android emulator
+| Don't forget to connect your device to PC or run android emulator 
 
 Start metro server
 
