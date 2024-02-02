@@ -8,9 +8,9 @@ import { ProfileScreen } from '../views/ProfileScreen';
 import { ScheduleScreen } from '../views/ScheduleScreen';
 import { TasksScreen } from '../views/TasksScreen';
 import { TabBar } from './TabBar';
-import { RegisterScreen } from '../views/RegisterScreen';
-import { CreateGroupScreen } from '../views/CreateGroupScreen';
-import { CreateUserScreen } from '../views/CreateUserScreen';
+import { RegisterScreen } from '../views/register/RegisterScreen';
+import { CreateGroupScreen } from '../views/register/CreateGroupScreen';
+import { CreateUserScreen } from '../views/register/CreateUserScreen';
 
 export type RootParamList = {
   Onboarding: undefined;

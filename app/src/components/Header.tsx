@@ -11,11 +11,11 @@ type Props = {
 export const Header = ({ title, children, onBack }: Props) => {
   return (
     <View style={styles.header}>
-      <View style={[styles.container, onBack && styles.fill]}>
+      <View style={[styles.container, (onBack || !!children) && styles.fill]}>
         {onBack && <IconButton icon={<ArrowLeftIcon />} onPress={onBack} />}
         <Text style={styles.title}>{title}</Text>
       </View>
-      {children}
+      <View style={styles.actions}>{children}</View>
     </View>
   );
 };
@@ -39,5 +39,9 @@ const styles = StyleSheet.create({
   },
   fill: {
     flex: 1,
+  },
+  actions: {
+    gap: 24,
+    flexDirection: 'row',
   },
 });

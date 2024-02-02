@@ -1,9 +1,9 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { Header } from '../components/Header';
+import { Header } from '../../components/Header';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootParamList } from '../components/Navigator';
-import { Button } from '../components/Button';
+import { RootParamList } from '../../components/Navigator';
+import { Button } from '../../components/Button';
 
 type RegisterScreenProps = NativeStackScreenProps<RootParamList, 'Register'>;
 

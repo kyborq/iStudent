@@ -1,11 +1,11 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { Header } from '../components/Header';
+import { Header } from '../../components/Header';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootParamList } from '../components/Navigator';
-import { Form } from '../components/Form';
-import { Button } from '../components/Button';
-import { Field } from '../components/Field';
+import { RootParamList } from '../../components/Navigator';
+import { Form } from '../../components/Form';
+import { Button } from '../../components/Button';
+import { Field } from '../../components/Field';
 
 type CreateUserScreenProps = NativeStackScreenProps<
   RootParamList,

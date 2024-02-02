@@ -1,25 +1,20 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
-import { Scanner } from '../components/Scanner';
-import { useState } from 'react';
-import { saveQrCode } from '../api/services/codesService';
+import { IconButton } from '../components/IconButton';
+import { SearchIcon } from '../icons';
+import { CardButton } from '../components/CardButton';
 
 export const ProfileScreen = () => {
-  const [scanned, setScanned] = useState(false);
-
   return (
     <SafeAreaView style={styles.root}>
-      <Header title="Профиль" />
-      {!scanned && (
-        <Scanner
-          onScanned={async data => {
-            const [client] = data.split(':');
-            await saveQrCode(client);
-            setScanned(true);
-          }}
-        />
-      )}
+      <Header title="Профиль">
+        <IconButton icon={<SearchIcon />} />
+      </Header>
+      <View style={styles.buttons}>
+        <CardButton />
+        <CardButton />
+      </View>
     </SafeAreaView>
   );
 };
@@ -31,5 +26,9 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
     flexGrow: 1,
     gap: 24,
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: 8,
   },
 });
