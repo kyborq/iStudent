@@ -8,10 +8,11 @@ import Animated, {
 type Props = {
   text: string;
   isPrimary?: boolean;
+  isCompact?: boolean;
   onPress?: () => void;
 };
 
-export const Button = ({ text, isPrimary, onPress }: Props) => {
+export const Button = ({ text, isPrimary, isCompact, onPress }: Props) => {
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -41,6 +42,7 @@ export const Button = ({ text, isPrimary, onPress }: Props) => {
         style={[
           styles.button,
           isPrimary && styles.buttonPrimary,
+          isCompact && styles.buttonCompact,
           animatedStyle,
         ]}>
         <Text style={[styles.text, isPrimary && styles.textPrimary]}>
@@ -66,6 +68,10 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     backgroundColor: '#1774FF',
+  },
+  buttonCompact: {
+    height: 48,
+    borderRadius: 24,
   },
   textPrimary: {
     color: '#ffffff',

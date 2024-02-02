@@ -1,8 +1,10 @@
-import {useMutation, useQuery} from 'react-query';
-import {getCode} from '../services/codeService';
+import { useMutation, useQuery } from 'react-query';
+import { getQrCode } from '../services/codesService';
 
 export const useGetCode = () => {
-  const {data, mutate, isError} = useMutation((clientId: string) => getCode(clientId));
+  const { data, mutate, isError } = useMutation((clientId: string) =>
+    getQrCode(clientId),
+  );
 
   return {
     code: data,

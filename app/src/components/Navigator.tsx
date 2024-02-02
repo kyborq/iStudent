@@ -8,9 +8,14 @@ import { ProfileScreen } from '../views/ProfileScreen';
 import { ScheduleScreen } from '../views/ScheduleScreen';
 import { TasksScreen } from '../views/TasksScreen';
 import { TabBar } from './TabBar';
+import { RegisterScreen } from '../views/RegisterScreen';
 
 export type RootParamList = {
   Onboarding: undefined;
+  Register: {
+    group: string;
+    author: string;
+  };
 };
 
 export type ProtectedParamList = {
@@ -51,6 +56,7 @@ const RootScreens = () => {
         headerShown: false,
       }}>
       <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
+      <RootStack.Screen name="Register" component={RegisterScreen} />
     </RootStack.Navigator>
   );
 };

@@ -1,34 +1,24 @@
 import io from 'socket.io-client';
-import {BASE_URL} from '../api';
+import { BASE_URL } from '../api';
 
-export type SocketResponse = {
-  codeId: string;
-  message: string;
-  status: string;
-};
-
-const socket = io(BASE_URL, {
+const socket = io(`${BASE_URL}/codes`, {
   transports: ['websocket'],
 });
 
 export const initializeSocketConnection = (
   onConnected?: (id: string) => void,
-  onMessage?: (message: SocketResponse) => void,
+  onMessage?: (message: any) => void,
   onError?: () => void,
 ) => {
   socket.on('connect', () => {
-    // console.log('Connected to WebSocket server');
-    // console.log('My id is...', socket.id);
     onConnected && onConnected(socket.id);
   });
 
   socket.on('connect_error', err => {
-    // console.log(`connect_error due to ${err.message}`);
     onError && onError();
   });
 
-  socket.on('codeSaved', (message: SocketResponse) => {
-    // console.log(message);
+  socket.on('codeSaved', (message: any) => {
     onMessage && onMessage(message);
   });
 };
