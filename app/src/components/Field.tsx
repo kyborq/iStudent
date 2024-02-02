@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderRadius: 24,
+    fontFamily: 'Golos-Regular',
   },
 });

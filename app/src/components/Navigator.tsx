@@ -10,6 +10,7 @@ import { TasksScreen } from '../views/TasksScreen';
 import { TabBar } from './TabBar';
 import { RegisterScreen } from '../views/RegisterScreen';
 import { CreateGroupScreen } from '../views/CreateGroupScreen';
+import { CreateUserScreen } from '../views/CreateUserScreen';
 
 export type RootParamList = {
   Onboarding: undefined;
@@ -18,6 +19,9 @@ export type RootParamList = {
     author: string;
   };
   CreateGroup: undefined;
+  CreateUser: {
+    group: string;
+  };
 };
 
 export type ProtectedParamList = {
@@ -60,6 +64,7 @@ const RootScreens = () => {
       <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
       <RootStack.Screen name="Register" component={RegisterScreen} />
       <RootStack.Screen name="CreateGroup" component={CreateGroupScreen} />
+      <RootStack.Screen name="CreateUser" component={CreateUserScreen} />
     </RootStack.Navigator>
   );
 };

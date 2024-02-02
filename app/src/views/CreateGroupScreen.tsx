@@ -7,22 +7,21 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../components/Navigator';
 import { Field } from '../components/Field';
 import { Controller, useForm } from 'react-hook-form';
-import { useCreateGroup } from '../api/hooks/useCreateGroup';
+import { CreateGroup } from '../api/models/groupModel';
 
 type CreateGroupScreenProps = NativeStackScreenProps<
   RootParamList,
   'CreateGroup'
 >;
 
-type CreateGroupForm = {
-  name: string;
-};
-
 export const CreateGroupScreen = ({ navigation }: CreateGroupScreenProps) => {
-  const {} = useCreateGroup();
-  const { control, handleSubmit } = useForm<CreateGroupForm>();
+  const { control, handleSubmit } = useForm<CreateGroup>();
 
-  const onSubmit = (data: CreateGroupForm) => console.log(data);
+  const onSubmit = (data: CreateGroup) => {
+    navigation.navigate('CreateUser', {
+      group: data.name,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.root}>
