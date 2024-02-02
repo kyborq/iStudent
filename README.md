@@ -8,6 +8,8 @@
 
 # iStudent
 
+![image](https://github.com/kyborq/iStudent/assets/52314985/1b07a9e3-dcd8-462f-8157-3cbfcf47299d)
+
 ## Development
 
 ### Step 1. Clone repository
