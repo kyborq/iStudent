@@ -63,7 +63,10 @@ export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
           isPrimary
           onPress={() => navigation.navigate('Protected')}
         />
-        <Button text="Создать группу" />
+        <Button
+          text="Создать группу"
+          onPress={() => navigation.navigate('CreateGroup')}
+        />
       </View>
     </SafeAreaView>
   );

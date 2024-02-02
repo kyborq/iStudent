@@ -68,6 +68,15 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     backgroundColor: '#1774FF',
+
+    // shadowColor: '#1774FF',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.05,
+    // shadowRadius: 8,
+    // elevation: 16,
   },
   buttonCompact: {
     height: 48,
