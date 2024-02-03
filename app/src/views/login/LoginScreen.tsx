@@ -3,19 +3,21 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { Credentials } from '../api/models/authModel';
-import { Button } from '../components/Button';
-import { Field } from '../components/Field';
-import { Header } from '../components/Header';
-import { RootParamList } from '../components/Navigator';
+import { Credentials } from '../../api/models/authModel';
+import { Button } from '../../components/Button';
+import { Field } from '../../components/Field';
+import { Header } from '../../components/Header';
+import { RootParamList } from '../../components/Navigator';
+import { useLogin } from './hooks/useLogin';
 
 type RegisterScreenProps = NativeStackScreenProps<RootParamList, 'Login'>;
 
 export const LoginScreen = ({ route, navigation }: RegisterScreenProps) => {
   const { control, handleSubmit } = useForm<Credentials>();
+  const { loginUser, error } = useLogin();
 
   const onSubmit = (data: Credentials) => {
-    // ...
+    loginUser(data);
   };
 
   return (
@@ -30,6 +32,8 @@ export const LoginScreen = ({ route, navigation }: RegisterScreenProps) => {
         <Text style={styles.info}>
           Войдите в профиль, чтобы получить доступ к учебной группе
         </Text>
+
+        {!!error && <Text>{error.message}</Text>}
 
         <View style={styles.fields}>
           <Controller

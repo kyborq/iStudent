@@ -12,7 +12,9 @@ import { RegisterStudentScreen } from '../views/register/RegisterStudentScreen';
 import { RegisterGroupScreen } from '../views/register/RegisterGroupScreen';
 import { RegisterPrefectScreen } from '../views/register/RegisterPrefectScreen';
 import { RegisterCredentialsScreen } from '../views/register/RegisterCredentialsScreen';
-import { LoginScreen } from '../views/LoginScreen';
+import { LoginScreen } from '../views/login/LoginScreen';
+import { useAuth } from '../api/hooks/useAuth';
+import { useEffect } from 'react';
 
 export type RootParamList = {
   Onboarding: undefined;
@@ -63,6 +65,8 @@ const ProtectedScreens = () => {
 };
 
 const RootScreens = () => {
+  const user = useAuth();
+
   return (
     <RootStack.Navigator
       screenOptions={{
