@@ -1,25 +1,18 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateStudentDto } from './dtos/create-student.dto';
-import { CreatePrefectDto } from './dtos/create-prefect.dto';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('prefect')
-  createPrefect(@Body() createPrefectDto: CreatePrefectDto) {
-    this.usersService.createPrefect(
-      createPrefectDto.name,
-      createPrefectDto.group,
-    );
+  createPrefect(@Body() createPrefectDto: CreateUserDto) {
+    this.usersService.createPrefect(createPrefectDto);
   }
 
   @Post('student')
-  createStudent(@Body() createStudentDto: CreateStudentDto) {
-    this.usersService.createStudent(
-      createStudentDto.name,
-      createStudentDto.groupId,
-    );
+  createStudent(@Body() createStudentDto: CreateUserDto) {
+    this.usersService.createStudent(createStudentDto);
   }
 }
