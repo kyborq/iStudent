@@ -2,10 +2,37 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from '@prisma/client';
+import { GetUserDto } from './dtos/get-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private databaseService: DatabaseService) {}
+
+  async getUserInfo(userId: string): Promise<GetUserDto> {
+    const user = await this.databaseService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        login: true,
+        name: true,
+        role: true,
+      },
+    });
+
+    return user;
+  }
+
+  async getUserById(userId: string) {
+    const user = await this.databaseService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return user;
+  }
 
   async getByLogin(login: string) {
     const user = await this.databaseService.user.findFirst({
