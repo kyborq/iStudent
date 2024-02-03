@@ -22,11 +22,12 @@ model Group {
 }
 
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
   login    String
   password String
   role     Role
   groupId  String
-  group    Group  @relation(fields: [groupId], references: [id])
+  group    Group   @relation(fields: [groupId], references: [id])
+  token    String?
 }
