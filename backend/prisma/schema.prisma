@@ -10,7 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  STUDENT
+  PREFECT
+}
+
 model Group {
-  id   String @id @default(uuid())
-  name String
+  id    String @id @default(uuid())
+  name  String
+  users User[]
+}
+
+model User {
+  id      String @id @default(uuid())
+  name    String
+  role    Role
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
 }
