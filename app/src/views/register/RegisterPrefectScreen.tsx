@@ -6,17 +6,35 @@ import { RootParamList } from '../../components/Navigator';
 import { Form } from '../../components/Form';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
+import { Controller, useForm } from 'react-hook-form';
+import { CreateUser } from '../../api/models/userModel';
+import { useCreateUser } from '../../api/hooks/useCreateUser';
 
 type CreateUserScreenProps = NativeStackScreenProps<
   RootParamList,
-  'CreateUser'
+  'RegisterPrefect'
 >;
 
-export const CreateUserScreen = ({
+export const RegisterPrefectScreen = ({
   navigation,
   route,
 }: CreateUserScreenProps) => {
   const { group } = route.params;
+
+  const { control, handleSubmit } = useForm<CreateUser>({
+    values: {
+      group,
+      name: '',
+      login: '',
+      password: '',
+    },
+  });
+
+  const { createPrefect } = useCreateUser();
+
+  const onSubmit = (data: CreateUser) => {
+    createPrefect(data);
+  };
 
   return (
     <SafeAreaView style={styles.root}>
@@ -27,11 +45,31 @@ export const CreateUserScreen = ({
           <Text style={styles.bold}> {group}</Text>
         </Text>
         <View style={styles.fields}>
-          <Field placeholder="Имя Фамилия" />
-          <Field placeholder="Логин" />
-          <Field placeholder="Пароль" />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <Field placeholder="Имя" {...field} />}
+            name="name"
+          />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <Field placeholder="Логин" {...field} />}
+            name="login"
+          />
+          <Controller
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <Field placeholder="Пароль" {...field} />}
+            name="password"
+          />
         </View>
-        <Button text="Зарегистрироваться" isCompact isPrimary />
+        <Button
+          text="Зарегистрироваться"
+          isCompact
+          isPrimary
+          onPress={handleSubmit(onSubmit)}
+        />
       </Form>
     </SafeAreaView>
   );

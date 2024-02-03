@@ -8,18 +8,23 @@ import { ProfileScreen } from '../views/ProfileScreen';
 import { ScheduleScreen } from '../views/ScheduleScreen';
 import { TasksScreen } from '../views/TasksScreen';
 import { TabBar } from './TabBar';
-import { RegisterScreen } from '../views/register/RegisterScreen';
-import { CreateGroupScreen } from '../views/register/CreateGroupScreen';
-import { CreateUserScreen } from '../views/register/CreateUserScreen';
+import { RegisterStudentScreen } from '../views/register/RegisterStudentScreen';
+import { RegisterGroupScreen } from '../views/register/RegisterGroupScreen';
+import { RegisterPrefectScreen } from '../views/register/RegisterPrefectScreen';
+import { RegisterCredentialsScreen } from '../views/register/RegisterCredentialsScreen';
 
 export type RootParamList = {
   Onboarding: undefined;
-  Register: {
+  RegisterStudent: {
     group: string;
     author: string;
   };
-  CreateGroup: undefined;
-  CreateUser: {
+  RegisterCredentials: {
+    group: string;
+    name: string;
+  };
+  RegisterGroup: undefined;
+  RegisterPrefect: {
     group: string;
   };
 };
@@ -62,9 +67,19 @@ const RootScreens = () => {
         headerShown: false,
       }}>
       <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
-      <RootStack.Screen name="Register" component={RegisterScreen} />
-      <RootStack.Screen name="CreateGroup" component={CreateGroupScreen} />
-      <RootStack.Screen name="CreateUser" component={CreateUserScreen} />
+      <RootStack.Screen
+        name="RegisterStudent"
+        component={RegisterStudentScreen}
+      />
+      <RootStack.Screen
+        name="RegisterCredentials"
+        component={RegisterCredentialsScreen}
+      />
+      <RootStack.Screen name="RegisterGroup" component={RegisterGroupScreen} />
+      <RootStack.Screen
+        name="RegisterPrefect"
+        component={RegisterPrefectScreen}
+      />
     </RootStack.Navigator>
   );
 };

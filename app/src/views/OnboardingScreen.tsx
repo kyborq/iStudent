@@ -31,7 +31,7 @@ export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
         getCode(id);
       },
       data => {
-        navigation.navigate('Register', {
+        navigation.navigate('RegisterStudent', {
           author: data.author,
           group: data.group,
         });
@@ -65,7 +65,7 @@ export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
         />
         <Button
           text="Создать группу"
-          onPress={() => navigation.navigate('CreateGroup')}
+          onPress={() => navigation.navigate('RegisterGroup')}
         />
       </View>
     </SafeAreaView>

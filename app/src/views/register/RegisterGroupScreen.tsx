@@ -11,14 +11,14 @@ import { CreateGroup } from '../../api/models/groupModel';
 
 type CreateGroupScreenProps = NativeStackScreenProps<
   RootParamList,
-  'CreateGroup'
+  'RegisterGroup'
 >;
 
-export const CreateGroupScreen = ({ navigation }: CreateGroupScreenProps) => {
+export const RegisterGroupScreen = ({ navigation }: CreateGroupScreenProps) => {
   const { control, handleSubmit } = useForm<CreateGroup>();
 
   const onSubmit = (data: CreateGroup) => {
-    navigation.navigate('CreateUser', {
+    navigation.navigate('RegisterPrefect', {
       group: data.name,
     });
   };

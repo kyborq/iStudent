@@ -4,6 +4,8 @@ import { Header } from '../components/Header';
 import { IconButton } from '../components/IconButton';
 import { SearchIcon } from '../icons';
 import { CardButton } from '../components/CardButton';
+import { Scanner } from '../components/Scanner';
+import { saveQrCode } from '../api/services/codesService';
 
 export const ProfileScreen = () => {
   return (
@@ -15,6 +17,12 @@ export const ProfileScreen = () => {
         <CardButton />
         <CardButton />
       </View>
+      <Scanner
+        onScanned={async data => {
+          const [client] = data.split(':');
+          await saveQrCode(client);
+        }}
+      />
     </SafeAreaView>
   );
 };
