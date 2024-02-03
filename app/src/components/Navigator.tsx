@@ -12,6 +12,7 @@ import { RegisterStudentScreen } from '../views/register/RegisterStudentScreen';
 import { RegisterGroupScreen } from '../views/register/RegisterGroupScreen';
 import { RegisterPrefectScreen } from '../views/register/RegisterPrefectScreen';
 import { RegisterCredentialsScreen } from '../views/register/RegisterCredentialsScreen';
+import { LoginScreen } from '../views/LoginScreen';
 
 export type RootParamList = {
   Onboarding: undefined;
@@ -27,6 +28,7 @@ export type RootParamList = {
   RegisterPrefect: {
     group: string;
   };
+  Login: undefined;
 };
 
 export type ProtectedParamList = {
@@ -80,6 +82,7 @@ const RootScreens = () => {
         name="RegisterPrefect"
         component={RegisterPrefectScreen}
       />
+      <RootStack.Screen name="Login" component={LoginScreen} />
     </RootStack.Navigator>
   );
 };

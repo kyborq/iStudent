@@ -1,26 +1,15 @@
-import {
-  Alert,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { useEffect } from 'react';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { useGetCode } from '../api/hooks/useGetCode';
+import { initializeSocketConnection } from '../api/services/socketService';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
-import { AppParamList, RootParamList } from '../components/Navigator';
-import { useEffect } from 'react';
-import { initializeSocketConnection } from '../api/services/socketService';
-import { useGetCode } from '../api/hooks/useGetCode';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { RootParamList } from '../components/Navigator';
 
-type OnboardingScreenProps = CompositeScreenProps<
-  NativeStackScreenProps<RootParamList>,
-  NativeStackScreenProps<AppParamList>
->;
+type OnboardingScreenProps = NativeStackScreenProps<RootParamList>;
 
 export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
   const { code, getCode } = useGetCode();
@@ -61,7 +50,7 @@ export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
         <Button
           text="Войти"
           isPrimary
-          onPress={() => navigation.navigate('Protected')}
+          onPress={() => navigation.navigate('Login')}
         />
         <Button
           text="Создать группу"
