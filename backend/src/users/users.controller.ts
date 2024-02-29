@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { UsersService } from './users.service';
+
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -8,11 +9,11 @@ export class UsersController {
 
   @Post('prefect')
   createPrefect(@Body() createPrefectDto: CreateUserDto) {
-    this.usersService.createPrefect(createPrefectDto);
+    return this.usersService.createPrefect(createPrefectDto);
   }
 
   @Post('student')
   createStudent(@Body() createStudentDto: CreateUserDto) {
-    this.usersService.createStudent(createStudentDto);
+    return this.usersService.createStudent(createStudentDto);
   }
 }

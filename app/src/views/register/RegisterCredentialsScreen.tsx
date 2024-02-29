@@ -8,7 +8,7 @@ import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Header } from '../../components/Header';
 import { RootParamList } from '../../components/navigation/Navigator';
-import { useRegister } from './hooks/useRegister';
+import { useRegisterStudent } from './hooks/useRegisterStudent';
 
 type RegisterCredentialsScreenProps = NativeStackScreenProps<
   RootParamList,
@@ -20,7 +20,7 @@ export const RegisterCredentialsScreen = ({
   route,
 }: RegisterCredentialsScreenProps) => {
   const { name, group, groupId } = route.params;
-  const { registerStudent } = useRegister();
+  const { registerStudent } = useRegisterStudent();
 
   const { control, handleSubmit } = useForm<CreateUserCredentials>();
 

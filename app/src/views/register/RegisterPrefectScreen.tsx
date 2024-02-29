@@ -3,13 +3,13 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { useCreateUser } from '../../api/hooks/useCreateUser';
 import { CreateUser } from '../../api/models/userModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Form } from '../../components/Form';
 import { Header } from '../../components/Header';
 import { RootParamList } from '../../components/navigation/Navigator';
+import { useRegisterPrefect } from './hooks/useRegisterPrefect';
 
 type CreateUserScreenProps = NativeStackScreenProps<
   RootParamList,
@@ -31,10 +31,10 @@ export const RegisterPrefectScreen = ({
     },
   });
 
-  const { createPrefect } = useCreateUser();
+  const { registerPrefect } = useRegisterPrefect();
 
   const onSubmit = (data: CreateUser) => {
-    createPrefect(data);
+    registerPrefect(data);
   };
 
   return (

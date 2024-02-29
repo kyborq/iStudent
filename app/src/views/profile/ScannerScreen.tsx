@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -17,7 +17,7 @@ export const ScannerScreen = ({ navigation }: ProfileScreenProps) => {
         onScanned={async data => {
           const [client] = data.split(':');
           await saveQrCode(client);
-          navigation.goBack();
+          navigation.pop();
         }}
       />
     </SafeAreaView>

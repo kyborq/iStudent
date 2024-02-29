@@ -42,3 +42,12 @@ export const registerStudent = async (user: CreateUser) => {
     console.error('Logout failed', error);
   }
 };
+
+export const registerPrefect = async (user: CreateUser) => {
+  try {
+    const { data: tokens } = await api.post<Tokens>('/auth/prefect', user);
+    return tokens;
+  } catch (error) {
+    console.error('Logout failed', error);
+  }
+};
