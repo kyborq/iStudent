@@ -3,7 +3,14 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { CardButton } from '../components/CardButton';
 import { Header } from '../components/Header';
 import { IconButton } from '../components/IconButton';
-import { ProfileIcon, SearchIcon } from '../icons';
+import { Profile } from '../components/Profile';
+import {
+  BookIcon,
+  ScanIcon,
+  SearchIcon,
+  SettingsIcon,
+  UsersIcon,
+} from '../icons';
 
 export const ProfileScreen = () => {
   return (
@@ -11,15 +18,18 @@ export const ProfileScreen = () => {
       <Header title="Профиль">
         <IconButton icon={<SearchIcon />} />
       </Header>
+      <Profile />
       <View style={styles.menu}>
         <View style={styles.buttons}>
-          <CardButton icon={<ProfileIcon fill="#1774FF" />} label="Участники" />
-          <CardButton icon={<ProfileIcon fill="#1774FF" />} label="Контакты" />
-          <CardButton icon={<ProfileIcon fill="#1774FF" />} label="Настройки" />
+          <CardButton icon={<UsersIcon fill="#1774FF" />} label="Участники" />
+          <CardButton icon={<ScanIcon fill="#1774FF" />} label="Сканер" />
         </View>
         <View style={styles.buttons}>
-          <CardButton icon={<ProfileIcon fill="#1774FF" />} label="Предметы" />
-          <CardButton icon={<ProfileIcon fill="#1774FF" />} label="Сканер" />
+          <CardButton icon={<BookIcon fill="#1774FF" />} label="Предметы" />
+          <CardButton
+            icon={<SettingsIcon fill="#1774FF" />}
+            label="Настройки"
+          />
         </View>
       </View>
       {/* <Scanner

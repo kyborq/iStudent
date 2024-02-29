@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getTokens } from './services/keychainService';
 
-export const BASE_URL = 'http://10.0.2.2:3000';
+export const BASE_URL = 'http://192.168.87.210:3000';
 
 export const api = axios.create({
   baseURL: BASE_URL,
