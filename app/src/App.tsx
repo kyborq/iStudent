@@ -1,4 +1,4 @@
-import { NativeModules, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { NavigationContainer } from '@react-navigation/native';

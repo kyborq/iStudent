@@ -2,11 +2,12 @@ import axios from 'axios';
 
 import { api } from '../api';
 import { ApiError } from '../error';
-import { Credentials } from '../models/authModel';
+import { Credentials, Tokens } from '../models/authModel';
 
 export const loginUser = async (credentials: Credentials) => {
   try {
-    await api.post('/auth/login', credentials);
+    const { data: tokens } = await api.post<Tokens>('/auth/login', credentials);
+    return tokens;
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {
       const error = err.response.data;
@@ -17,7 +18,8 @@ export const loginUser = async (credentials: Credentials) => {
 
 export const currentUser = async () => {
   try {
-    return await api.get('/auth/current');
+    const { data: user } = await api.get('/auth/current');
+    return user;
   } catch (err) {
     throw err;
   }
