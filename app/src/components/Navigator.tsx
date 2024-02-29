@@ -1,20 +1,26 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigatorScreenParams } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigatorScreenParams, useNavigation } from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+
+import { useAuth } from '../api/hooks/useAuth';
+import { authAtom } from '../atoms/authAtom';
 import { HomeScreen } from '../views/HomeScreen';
+import { LoginScreen } from '../views/login/LoginScreen';
 import { OnboardingScreen } from '../views/OnboardingScreen';
 import { ProfileScreen } from '../views/ProfileScreen';
+import { RegisterCredentialsScreen } from '../views/register/RegisterCredentialsScreen';
+import { RegisterGroupScreen } from '../views/register/RegisterGroupScreen';
+import { RegisterPrefectScreen } from '../views/register/RegisterPrefectScreen';
+import { RegisterStudentScreen } from '../views/register/RegisterStudentScreen';
 import { ScheduleScreen } from '../views/ScheduleScreen';
 import { TasksScreen } from '../views/TasksScreen';
 import { TabBar } from './TabBar';
-import { RegisterStudentScreen } from '../views/register/RegisterStudentScreen';
-import { RegisterGroupScreen } from '../views/register/RegisterGroupScreen';
-import { RegisterPrefectScreen } from '../views/register/RegisterPrefectScreen';
-import { RegisterCredentialsScreen } from '../views/register/RegisterCredentialsScreen';
-import { LoginScreen } from '../views/login/LoginScreen';
-import { useAuth } from '../api/hooks/useAuth';
-import { useEffect } from 'react';
 
 export type RootParamList = {
   Onboarding: undefined;
@@ -49,7 +55,19 @@ const AppStack = createNativeStackNavigator<AppParamList>();
 const RootStack = createNativeStackNavigator<RootParamList>();
 const Tabs = createBottomTabNavigator<ProtectedParamList>();
 
-const ProtectedScreens = () => {
+type ScreenProps = NativeStackScreenProps<AppParamList>;
+
+const ProtectedScreens = ({ navigation }: ScreenProps) => {
+  useAuth();
+
+  const { isAuth } = useAtomValue(authAtom);
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigation.navigate('Root');
+    }
+  }, [isAuth]);
+
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -64,8 +82,16 @@ const ProtectedScreens = () => {
   );
 };
 
-const RootScreens = () => {
-  const user = useAuth();
+const RootScreens = ({ navigation }: ScreenProps) => {
+  useAuth();
+
+  const { isAuth } = useAtomValue(authAtom);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigation.navigate('Protected');
+    }
+  }, [isAuth]);
 
   return (
     <RootStack.Navigator
@@ -92,13 +118,15 @@ const RootScreens = () => {
 };
 
 export const AppNavigation = () => {
+  const { isAuth } = useAtomValue(authAtom);
+
   return (
-    <AppStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <AppStack.Screen name="Root" component={RootScreens} />
-      <AppStack.Screen name="Protected" component={ProtectedScreens} />
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      {isAuth ? (
+        <AppStack.Screen name="Protected" component={ProtectedScreens} />
+      ) : (
+        <AppStack.Screen name="Root" component={RootScreens} />
+      )}
     </AppStack.Navigator>
   );
 };

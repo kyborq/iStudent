@@ -31,6 +31,8 @@ export class SetCookiesInterceptor implements NestInterceptor {
           path: '/',
           maxAge: 1000 * 60 * 60 * 24 * 7,
         });
+
+        return data;
       }),
     );
   }
