@@ -1,4 +1,7 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { UserId } from 'src/common/decorators/user-id.decorator';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
+
+import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 
 import { CodesService } from './codes.service';
 
@@ -12,8 +15,8 @@ export class CodesController {
   }
 
   @Post(':client')
-  saveCode(@Param('client') client: string) {
-    // Save code in db
-    this.codesService.saveCode(client);
+  @UseGuards(AccessTokenGuard)
+  saveCode(@Param('client') client: string, @UserId() prefectId: string) {
+    this.codesService.saveCode(client, prefectId);
   }
 }

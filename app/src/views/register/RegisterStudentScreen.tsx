@@ -18,13 +18,14 @@ export const RegisterStudentScreen = ({
   route,
   navigation,
 }: RegisterScreenProps) => {
-  const { author, group } = route.params;
+  const { author, group, groupId } = route.params;
 
   const { control, handleSubmit } = useForm<CreateUserName>();
 
   const onSubmit = (data: CreateUserName) => {
     navigation.navigate('RegisterCredentials', {
       name: data.name,
+      groupId,
       group,
     });
   };

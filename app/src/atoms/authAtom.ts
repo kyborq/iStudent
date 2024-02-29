@@ -1,13 +1,5 @@
 import { atom } from 'jotai';
 
-export type AuthState = {
-  accessToken: string | null;
-  refreshToken: string | null;
-  isAuth: boolean;
-};
+import { User } from '../api/models/userModel';
 
-export const authAtom = atom<AuthState>({
-  accessToken: null,
-  refreshToken: null,
-  isAuth: false,
-});
+export const authAtom = atom<User | null>(null);

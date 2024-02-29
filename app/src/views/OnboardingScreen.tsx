@@ -23,6 +23,7 @@ export const OnboardingScreen = ({ navigation }: OnboardingScreenProps) => {
         navigation.navigate('RegisterStudent', {
           author: data.author,
           group: data.group,
+          groupId: data.groupId,
         });
       },
     );

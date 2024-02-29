@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from 'react-query';
 
 import { ApiError } from '../../../api/error';
-import { loginUser } from '../../../api/services/authService';
+import { registerStudent } from '../../../api/services/authService';
 import { saveTokens } from '../../../api/services/keychainService';
 
-export const useLogin = () => {
+export const useRegister = () => {
   const queryClient = useQueryClient();
 
-  const { mutate, error } = useMutation(loginUser, {
+  const { mutate, error } = useMutation(registerStudent, {
     onSuccess: async tokens => {
       queryClient.invalidateQueries(['auth']);
 
@@ -19,7 +19,7 @@ export const useLogin = () => {
   });
 
   return {
-    loginUser: mutate,
+    registerStudent: mutate,
     error: error as ApiError,
   };
 };

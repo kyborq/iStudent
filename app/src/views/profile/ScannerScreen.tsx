@@ -12,7 +12,7 @@ type ProfileScreenProps = NativeStackScreenProps<AppParamList>;
 export const ScannerScreen = ({ navigation }: ProfileScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
-      <Header title="Пригласить по QR" onBack={() => navigation.goBack()} />
+      <Header title="Пригласить по QR" onBack={() => navigation.pop()} />
       <Scanner
         onScanned={async data => {
           const [client] = data.split(':');

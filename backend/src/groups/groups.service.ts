@@ -1,6 +1,7 @@
+import { DatabaseService } from 'src/database/database.service';
+
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class GroupsService {
@@ -10,5 +11,9 @@ export class GroupsService {
     return await this.database.group.create({
       data: group,
     });
+  }
+
+  async getGroupById(id: string) {
+    return await this.database.group.findUnique({ where: { id } });
   }
 }

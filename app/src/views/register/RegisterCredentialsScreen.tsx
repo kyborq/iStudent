@@ -8,6 +8,7 @@ import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Header } from '../../components/Header';
 import { RootParamList } from '../../components/navigation/Navigator';
+import { useRegister } from './hooks/useRegister';
 
 type RegisterCredentialsScreenProps = NativeStackScreenProps<
   RootParamList,
@@ -18,12 +19,18 @@ export const RegisterCredentialsScreen = ({
   navigation,
   route,
 }: RegisterCredentialsScreenProps) => {
-  const { name } = route.params;
+  const { name, group, groupId } = route.params;
+  const { registerStudent } = useRegister();
 
   const { control, handleSubmit } = useForm<CreateUserCredentials>();
 
   const onSubmit = (data: CreateUserCredentials) => {
-    // ...
+    registerStudent({
+      login: data.login,
+      password: data.password,
+      group: groupId,
+      name,
+    });
   };
 
   return (
@@ -37,7 +44,8 @@ export const RegisterCredentialsScreen = ({
       <View style={styles.form}>
         <Text style={styles.info}>
           Привет, <Text style={styles.bold}>{name}</Text>! Чтобы получить доступ
-          к группе позднее, придумайте логин и пароль
+          к группе <Text style={styles.bold}>{group}</Text> позднее, придумайте
+          логин и пароль
         </Text>
 
         <View style={styles.fields}>

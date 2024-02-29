@@ -1,11 +1,17 @@
 import * as QRCode from 'qrcode';
 import { CodesGateway } from 'src/gateways/codes.gateway';
+import { GroupsService } from 'src/groups/groups.service';
+import { UsersService } from 'src/users/users.service';
 
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CodesService {
-  constructor(private codesGateway: CodesGateway) {}
+  constructor(
+    private codesGateway: CodesGateway,
+    private usersService: UsersService,
+    private groupsService: GroupsService,
+  ) {}
 
   private randomChar = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -37,10 +43,14 @@ export class CodesService {
     };
   }
 
-  async saveCode(client: string) {
+  async saveCode(client: string, prefectId: string) {
+    const user = await this.usersService.getUserById(prefectId);
+    const group = await this.groupsService.getGroupById(user.groupId);
+
     this.codesGateway.notifyClientAboutSavedCode(client, {
-      group: 'ДИЗАЙН-135',
-      author: 'Иванов Иван',
+      groupId: group.id,
+      group: group.name,
+      author: user.name,
     });
   }
 }

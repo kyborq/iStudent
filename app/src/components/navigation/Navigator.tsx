@@ -28,10 +28,12 @@ export type RootParamList = {
   Onboarding: undefined;
   RegisterStudent: {
     group: string;
+    groupId: string;
     author: string;
   };
   RegisterCredentials: {
     group: string;
+    groupId: string;
     name: string;
   };
   RegisterGroup: undefined;
@@ -64,13 +66,13 @@ type ScreenProps = NativeStackScreenProps<AppParamList>;
 const ProtectedScreens = ({ navigation }: ScreenProps) => {
   useAuth();
 
-  const { isAuth } = useAtomValue(authAtom);
+  const user = useAtomValue(authAtom);
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!user) {
       navigation.navigate('Root');
     }
-  }, [isAuth]);
+  }, [user]);
 
   return (
     <Tabs.Navigator
@@ -89,13 +91,13 @@ const ProtectedScreens = ({ navigation }: ScreenProps) => {
 const RootScreens = ({ navigation }: ScreenProps) => {
   useAuth();
 
-  const { isAuth } = useAtomValue(authAtom);
+  const user = useAtomValue(authAtom);
 
   useEffect(() => {
-    if (isAuth) {
+    if (user) {
       navigation.navigate('Protected');
     }
-  }, [isAuth]);
+  }, [user]);
 
   return (
     <RootStack.Navigator
@@ -123,11 +125,11 @@ const RootScreens = ({ navigation }: ScreenProps) => {
 };
 
 export const AppNavigation = () => {
-  const { isAuth } = useAtomValue(authAtom);
+  const user = useAtomValue(authAtom);
 
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuth ? (
+      {user ? (
         <>
           <AppStack.Screen name="Protected" component={ProtectedScreens} />
           <AppStack.Group screenOptions={{ presentation: 'modal' }}>

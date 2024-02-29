@@ -1,7 +1,9 @@
+import { useAtomValue } from 'jotai';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { authAtom } from '../../atoms/authAtom';
 import { CardButton } from '../../components/CardButton';
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
@@ -18,12 +20,14 @@ import {
 type ProfileScreenProps = NativeStackScreenProps<AppParamList>;
 
 export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
+  const user = useAtomValue(authAtom);
+
   return (
     <SafeAreaView style={styles.root}>
       <Header title="Профиль">
         <IconButton icon={<SearchIcon />} />
       </Header>
-      <Profile />
+      {user && <Profile user={user} />}
       <View style={styles.menu}>
         <View style={styles.buttons}>
           <CardButton icon={<UsersIcon fill="#1774FF" />} label="Участники" />
