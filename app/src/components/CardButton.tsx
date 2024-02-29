@@ -1,18 +1,32 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export const CardButton = () => {
+type Props = {
+  icon?: React.ReactNode;
+  label: string;
+};
+
+export const CardButton = ({ label, icon }: Props) => {
   return (
     <TouchableOpacity>
-      <View style={styles.button}></View>
+      <View style={styles.button}>
+        {icon}
+        <Text style={styles.text}>{label}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    width: 163,
     height: 100,
-    backgroundColor: 'red',
+    backgroundColor: '#F0F3F6',
     borderRadius: 18,
+    padding: 24,
+    justifyContent: 'space-between',
+  },
+  text: {
+    fontFamily: 'Golos-Regular',
+    color: '#BECBE0',
+    fontSize: 14,
   },
 });

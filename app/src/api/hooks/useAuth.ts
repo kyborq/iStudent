@@ -9,10 +9,13 @@ export const useAuth = () => {
 
   const { data } = useQuery('auth', currentUser, {
     onError: err => {
-      console.log('fuck it');
+      setAuthState({
+        accessToken: null,
+        refreshToken: null,
+        isAuth: false,
+      });
     },
     onSuccess: data => {
-      console.log(data);
       setAuthState({
         accessToken: null,
         refreshToken: null,

@@ -53,5 +53,7 @@ export const Scanner = ({ onScanned }: Props) => {
 const styles = StyleSheet.create({
   scanner: {
     flex: 1,
+    borderRadius: 24,
+    overflow: 'hidden',
   },
 });
