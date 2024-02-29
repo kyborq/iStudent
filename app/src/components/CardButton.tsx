@@ -3,11 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 type Props = {
   icon?: React.ReactNode;
   label: string;
+  onPress?: () => void;
 };
 
-export const CardButton = ({ label, icon }: Props) => {
+export const CardButton = ({ label, icon, onPress }: Props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
         {icon}
         <Text style={styles.text}>{label}</Text>

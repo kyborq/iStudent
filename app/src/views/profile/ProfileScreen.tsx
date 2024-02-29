@@ -1,18 +1,23 @@
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { CardButton } from '../components/CardButton';
-import { Header } from '../components/Header';
-import { IconButton } from '../components/IconButton';
-import { Profile } from '../components/Profile';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { CardButton } from '../../components/CardButton';
+import { Header } from '../../components/Header';
+import { IconButton } from '../../components/IconButton';
+import { AppParamList } from '../../components/navigation/Navigator';
+import { Profile } from '../../components/Profile';
 import {
   BookIcon,
   ScanIcon,
   SearchIcon,
   SettingsIcon,
   UsersIcon,
-} from '../icons';
+} from '../../icons';
 
-export const ProfileScreen = () => {
+type ProfileScreenProps = NativeStackScreenProps<AppParamList>;
+
+export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
       <Header title="Профиль">
@@ -22,22 +27,21 @@ export const ProfileScreen = () => {
       <View style={styles.menu}>
         <View style={styles.buttons}>
           <CardButton icon={<UsersIcon fill="#1774FF" />} label="Участники" />
-          <CardButton icon={<ScanIcon fill="#1774FF" />} label="Сканер" />
+          <CardButton
+            icon={<ScanIcon fill="#1774FF" />}
+            label="Сканер"
+            onPress={() => navigation.push('Scanner')}
+          />
         </View>
         <View style={styles.buttons}>
           <CardButton icon={<BookIcon fill="#1774FF" />} label="Предметы" />
           <CardButton
             icon={<SettingsIcon fill="#1774FF" />}
             label="Настройки"
+            onPress={() => navigation.push('Settings')}
           />
         </View>
       </View>
-      {/* <Scanner
-        onScanned={async data => {
-          const [client] = data.split(':');
-          await saveQrCode(client);
-        }}
-      /> */}
     </SafeAreaView>
   );
 };

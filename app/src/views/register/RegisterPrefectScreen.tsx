@@ -1,14 +1,15 @@
+import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { Header } from '../../components/Header';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootParamList } from '../../components/Navigator';
-import { Form } from '../../components/Form';
+
+import { useCreateUser } from '../../api/hooks/useCreateUser';
+import { CreateUser } from '../../api/models/userModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
-import { Controller, useForm } from 'react-hook-form';
-import { CreateUser } from '../../api/models/userModel';
-import { useCreateUser } from '../../api/hooks/useCreateUser';
+import { Form } from '../../components/Form';
+import { Header } from '../../components/Header';
+import { RootParamList } from '../../components/navigation/Navigator';
 
 type CreateUserScreenProps = NativeStackScreenProps<
   RootParamList,

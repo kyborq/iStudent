@@ -7,7 +7,7 @@ import { Credentials } from '../../api/models/authModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Header } from '../../components/Header';
-import { RootParamList } from '../../components/Navigator';
+import { RootParamList } from '../../components/navigation/Navigator';
 import { useLogin } from './hooks/useLogin';
 
 type RegisterScreenProps = NativeStackScreenProps<RootParamList, 'Login'>;

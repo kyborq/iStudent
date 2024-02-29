@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 24,
     fontFamily: 'Golos-Regular',
+    color: '#000000',
   },
 });

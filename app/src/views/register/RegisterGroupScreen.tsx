@@ -1,13 +1,14 @@
+import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import { Header } from '../../components/Header';
-import { Form } from '../../components/Form';
-import { Button } from '../../components/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootParamList } from '../../components/Navigator';
-import { Field } from '../../components/Field';
-import { Controller, useForm } from 'react-hook-form';
+
 import { CreateGroup } from '../../api/models/groupModel';
+import { Button } from '../../components/Button';
+import { Field } from '../../components/Field';
+import { Form } from '../../components/Form';
+import { Header } from '../../components/Header';
+import { RootParamList } from '../../components/navigation/Navigator';
 
 type CreateGroupScreenProps = NativeStackScreenProps<
   RootParamList,

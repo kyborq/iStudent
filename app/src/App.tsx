@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { NavigationContainer } from '@react-navigation/native';
 
-import { AppNavigation } from './components/Navigator';
+import { AppNavigation } from './components/navigation/Navigator';
 
 const client = new QueryClient({
   defaultOptions: {
