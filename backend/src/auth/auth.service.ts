@@ -35,14 +35,14 @@ export class AuthService {
     return user;
   }
 
-  private async generateTokens(userId: string) {
+  private async generateTokens(userId: string, groupId: string) {
     const accessToken = this.jwtService.sign(
-      { sub: userId },
+      { sub: userId, groupId },
       { secret: this.jwtAccessSecret, expiresIn: '15m' },
     );
 
     const refreshToken = this.jwtService.sign(
-      { sub: userId },
+      { sub: userId, groupId },
       { secret: this.jwtRefreshSecret, expiresIn: '7d' },
     );
 
@@ -54,8 +54,8 @@ export class AuthService {
     await this.usersService.setRefreshToken(userId, hashedRefreshToken);
   }
 
-  private async issueTokens(userId: string) {
-    const tokens = await this.generateTokens(userId);
+  private async issueTokens(userId: string, groupId: string) {
+    const tokens = await this.generateTokens(userId, groupId);
     return tokens;
   }
 
@@ -71,7 +71,7 @@ export class AuthService {
       throw new BadRequestException('Неправильный логин или пароль');
     }
 
-    const tokens = await this.issueTokens(user.id);
+    const tokens = await this.issueTokens(user.id, user.groupId);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
     return tokens;
@@ -85,7 +85,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const tokens = await this.issueTokens(user.id);
+    const tokens = await this.issueTokens(user.id, user.groupId);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
     return tokens;
@@ -99,7 +99,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const tokens = await this.issueTokens(user.id);
+    const tokens = await this.issueTokens(user.id, user.groupId);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
     return tokens;
@@ -117,7 +117,7 @@ export class AuthService {
       throw new ForbiddenException('Авторизация истекла, повторите вход');
     }
 
-    return this.issueTokens(user.id);
+    return this.issueTokens(user.id, user.groupId);
   }
 
   async getCurrentUser(userId: string) {
