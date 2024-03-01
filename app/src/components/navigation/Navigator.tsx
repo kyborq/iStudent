@@ -13,6 +13,7 @@ import { authAtom } from '../../atoms/authAtom';
 import { HomeScreen } from '../../views/HomeScreen';
 import { LoginScreen } from '../../views/login/LoginScreen';
 import { OnboardingScreen } from '../../views/OnboardingScreen';
+import { GroupScreen } from '../../views/profile/GroupScreen';
 import { ProfileScreen } from '../../views/profile/ProfileScreen';
 import { ScannerScreen } from '../../views/profile/ScannerScreen';
 import { SettingsScreen } from '../../views/profile/SettingsScreen';
@@ -55,6 +56,7 @@ export type AppParamList = {
   Protected: NavigatorScreenParams<ProtectedParamList> | undefined;
   Settings: undefined;
   Scanner: undefined;
+  Group: undefined;
 };
 
 const AppStack = createNativeStackNavigator<AppParamList>();
@@ -135,6 +137,7 @@ export const AppNavigation = () => {
           <AppStack.Group screenOptions={{ presentation: 'modal' }}>
             <AppStack.Screen name="Settings" component={SettingsScreen} />
             <AppStack.Screen name="Scanner" component={ScannerScreen} />
+            <AppStack.Screen name="Group" component={GroupScreen} />
           </AppStack.Group>
         </>
       ) : (

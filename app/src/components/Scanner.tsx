@@ -8,10 +8,10 @@ import {
 } from 'react-native-vision-camera';
 
 type Props = {
-  onScanned?: (data: string) => void;
+  onScan?: (data: string) => void;
 };
 
-export const Scanner = ({ onScanned }: Props) => {
+export const Scanner = ({ onScan }: Props) => {
   const [doScanCode, setDoScanCode] = useState(true);
 
   const { hasPermission, requestPermission } = useCameraPermission();
@@ -24,8 +24,8 @@ export const Scanner = ({ onScanned }: Props) => {
 
       const [current] = codes;
 
-      if (current.value && onScanned) {
-        onScanned(current.value);
+      if (current.value && onScan) {
+        onScan(current.value);
       }
 
       return;

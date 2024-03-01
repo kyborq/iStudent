@@ -1,7 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { CreateUserDto } from './dtos/create-user.dto';
+
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
+
+import { CreateUserDto } from './dtos/create-user.dto';
 import { GetUserDto } from './dtos/get-user.dto';
 
 @Injectable()
@@ -109,5 +111,15 @@ export class UsersService {
         },
       },
     });
+  }
+
+  async getClassmates(userId: string) {
+    const user = await this.getUserById(userId);
+
+    const classmates = await this.databaseService.user.findMany({
+      where: { groupId: user.groupId },
+    });
+
+    return classmates;
   }
 }

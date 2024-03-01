@@ -30,7 +30,11 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
       {user && <Profile user={user} />}
       <View style={styles.menu}>
         <View style={styles.buttons}>
-          <CardButton icon={<UsersIcon fill="#1774FF" />} label="Участники" />
+          <CardButton
+            icon={<UsersIcon fill="#1774FF" />}
+            label="Участники"
+            onPress={() => navigation.push('Group')}
+          />
           <CardButton
             icon={<ScanIcon fill="#1774FF" />}
             label="Сканер"

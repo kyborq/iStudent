@@ -1,4 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { UserId } from 'src/common/decorators/user-id.decorator';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
+
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -15,5 +18,11 @@ export class UsersController {
   @Post('student')
   createStudent(@Body() createStudentDto: CreateUserDto) {
     return this.usersService.createStudent(createStudentDto);
+  }
+
+  @Get()
+  @UseGuards(AccessTokenGuard)
+  getClassmates(@UserId() userId: string) {
+    return this.usersService.getClassmates(userId);
   }
 }
