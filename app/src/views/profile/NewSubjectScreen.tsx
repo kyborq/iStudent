@@ -6,9 +6,7 @@ import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Form } from '../../components/Form';
 import { Header } from '../../components/Header';
-import { IconButton } from '../../components/IconButton';
 import { AppParamList } from '../../components/navigation/Navigator';
-import { PlusIcon } from '../../icons';
 
 type ScreenProps = NativeStackScreenProps<AppParamList>;
 
@@ -23,24 +21,6 @@ export const NewSubjectScreen = ({ navigation }: ScreenProps) => {
           <View style={styles.fields}>
             <Field placeholder="Название" />
             <Field placeholder="Аудитория / Корпус" />
-          </View>
-        </Form>
-
-        <Form>
-          <Text style={styles.title}>Преподаватели</Text>
-          <View style={styles.fields}>
-            <View>
-              <IconButton icon={<PlusIcon />} />
-            </View>
-          </View>
-        </Form>
-
-        <Form>
-          <Text style={styles.title}>Расписание</Text>
-          <View style={styles.fields}>
-            <View>
-              <IconButton icon={<PlusIcon />} />
-            </View>
           </View>
         </Form>
       </ScrollView>
