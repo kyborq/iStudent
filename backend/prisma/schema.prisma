@@ -16,9 +16,18 @@ enum Role {
 }
 
 model Group {
-  id    String @id @default(uuid())
-  name  String
-  users User[]
+  id       String    @id @default(uuid())
+  name     String
+  users    User[]
+  subjects Subject[]
+}
+
+model Subject {
+  id          String  @id @default(uuid())
+  name        String
+  teacherName String
+  Group       Group?  @relation(fields: [groupId], references: [id])
+  groupId     String?
 }
 
 model User {

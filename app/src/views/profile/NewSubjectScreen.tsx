@@ -1,16 +1,27 @@
+import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { CreateSubject } from '../../api/models/subjectModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Form } from '../../components/Form';
 import { Header } from '../../components/Header';
 import { AppParamList } from '../../components/navigation/Navigator';
+import { useCreateSubject } from './hooks/useCreateSubject';
 
 type ScreenProps = NativeStackScreenProps<AppParamList>;
 
 export const NewSubjectScreen = ({ navigation }: ScreenProps) => {
+  const { control, handleSubmit } = useForm<CreateSubject>();
+  const createSubject = useCreateSubject();
+
+  const onSubmit = (data: CreateSubject) => {
+    createSubject(data);
+    navigation.pop();
+  };
+
   return (
     <SafeAreaView style={styles.root}>
       <Header title="Новый предмет" onBack={() => navigation.pop()} />
@@ -19,13 +30,25 @@ export const NewSubjectScreen = ({ navigation }: ScreenProps) => {
         <Form>
           <Text style={styles.title}>Общая информация</Text>
           <View style={styles.fields}>
-            <Field placeholder="Название" />
-            <Field placeholder="Аудитория / Корпус" />
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <Field placeholder="Название" {...field} />
+              )}
+            />
+            <Controller
+              control={control}
+              name="teacher"
+              render={({ field }) => (
+                <Field placeholder="Имя преподавателя" {...field} />
+              )}
+            />
           </View>
         </Form>
       </ScrollView>
 
-      <Button text="Сохранить" isPrimary />
+      <Button text="Сохранить" isPrimary onPress={handleSubmit(onSubmit)} />
     </SafeAreaView>
   );
 };

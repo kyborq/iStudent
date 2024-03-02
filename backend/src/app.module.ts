@@ -4,6 +4,7 @@ import { GroupsModule } from './groups/groups.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { SubjectsModule } from './subjects/subjects.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     GroupsModule,
     UsersModule,
     AuthModule,
+    SubjectsModule,
   ],
   controllers: [],
   providers: [],
