@@ -25,14 +25,14 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
       <Header title="Профиль">
-        <IconButton icon={<SearchIcon />} />
+        <IconButton icon={<SearchIcon fill="#1774FF" />} />
       </Header>
       {user && <Profile user={user} />}
       <View style={styles.menu}>
         <View style={styles.buttons}>
           <CardButton
             icon={<UsersIcon fill="#1774FF" />}
-            label="Участники"
+            label="Контакты"
             onPress={() => navigation.push('Group')}
           />
           <CardButton
@@ -42,7 +42,11 @@ export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
           />
         </View>
         <View style={styles.buttons}>
-          <CardButton icon={<BookIcon fill="#1774FF" />} label="Предметы" />
+          <CardButton
+            icon={<BookIcon fill="#1774FF" />}
+            label="Предметы"
+            onPress={() => navigation.push('Subjects')}
+          />
           <CardButton
             icon={<SettingsIcon fill="#1774FF" />}
             label="Настройки"

@@ -3,25 +3,22 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Header } from '../../components/Header';
+import { IconButton } from '../../components/IconButton';
 import { AppParamList } from '../../components/navigation/Navigator';
-import { Scanner } from '../../components/Scanner';
-import { useScanCode } from './hooks/useScanCode';
+import { PlusIcon, SearchIcon } from '../../icons';
 
 type ScreenProps = NativeStackScreenProps<AppParamList>;
 
-export const ScannerScreen = ({ navigation }: ScreenProps) => {
-  const saveQrCode = useScanCode();
-
-  const handleScannedCode = (data: string) => {
-    const [client] = data.split(':');
-    saveQrCode(client);
-    navigation.pop();
-  };
-
+export const SubjectsScreen = ({ navigation }: ScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
-      <Header title="Пригласить по QR" onBack={() => navigation.pop()} />
-      <Scanner onScan={handleScannedCode} />
+      <Header title="Предметы" onBack={() => navigation.pop()}>
+        <IconButton
+          icon={<PlusIcon fill="#1774FF" />}
+          onPress={() => navigation.push('NewSubject')}
+        />
+        <IconButton icon={<SearchIcon fill="#1774FF" />} />
+      </Header>
     </SafeAreaView>
   );
 };

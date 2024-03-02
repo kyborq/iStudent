@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    fontFamily: 'Golos-Regular',
-    color: '#BECBE0',
+    fontFamily: 'Golos-Bold',
+    color: '#212529',
     fontSize: 14,
   },
 });

@@ -2,6 +2,7 @@ import ArrowLeftIcon from './arrow-left.svg';
 import BookIcon from './book.svg';
 import HomeIcon from './home.svg';
 import LogoutIcon from './logout.svg';
+import PlusIcon from './plus.svg';
 import ProfileIcon from './profile.svg';
 import ScanIcon from './scan.svg';
 import ScheduleIcon from './schedule.svg';
@@ -22,4 +23,5 @@ export {
   ScanIcon,
   SettingsIcon,
   LogoutIcon,
+  PlusIcon,
 };

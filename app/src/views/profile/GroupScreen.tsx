@@ -18,7 +18,7 @@ export const GroupScreen = ({ navigation }: ScreenProps) => {
     <SafeAreaView style={styles.root}>
       <Header title="Группа" onBack={() => navigation.pop()}>
         <IconButton
-          icon={<ScanIcon />}
+          icon={<ScanIcon fill="#1774FF" />}
           onPress={() => navigation.push('Scanner')}
         />
       </Header>

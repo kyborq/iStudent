@@ -14,9 +14,11 @@ import { HomeScreen } from '../../views/HomeScreen';
 import { LoginScreen } from '../../views/login/LoginScreen';
 import { OnboardingScreen } from '../../views/OnboardingScreen';
 import { GroupScreen } from '../../views/profile/GroupScreen';
+import { NewSubjectScreen } from '../../views/profile/NewSubjectScreen';
 import { ProfileScreen } from '../../views/profile/ProfileScreen';
 import { ScannerScreen } from '../../views/profile/ScannerScreen';
 import { SettingsScreen } from '../../views/profile/SettingsScreen';
+import { SubjectsScreen } from '../../views/profile/SubjectsScreen';
 import { RegisterCredentialsScreen } from '../../views/register/RegisterCredentialsScreen';
 import { RegisterGroupScreen } from '../../views/register/RegisterGroupScreen';
 import { RegisterPrefectScreen } from '../../views/register/RegisterPrefectScreen';
@@ -57,6 +59,8 @@ export type AppParamList = {
   Settings: undefined;
   Scanner: undefined;
   Group: undefined;
+  Subjects: undefined;
+  NewSubject: undefined;
 };
 
 const AppStack = createNativeStackNavigator<AppParamList>();
@@ -138,6 +142,8 @@ export const AppNavigation = () => {
             <AppStack.Screen name="Settings" component={SettingsScreen} />
             <AppStack.Screen name="Scanner" component={ScannerScreen} />
             <AppStack.Screen name="Group" component={GroupScreen} />
+            <AppStack.Screen name="Subjects" component={SubjectsScreen} />
+            <AppStack.Screen name="NewSubject" component={NewSubjectScreen} />
           </AppStack.Group>
         </>
       ) : (

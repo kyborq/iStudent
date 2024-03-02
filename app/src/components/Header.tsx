@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { IconButton } from './IconButton';
+
 import { ArrowLeftIcon } from '../icons';
+import { IconButton } from './IconButton';
 
 type Props = {
   title: string;
@@ -12,7 +13,12 @@ export const Header = ({ title, children, onBack }: Props) => {
   return (
     <View style={styles.header}>
       <View style={[styles.container, (onBack || !!children) && styles.fill]}>
-        {onBack && <IconButton icon={<ArrowLeftIcon />} onPress={onBack} />}
+        {onBack && (
+          <IconButton
+            icon={<ArrowLeftIcon fill="#1774FF" />}
+            onPress={onBack}
+          />
+        )}
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.actions}>{children}</View>
