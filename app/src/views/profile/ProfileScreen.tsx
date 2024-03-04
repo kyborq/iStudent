@@ -1,13 +1,11 @@
 import { useAtomValue } from 'jotai';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { authAtom } from '../../atoms/authAtom';
 import { CardButton } from '../../components/CardButton';
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
-import { AppParamList } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/Navigator';
 import { Profile } from '../../components/Profile';
 import {
   BookIcon,
@@ -17,9 +15,7 @@ import {
   UsersIcon,
 } from '../../icons';
 
-type ProfileScreenProps = NativeStackScreenProps<AppParamList>;
-
-export const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
+export const ProfileScreen = ({ navigation }: ScreenProps) => {
   const user = useAtomValue(authAtom);
 
   return (

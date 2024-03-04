@@ -1,15 +1,11 @@
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
-import { AppParamList } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/Navigator';
 import { SubjectCard } from '../../components/SubjectCard';
 import { PlusIcon, SearchIcon } from '../../icons';
 import { useSubjects } from './hooks/useSubjects';
-
-type ScreenProps = NativeStackScreenProps<AppParamList>;
 
 export const SubjectsScreen = ({ navigation }: ScreenProps) => {
   const { subjects, refresh, refreshing } = useSubjects();

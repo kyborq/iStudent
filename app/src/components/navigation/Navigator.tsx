@@ -1,134 +1,19 @@
 import { useAtomValue } from 'jotai';
-import { useEffect } from 'react';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigatorScreenParams } from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useAuth } from '../../api/hooks/useAuth';
 import { authAtom } from '../../atoms/authAtom';
-import { HomeScreen } from '../../views/HomeScreen';
-import { LoginScreen } from '../../views/login/LoginScreen';
-import { OnboardingScreen } from '../../views/OnboardingScreen';
 import { GroupScreen } from '../../views/profile/GroupScreen';
 import { NewSubjectScreen } from '../../views/profile/NewSubjectScreen';
-import { ProfileScreen } from '../../views/profile/ProfileScreen';
 import { ScannerScreen } from '../../views/profile/ScannerScreen';
 import { SettingsScreen } from '../../views/profile/SettingsScreen';
 import { SubjectsScreen } from '../../views/profile/SubjectsScreen';
-import { RegisterCredentialsScreen } from '../../views/register/RegisterCredentialsScreen';
-import { RegisterGroupScreen } from '../../views/register/RegisterGroupScreen';
-import { RegisterPrefectScreen } from '../../views/register/RegisterPrefectScreen';
-import { RegisterStudentScreen } from '../../views/register/RegisterStudentScreen';
-import { ScheduleScreen } from '../../views/ScheduleScreen';
-import { TasksScreen } from '../../views/TasksScreen';
-import { TabBar } from '../TabBar';
-
-export type RootParamList = {
-  Onboarding: undefined;
-  RegisterStudent: {
-    group: string;
-    groupId: string;
-    author: string;
-  };
-  RegisterCredentials: {
-    group: string;
-    groupId: string;
-    name: string;
-  };
-  RegisterGroup: undefined;
-  RegisterPrefect: {
-    group: string;
-  };
-  Login: undefined;
-};
-
-export type ProtectedParamList = {
-  Home: undefined;
-  Tasks: undefined;
-  Schedule: undefined;
-  Profile: undefined;
-};
-
-export type AppParamList = {
-  Root: NavigatorScreenParams<RootParamList> | undefined;
-  Protected: NavigatorScreenParams<ProtectedParamList> | undefined;
-  Settings: undefined;
-  Scanner: undefined;
-  Group: undefined;
-  Subjects: undefined;
-  NewSubject: undefined;
-};
+import { NewTaskScreen } from '../../views/tasks/NewTaskScreen';
+import { ProtectedScreens } from './ProtectedNavigator';
+import { RootScreens } from './RootNavigator';
+import { AppParamList } from './types';
 
 const AppStack = createNativeStackNavigator<AppParamList>();
-const RootStack = createNativeStackNavigator<RootParamList>();
-const Tabs = createBottomTabNavigator<ProtectedParamList>();
-
-type ScreenProps = NativeStackScreenProps<AppParamList>;
-
-const ProtectedScreens = ({ navigation }: ScreenProps) => {
-  useAuth();
-
-  const user = useAtomValue(authAtom);
-
-  useEffect(() => {
-    if (!user) {
-      navigation.navigate('Root');
-    }
-  }, [user]);
-
-  return (
-    <Tabs.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      tabBar={props => <TabBar {...props} />}>
-      <Tabs.Screen name="Home" component={HomeScreen} />
-      <Tabs.Screen name="Schedule" component={ScheduleScreen} />
-      <Tabs.Screen name="Tasks" component={TasksScreen} />
-      <Tabs.Screen name="Profile" component={ProfileScreen} />
-    </Tabs.Navigator>
-  );
-};
-
-const RootScreens = ({ navigation }: ScreenProps) => {
-  useAuth();
-
-  const user = useAtomValue(authAtom);
-
-  useEffect(() => {
-    if (user) {
-      navigation.navigate('Protected');
-    }
-  }, [user]);
-
-  return (
-    <RootStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
-
-      <RootStack.Screen
-        name="RegisterStudent"
-        component={RegisterStudentScreen}
-      />
-      <RootStack.Screen
-        name="RegisterCredentials"
-        component={RegisterCredentialsScreen}
-      />
-      <RootStack.Screen name="RegisterGroup" component={RegisterGroupScreen} />
-      <RootStack.Screen
-        name="RegisterPrefect"
-        component={RegisterPrefectScreen}
-      />
-      <RootStack.Screen name="Login" component={LoginScreen} />
-    </RootStack.Navigator>
-  );
-};
 
 export const AppNavigation = () => {
   const user = useAtomValue(authAtom);
@@ -144,6 +29,7 @@ export const AppNavigation = () => {
             <AppStack.Screen name="Group" component={GroupScreen} />
             <AppStack.Screen name="Subjects" component={SubjectsScreen} />
             <AppStack.Screen name="NewSubject" component={NewSubjectScreen} />
+            <AppStack.Screen name="NewTask" component={NewTaskScreen} />
           </AppStack.Group>
         </>
       ) : (

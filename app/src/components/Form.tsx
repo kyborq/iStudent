@@ -1,11 +1,17 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
+  title?: string;
   children?: React.ReactNode;
 };
 
-export const Form = ({ children }: Props) => {
-  return <View style={styles.form}>{children}</View>;
+export const Form = ({ children, title }: Props) => {
+  return (
+    <View style={styles.form}>
+      {!!title && <Text style={styles.title}>{title}</Text>}
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -23,5 +29,10 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 16,
     gap: 16,
+  },
+  title: {
+    color: '#212529',
+    fontFamily: 'Golos-Bold',
+    lineHeight: 20,
   },
 });

@@ -1,12 +1,20 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { Header } from '../../components/Header';
+import { IconButton } from '../../components/IconButton';
 import { ScreenProps } from '../../components/navigation/Navigator';
+import { PlusIcon, SearchIcon } from '../../icons';
 
-export const SettingsScreen = ({ navigation }: ScreenProps) => {
+export const TasksScreen = ({ navigation }: ScreenProps) => {
   return (
     <SafeAreaView style={styles.root}>
-      <Header title="Настройки" onBack={() => navigation.pop()} />
+      <Header title="Задачи">
+        <IconButton
+          icon={<PlusIcon fill="#1774FF" />}
+          onPress={() => navigation.push('NewTask')}
+        />
+        <IconButton icon={<SearchIcon fill="#1774FF" />} />
+      </Header>
     </SafeAreaView>
   );
 };

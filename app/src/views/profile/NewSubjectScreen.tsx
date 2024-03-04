@@ -1,17 +1,13 @@
 import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { CreateSubject } from '../../api/models/subjectModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Form } from '../../components/Form';
 import { Header } from '../../components/Header';
-import { AppParamList } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/Navigator';
 import { useCreateSubject } from './hooks/useCreateSubject';
-
-type ScreenProps = NativeStackScreenProps<AppParamList>;
 
 export const NewSubjectScreen = ({ navigation }: ScreenProps) => {
   const { control, handleSubmit } = useForm<CreateSubject>();

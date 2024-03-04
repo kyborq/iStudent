@@ -1,13 +1,9 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 import { Header } from '../../components/Header';
-import { AppParamList } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/Navigator';
 import { Scanner } from '../../components/Scanner';
 import { useScanCode } from './hooks/useScanCode';
-
-type ScreenProps = NativeStackScreenProps<AppParamList>;
 
 export const ScannerScreen = ({ navigation }: ScreenProps) => {
   const saveQrCode = useScanCode();

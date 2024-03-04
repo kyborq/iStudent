@@ -1,4 +1,5 @@
 import ArrowLeftIcon from './arrow-left.svg';
+import ArrowRightRoundedIcon from './arrow-right-rounded.svg';
 import BookIcon from './book.svg';
 import HomeIcon from './home.svg';
 import LogoutIcon from './logout.svg';
@@ -24,4 +25,5 @@ export {
   SettingsIcon,
   LogoutIcon,
   PlusIcon,
+  ArrowRightRoundedIcon,
 };

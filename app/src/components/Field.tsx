@@ -5,12 +5,13 @@ type Props = {
   label?: string;
   placeholder?: string;
   value?: string;
+  isMultiline?: boolean;
   onBlur?: () => void;
   onChange?: (text: string) => void;
 };
 
 export const Field = forwardRef<TextInput, Props>(
-  ({ label, value, placeholder, onBlur, onChange }, ref) => {
+  ({ label, value, placeholder, isMultiline, onBlur, onChange }, ref) => {
     return (
       <View style={styles.field}>
         {!!label && <Text style={styles.label}>{label}</Text>}
@@ -22,6 +23,7 @@ export const Field = forwardRef<TextInput, Props>(
           value={value}
           onBlur={onBlur}
           onChangeText={onChange}
+          multiline={isMultiline}
         />
       </View>
     );
