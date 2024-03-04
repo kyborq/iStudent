@@ -2,7 +2,7 @@ import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
-import { ScreenProps } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/types';
 import { SubjectCard } from '../../components/SubjectCard';
 import { PlusIcon, SearchIcon } from '../../icons';
 import { useSubjects } from './hooks/useSubjects';

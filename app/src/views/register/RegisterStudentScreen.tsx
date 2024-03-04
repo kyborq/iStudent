@@ -7,7 +7,7 @@ import { CreateUserName } from '../../api/models/userModel';
 import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Header } from '../../components/Header';
-import { RootParamList } from '../../components/navigation/Navigator';
+import { RootParamList } from '../../components/navigation/types';
 
 type RegisterScreenProps = NativeStackScreenProps<
   RootParamList,

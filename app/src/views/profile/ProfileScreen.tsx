@@ -5,7 +5,7 @@ import { authAtom } from '../../atoms/authAtom';
 import { CardButton } from '../../components/CardButton';
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
-import { ScreenProps } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/types';
 import { Profile } from '../../components/Profile';
 import {
   BookIcon,

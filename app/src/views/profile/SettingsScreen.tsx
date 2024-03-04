@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { Header } from '../../components/Header';
-import { ScreenProps } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/types';
 
 export const SettingsScreen = ({ navigation }: ScreenProps) => {
   return (

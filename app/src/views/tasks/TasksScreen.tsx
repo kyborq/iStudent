@@ -2,7 +2,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { Header } from '../../components/Header';
 import { IconButton } from '../../components/IconButton';
-import { ScreenProps } from '../../components/navigation/Navigator';
+import { ScreenProps } from '../../components/navigation/types';
 import { PlusIcon, SearchIcon } from '../../icons';
 
 export const TasksScreen = ({ navigation }: ScreenProps) => {

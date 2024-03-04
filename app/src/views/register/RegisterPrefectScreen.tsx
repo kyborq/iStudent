@@ -8,7 +8,7 @@ import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import { Form } from '../../components/Form';
 import { Header } from '../../components/Header';
-import { RootParamList } from '../../components/navigation/Navigator';
+import { RootParamList } from '../../components/navigation/types';
 import { useRegisterPrefect } from './hooks/useRegisterPrefect';
 
 type CreateUserScreenProps = NativeStackScreenProps<

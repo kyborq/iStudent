@@ -7,7 +7,7 @@ import { useGetCode } from '../api/hooks/useGetCode';
 import { initializeSocketConnection } from '../api/services/socketService';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
-import { RootParamList } from '../components/navigation/Navigator';
+import { RootParamList } from '../components/navigation/types';
 
 type OnboardingScreenProps = NativeStackScreenProps<RootParamList>;
 
