@@ -20,6 +20,7 @@ model Group {
   name     String
   users    User[]
   subjects Subject[]
+  Task     Task[]
 }
 
 model Subject {
@@ -31,12 +32,34 @@ model Subject {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  login    String
-  password String
-  role     Role
-  groupId  String
-  group    Group   @relation(fields: [groupId], references: [id])
-  token    String?
+  id            String          @id @default(uuid())
+  name          String
+  login         String
+  password      String
+  role          Role
+  groupId       String
+  scorePoints   Int?
+  group         Group           @relation(fields: [groupId], references: [id])
+  token         String?
+  CompletedTask CompletedTask[]
+}
+
+model Task {
+  id            String          @id @default(uuid())
+  title         String
+  isPrivate     Boolean
+  groupId       String
+  duration      Int
+  deadline      DateTime
+  reward        Int
+  group         Group           @relation(fields: [groupId], references: [id])
+  CompletedTask CompletedTask[]
+}
+
+model CompletedTask {
+  id     String @id @default(uuid())
+  taskId String
+  userId String
+  task   Task   @relation(fields: [taskId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
