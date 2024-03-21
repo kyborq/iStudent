@@ -54,10 +54,9 @@ model Task {
   deadline      DateTime
   reward        Int
   authorId      String
-  author        User            @relation(fields: [userId], references: [id])
+  author        User            @relation(fields: [authorId], references: [id])
   group         Group           @relation(fields: [groupId], references: [id])
   CompletedTask CompletedTask[]
-  userId        String
 }
 
 model CompletedTask {
