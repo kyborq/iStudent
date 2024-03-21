@@ -42,6 +42,7 @@ model User {
   group         Group           @relation(fields: [groupId], references: [id])
   token         String?
   CompletedTask CompletedTask[]
+  Task          Task[]
 }
 
 model Task {
@@ -52,8 +53,11 @@ model Task {
   duration      Int
   deadline      DateTime
   reward        Int
+  authorId      String
+  author        User            @relation(fields: [userId], references: [id])
   group         Group           @relation(fields: [groupId], references: [id])
   CompletedTask CompletedTask[]
+  userId        String
 }
 
 model CompletedTask {
